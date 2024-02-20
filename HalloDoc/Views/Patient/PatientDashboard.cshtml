@@ -1,0 +1,345 @@
+﻿@* @page *@
+@model IEnumerable<HalloDoc.ViewModels.PatientDashboardVM>
+@{
+    ViewData["Title"] = "Patient Dashoboard";
+    ViewBag.cssLink = "~/css/PatientDashboard.css";
+    ViewBag.jsLink = "PatientDashboard.js";
+    Layout = "~/Views/Shared/_layoutDashboard.cshtml";
+}
+
+<body onload="load1()">
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class=" modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <!-- <div class="">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+                <div class="d-flex justify-content-between bg-info border-bottom-0 mb-1 border-danger rounded-top p-3">
+                    <h5 class="text-white">Create New Request</h5>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+
+                <p>Here,I want to create new request for...</p>
+                <div class="d-flex justify-content-center m-auto">
+                    <div class="">
+                        <a>
+                            <a class="btn btn-primary mb-1" id="meButton" asp-action="PatientMeRequest">
+                                ME
+                            </a>
+                        </a>
+                        <a>
+                            @*  *@
+                            <a class="btn btn-primary mb-1 ms-2" id="someoneElseButton" asp-action="PatientSomeOneElseRequest">
+                                Some One Else
+                            </a>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center my-3 ms-auto">
+                    <a asp-route-id="@Model.FirstOrDefault().user.AspNetUserId" class="btn logout-btn me-3" id="continueButton">
+                        Continue
+                    </a>
+                    <button type="button" class="btn" data-bs-dismiss="modal">
+                        Cancle
+                    </button>
+
+                    <!-- <button type="button" class="btn btn-primary">OK</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <ul class="nav nav-tabs bg-white" id="myTab" role="tablist">
+        <li class="nav-item " role="presentation">
+            <button class="nav-link active " id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                    type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                Dashboard
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                    type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                Profile
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content mt-5 m-auto dashboard-div bg-light" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+             tabindex="0">
+            <h4>Medical History</h4>
+            <div class="border rounded bg-white">
+
+                <div class="d-none d-sm-block">
+                    <div class=" d-flex justify-content-end my-3 me-3">
+                        <button class="btn logout-btn mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Create New Request
+                        </button>
+                    </div>
+                    <div class="m-auto">
+                        <table class="table">
+                            <thead>
+                                <div>
+                                <tr class="bg-light">
+                                    <th scope="col">Created Date<i>&darr;</i></th>
+                                    <th scope="col">Current Status</th>
+                                    <th scope="col">Document</th>
+                                </tr>
+                    </div>
+                    </thead>
+                    <tbody>
+                                @foreach (var item in Model)
+                                {
+                            <tr>
+                                <td>
+                                            @item.CreatedDate
+                                </td>
+                                <td>
+                                            @item.Status
+                                </td>
+                                <td>
+                                            @if (item.count_file != 0)//42
+                                            {
+
+                                        <a class="btn" asp-action="PatientViewDocuments"
+                                           asp-route-id="@item.requestID">
+                                            <button class="logout-btn btn">
+                                                Document<span>&nbsp;(@item.count_file)</span>
+                                            </button>
+                                        </a>
+
+                                            }
+                                </td>
+                            </tr>
+                                }
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+
+
+
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+             tabindex="0">
+
+            <div class="d-flex justify-content-between m-auto" id="profile-div">
+                <h4>User Profile</h4>
+                <button class="btn logout-btn mb-1">
+                    &lt; Back
+                </button>
+            </div>
+
+            <div class="main-form-div m-auto">
+                <form class="form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().user.AspNetUserId">
+                    <fieldset id="myForm" disabled>
+                            @* disabled *@
+                        <div class="document-div">
+
+                            <div class="row">
+                                <p class="h4 mt-4">General Information</p>
+
+
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                           placeholder="First Name"
+                                           asp-for="@Model.FirstOrDefault().user.FirstName">@*
+                                    value="@Model.First().FirstName" *@
+                                    <label class="ms-2 " for="floatingInput" id="username-input">
+                                        Your First
+                                        Name
+                                    </label>
+
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                           placeholder="First Name"
+                                           asp-for="@Model.FirstOrDefault().user.LastName">
+                                    <label class="ms-2 " for="floatingInput" id="username-input">
+                                        Your Last
+                                        Name
+                                    </label>
+
+                                </div>
+                                <div class="form-floating col-lg-6">
+                                    <input type="date" class="form-control" id="floatingPassword"
+                                           placeholder="Last Name" asp-for="@Model.FirstOrDefault().Date"
+                                           asp-format="{0:yyyy-MM-dd}">
+                                    <label class="ms-2 text-secondary" for="floatingPassword">
+                                        Date Of
+                                        Birth
+                                    </label>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <p class="h4 mt-4">Contact information</p>
+
+
+                                <div class="dropdown col-lg-2 mb-4">
+                                    <button class="btn btn-secondary dropdown-toggle drop-btn " type="button"
+                                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mobile <!-- Default value -->
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <a class="dropdown-item" href="#"
+                                               onclick="updateDropdown('Mobile')">Mobile</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#"
+                                               onclick="updateDropdown('Telephone')">Telephone</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="form-floating col-lg-4 phone-code mb-3">
+                                    <input type="tel" class="form-control phone-input phone" id="phone"
+                                           asp-for="@Model.FirstOrDefault().user.Mobile">
+                                    <label class="ms-2 text-secondary" for="floatingInput">Phone Number</label>
+                                </div>
+                                <div class="form-floating col-lg-6">
+                                    <input type="email" class="form-control" id="floatingPassword"
+                                           placeholder="Last Name" asp-for="@Model.FirstOrDefault().user.Email">
+                                    <label class="ms-2 text-secondary" for="floatingPassword">Email</label>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <p class="h4 mt-4">Location Information</p>
+
+
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().user.Street">
+                                    <label class="ms-2 " for="floatingInput" id="username-input">street</label>
+
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().user.City">
+                                    <label class="ms-2 " for="floatingInput" id="username-input">city</label>
+
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().user.State">
+                                    <label class="ms-2 " for="floatingInput" id="username-input">state</label>
+
+                                </div>
+                                <div class="form-floating col-lg-5 mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().user.ZipCode">
+                                    <label class="ms-2 " for="floatingInput" id="username-input">
+                                        zip
+                                        code
+                                    </label>
+
+                                </div>
+                                <div class="form-floating col-lg-1 mb-3">
+                                    <a class="btn location-link logout-btn w-100" onclick="getLocation()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-alt text-info" viewBox="0 0 16 16">
+                                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                        </svg>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-6 mb-5">
+                                    <input type="text" class="form-control location-inp" id="latitudeInput" placeholder="latitude" readonly>
+                                </div>
+                                <div class="col-lg-6 mb-5">
+                                    <input type="text" class="form-control location-inp" id="longitudeInput" placeholder="longitude" readonly>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                    <div class="edit-save-div">
+                        <button class="btn logout-btn" type="submit" id="save-btn" onclick="" style="display:none;">
+                            Save
+                        </button>
+                    </div>
+                    <div class="edit-save-div">
+                        <a class="btn logout-btn" id="edit-btn" onclick="toggleFormFields()">
+                            Edit
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+    <div class="accordion d-sm-none dashboard-div m-auto" id="accordionExample">
+        <div class=" d-flex justify-content-end my-3 me-3">
+            <button class="btn logout-btn mb-1 text-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                +
+            </button>
+        </div>
+        @foreach (var item in Model)
+        {
+            String id = 'a' + item.requestID.ToString();
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@id"
+                            aria-expanded="true" aria-controls="collapseOne">
+                        <p>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-clock text-info" viewBox="0 0 16 16">
+                                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                                </svg>
+                            </span>
+                            Created Date:
+                            <span>
+                                @item.CreatedDate
+                            </span>
+                        </p>
+                    </button>
+                </h2>
+                <div id="@id" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-person-circle text-info" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                    <path fill-rule="evenodd"
+                                          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                </svg>
+                            </span>
+                            Provider: <span>@item.PhysicianName</span>
+                        </p>
+                        <p>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-check-circle text-info" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                                </svg>
+                            </span>
+                            Current Status : <span>@item.Status</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</body>

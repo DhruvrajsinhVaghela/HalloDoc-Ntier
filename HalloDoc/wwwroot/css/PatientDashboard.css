@@ -1,0 +1,146 @@
+﻿
+.darkmode-div {
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#darkmode-btn {
+    border-radius: 5px;
+    border-color: #08BCEB;
+    background-color: white;
+    height: 40px;
+    width: 40px;
+}
+
+.darkmode-img {
+    color: #08BCEB;
+}
+
+.logo-img-1 {
+    margin-top: auto;
+    width: 17vh;
+}
+
+.head-div {
+    margin-right: 2%;
+}
+
+
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 8vh;
+    background-color: black;
+    color: white;
+    text-align: right;
+}
+
+#terms1, #terms2 {
+    font-size: smaller;
+}
+
+
+.logo-img-1 {
+    margin-top: auto;
+    /* width: 17vh; */
+}
+
+
+
+.logout-btn {
+    border-radius: 5px;
+    border-color: #08BCEB;
+    background-color: white;
+    border-width: 2px;
+}
+
+    .logout-btn:hover {
+        background-color: #08BCEB;
+        color: white;
+        border-color: rgb(0, 0, 0);
+    }
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    border: 0;
+    border-bottom: 2px solid #08BCEB;
+    color: #08BCEB;
+}
+
+.nav-link {
+    color: black;
+}
+
+.dashboard-div {
+    width: 75%;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent;
+}
+
+.btn-close {
+    --bs-btn-close-color: white !important;
+}
+
+.navbar {
+    padding: 0;
+}
+
+.selectfile {
+    margin-right: 2px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.upload-btn {
+    background-color: #00bde7;
+    color: white;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.document-div {
+    width: 95%;
+    margin: auto;
+}
+
+label {
+    z-index: initial;
+}
+
+.drop-btn {
+    height: 115%;
+    width: 100%;
+    background-color: white;
+    color: black;
+}
+
+#profile-div {
+    width: 90%;
+}
+
+.main-form-div {
+    width: 90%;
+    min-height: 105vh;
+}
+
+.edit-save-div {
+    margin: auto;
+    display: flex;
+    justify-content: end;
+    width: 95%;
+}
+
+.location-link {
+    height: 100%;
+    width: 45%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.location-inp {
+    height: 160%;
+}

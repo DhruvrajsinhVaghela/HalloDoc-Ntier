@@ -1,0 +1,185 @@
+﻿body {
+    overflow: hidden;
+}
+
+.main-container {
+    min-height: 100vh;
+    padding: 0;
+}
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 60vh;
+}
+
+.darkmode-div {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    border-radius: 5px;
+}
+
+#darkmode-btn {
+    border-radius: 5px;
+    border-color: #08BCEB;
+    background-color: white;
+    color: #08BCEB;
+}
+
+.darkmode-img {
+    color: #08BCEB;
+}
+
+
+#heading {
+    margin-bottom: 10%;
+}
+
+.login-btn {
+    height: 7vh;
+    width: 80%;
+}
+
+.btn-info {
+    color: white;
+}
+
+    .btn-info:hover {
+        border-color: black;
+        color: black;
+        background-color: #99ebff;
+    }
+
+.btn-primary:hover {
+    border-color: black;
+    color: black;
+    background-color: #9999ff;
+}
+
+.terms-div {
+    margin-top: auto;
+}
+
+#terms1 {
+    font-size: small;
+}
+
+#terms2 {
+    font-size: small;
+}
+
+
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 8vh;
+    background-color: black;
+    color: white;
+    text-align: right;
+}
+
+.terms {
+    color: white;
+    margin-right: 2%;
+    font-size: small;
+    margin-bottom: -2%;
+}
+
+.logo-img-1 {
+    margin-top: auto;
+    width: 17vh;
+}
+
+
+.P-Login-main-container {
+    min-height: 100vh;
+    padding: 0;
+}
+
+@media screen and (min-width:0px) {
+    .P-Login-main-container::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.3;
+        background: url('/images/11116016_415.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+.P-Login-main-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 60vh;
+}
+
+
+
+#P-Login-heading {
+    margin-bottom: 10%;
+}
+
+.P-Login-back-div {
+    width: 80%;
+    margin-top: 20%;
+    margin-bottom: 5%;
+}
+
+/* below class is used for both forgot password link and back link */
+.P-Login-forgot-pw {
+    color: #08BCEB;
+    text-decoration: none;
+    font-size: medium;
+    margin-top: 3%;
+}
+
+.form-floating {
+    width: 80%;
+    margin-top: 20px;
+}
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label,
+    .form-floating > .form-select ~ label {
+        color: #08BCEB;
+    }
+
+.P-Login-input-icon {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    margin-top: 10px;
+    background-color: #fafafa;
+    width: 30px;
+    height: 70%;
+    border: none;
+}
+
+
+
+.P-Login-login-btn {
+    background-color: #08BCEB;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.P-Login-login-btn1 {
+    background-color: #030376;
+    width: 80%;
+    margin-top: 20px;
+}
+
+
+

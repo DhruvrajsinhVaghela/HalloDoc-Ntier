@@ -1,0 +1,164 @@
+﻿body {
+    overflow: hidden;
+}
+
+.main-container {
+    min-height: 100vh;
+    padding: 0;
+}
+
+.darkmode-div {
+    position: absolute;
+    right: 2%;
+    top: auto;
+    border-radius: 5px;
+    color: #08BCEB;
+}
+
+#darkmode-btn {
+    border-radius: 5px;
+    border-color: #08BCEB;
+    background-color: white;
+    color: #08BCEB;
+}
+
+.darkmode-img {
+    color: #08BCEB;
+}
+
+
+#heading {
+    margin-bottom: 10%;
+}
+
+.text-btn-div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 75%;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+.btn-info:hover {
+    background-color: #00cc99;
+}
+
+#back-btn {
+    border-color: black;
+    border-width: 1px;
+    /*color: black;*/
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.terms-div {
+    margin-top: auto;
+}
+
+#terms1 {
+    font-size: small;
+}
+
+#terms2 {
+    font-size: small;
+}
+
+
+.main-row {
+    max-height: 80vh;
+}
+
+.main-column-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vh;
+}
+
+
+
+
+.login-button {
+    width: 23vw;
+    margin-top: 20px;
+    font-size: smaller;
+    font-weight: bolder;
+}
+
+
+
+.btn1 {
+    color: #5c33c4;
+    background-color: #eb99ff;
+    border-color: #9789ba;
+    height: 7vh;
+}
+
+    .btn1:hover {
+        background-color: #b800e6;
+        color: white;
+        border-color: white;
+    }
+
+.btn2 {
+    color: #08BCEB;
+    background-color: #99ebff;
+    border-color: #7bcade;
+    height: 7vh;
+}
+
+    .btn2:hover {
+        background-color: #00ccff;
+        color: white;
+        border-color: white;
+    }
+
+.btn3 {
+    color: #276325;
+    background-color: #adebad;
+    border-color: #95cc93;
+    height: 7vh;
+}
+
+    .btn3:hover {
+        background-color: #33cc33;
+        color: white;
+        border-color: white;
+    }
+
+.btn4 {
+    color: #77127a;
+    background-color: #ffccf2;
+    border-color: #bf7fc1;
+    height: 7vh;
+}
+
+    .btn4:hover {
+        background-color: #ff33cc;
+        color: white;
+        border-color: white;
+    }
+
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 8vh;
+    background-color: black;
+    color: white;
+    text-align: right;
+}
+
+.terms {
+    color: white;
+    margin-right: 2%;
+    font-size: small;
+    margin-bottom: -2%;
+}
+
+.logo-img-1 {
+    margin-top: auto;
+    width: 17vh;
+}

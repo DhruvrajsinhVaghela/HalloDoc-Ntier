@@ -1,0 +1,92 @@
+
+.main-column-1 {
+    height: 100%;
+    border-radius: 10px;
+    border-color: red;
+  
+}
+
+
+.darkmode-div {
+    position: absolute;
+    right: 20px;
+    border-radius: 5px;
+}
+
+#darkmode-btn {
+    border-radius: 5px;
+    border-color: #08BCEB;
+    background-color: white;
+
+}
+
+.darkmode-img {
+    color: #08BCEB;
+
+}
+.logo-img-1 {
+    margin-top: auto;
+    width: 17vh;
+}
+.back-btn {
+    color: #08BCEB;
+    font-weight: bold;
+    border-radius: 5px;
+    border-color: #08BCEB;
+    border-width: 1px;
+}
+
+    .back-btn:hover {
+        background-color: #08BCEB;
+        border-color: #08BCEB;
+        color: white;
+    }
+
+#footer {
+    position:sticky ;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 8vh;
+    background-color: black;
+    color: white;
+    text-align: right;
+
+}
+
+#terms1,#terms2{
+    font-size: smaller;
+}
+#main_box{
+    border-radius: 10px;
+}
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label,
+.form-floating>.form-select~label {
+    color: #08BCEB;
+}
+.logo-img-1 {
+    margin-top: auto;
+    width: 17vh;
+}
+.selectfile{
+    margin-right: 2px;
+    width: 100%;
+    border: 1px solid black;
+}
+.upload-btn{
+    background-color: #00bde7;
+    color: white;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.phone-code, .phone-input {
+    height: calc(3.5rem + calc(var(--bs-border-width) * 2))!important;
+}
+
+.iti {
+    width: 100%;
+}
+.iti__country-list{
+z-index: 3 !important;
+}

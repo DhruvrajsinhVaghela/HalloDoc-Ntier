@@ -1,0 +1,14 @@
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\bin\Debug\net7.0\HalloDoc.DbEntity.deps.json
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\bin\Debug\net7.0\HalloDoc.DbEntity.runtimeconfig.json
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\bin\Debug\net7.0\HalloDoc.DbEntity.dll
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\bin\Debug\net7.0\HalloDoc.DbEntity.pdb
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.csproj.AssemblyReference.cache
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.AssemblyInfoInputs.cache
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.AssemblyInfo.cs
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.csproj.CoreCompileInputs.cache
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.dll
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\refint\HalloDoc.DbEntity.dll
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.pdb
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.genruntimeconfig.cache
+D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\ref\HalloDoc.DbEntity.dll

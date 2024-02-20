@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Patient Submit Request";
+    ViewBag.cssLink = "~/css/PatientSubmitRequest.css";
+    ViewBag.jsLink = "PatientSubmitRequest.js";
+    Layout = "~/Views/Shared/_layoutWithHeaderFooter.cshtml";
+}
+
+
+<body onload="load()">
+
+    <div class="container-fluid ">
+        <div class="main-container">
+            <div class="row main-row  d-flex justify-content-center vh-100">
+                <div class="col-xl-6  main-column-1 ">
+                    <div class="text-btn-div">
+                        <h3 class="fw-bold" id="heading_text">I am a...</h3>
+                        <a asp-controller="Patient" asp-action="PatientSite">
+                            <button id="back-btn" class="btn btn-info">
+                                &lt; Back
+                            </button>
+                        </a>
+                    </div>
+                    <a asp-action="PatientInfoForm">
+                        <button type="button" class="login-button btn1">
+                            PATIENT
+                        </button>
+                    </a>
+                    <a asp-action="PatientFamilyFriendForm">
+                        <button type="button" class="login-button btn2">
+                            FAMILY
+                            / FRIEND
+                        </button>
+                    </a>
+                    <a asp-action="PatientConciergeInfo">
+                        <button type="button" class="login-button btn3">
+                            CONCIERGE
+                        </button>
+                    </a>
+                    <a asp-action="PatientBusinessInfo">
+                        <button type="button" class="login-button btn4 ">
+                            BUSINESS
+                            PARTNERS
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>

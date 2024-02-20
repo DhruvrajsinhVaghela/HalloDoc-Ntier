@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Patient Family Friend Form";
+    ViewBag.cssLink = "~/css/PatientFamilyFriendForm.css";
+    ViewBag.jsLink = "PatientFamilyFriendForm.js";
+    Layout = "~/Views/Shared/_layoutWithHeaderFooter.cshtml";
+}
+@model HalloDoc.ViewModels.PatientFamilyFriendInfo
+<body onload="load()">
+
+    <form asp-action="PatientFamilyFriendForm" class="form" enctype="multipart/form-data">
+        <div class="container-fluid  ">
+
+            <div class="main-container">
+                <div class="row main-row  d-flex justify-content-center ">
+
+                    <div class="col-lg-8  main-column-1   ">
+                        <div class="d-flex justify-content-end  my-4">
+                            <a asp-action="PatientSubmitRequest">
+                                <button type="button" class="btn back-btn">
+                                    Back
+                                </button>
+                            </a>
+
+                        </div>
+                        <div class="shadow-lg container" id="main_box">
+                            <div class="row">
+                                <p class="h4 mt-4">Family/Friend Information</p>
+
+
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input asp-for="FFFirstName" type="text" class="form-control" id="floatingInput" placeholder="First Name">
+                                    <label asp-for="FFFirstName" class="ms-2 " for="floatingInput" id="username-input">Your First Name</label>
+                                    <span asp-validation-for="FFFirstName" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input asp-for="FFLastName" type="text" class="form-control" id="floatingInput" placeholder="Last Name">
+                                    <label asp-for="FFLastName" class="ms-2 " for="floatingInput" id="username-input">Your Last Name</label>
+                                    <span asp-validation-for="FFLastName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-floating col-lg-6 phone-code mb-3">
+                                    <input asp-for="FFPhoneNumber" type="tel" class="form-control phone-input phone" id="phone">
+                                    <span asp-validation-for="FFPhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input asp-for="FFEmail" type="email" class="form-control" id="floatingInput" placeholder="Email">
+                                    <label asp-for="FFEmail" class="ms-2 " for="floatingInput" id="username-input">Your Email</label>
+                                    <span asp-validation-for="FFEmail" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating col-lg-6 ">
+                                    <input asp-for="FFRelation" type="text" class="form-control" id="floatingInput" placeholder="Relation With Patient">
+                                    <label asp-for="FFRelation" class="ms-2 " for="floatingInput" id="username-input">Relation With Patient</label>
+                                    <span asp-validation-for="FFRelation" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <p class="h4 mt-4">patient information</p>
+
+
+                                <div class="form-floating mb-3">
+                                    <textarea asp-for="Notes" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                                              style="height: 100px"></textarea>
+                                    <!-- give margin left 1 rem in css to label -->
+                                    <label asp-for="Notes" class="ms-2 text-secondary " for="floatingTextarea2">Enter Brief Details Of Symptoms</label>
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating mb-3 col-lg-6">
+                                    <input asp-for="FirstName" type="text" class="form-control" id="floatingInput" placeholder="First Name">
+                                    <label asp-for="FirstName" class="ms-2 text-secondary" for="floatingInput">First Name</label>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input asp-for="LastName" type="text" class="form-control" id="floatingPassword" placeholder="Last Name">
+                                    <label asp-for="LastName" class="ms-2 text-secondary" for="floatingPassword">Last Name</label>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating col-lg-6">
+                                    <input asp-for="BirthDate" type="date" class="form-control" id="floatingPassword" placeholder="Date Of Birth">
+                                    <label asp-for="BirthDate" class="ms-2 text-secondary" for="floatingPassword">Date Of Birth</label>
+                                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <p class="h4 mt-4">patient contact information</p>
+
+
+                                <div class="form-floating col-lg-6 mb-3 ">
+                                    <input asp-for="Email" type="email" class="form-control" id="floatingInput" placeholder="Email">
+                                    <label asp-for="Email" class="ms-2 " for="floatingInput" id="username-input">Email</label>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-floating col-lg-6 phone-code">
+                                    <input asp-for="PhoneNumber" type="tel" class="form-control phone-input phone" id="phone">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <p class="h4 mt-4">patient location</p>
+
+
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input asp-for="Street" type="text" class="form-control" id="floatingInput" placeholder="street">
+                                    <label asp-for="Street" class="ms-2 " for="floatingInput" id="username-input">street</label>
+                                    <span asp-validation-for="Street" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input asp-for="City" type="text" class="form-control" id="floatingInput" placeholder="city">
+                                    <label asp-for="City" class="ms-2 " for="floatingInput" id="username-input">city</label>
+
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input asp-for="State" type="text" class="form-control" id="floatingInput" placeholder="state">
+                                    <label asp-for="State" class="ms-2 " for="floatingInput" id="username-input">state</label>
+
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input asp-for="ZipCode" type="text" class="form-control" id="floatingInput" placeholder="zip code">
+                                    <label asp-for="ZipCode" class="ms-2 " for="floatingInput" id="username-input">zip code</label>
+                                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+
+                                </div>
+                                <div class="form-floating col-lg-6">
+                                    <input asp-for="Room" type="text" class="form-control" id="floatingInput" placeholder="Room # / Suite(Optional)">
+                                    <label asp-for="Room" class="ms-2 " for="floatingInput" id="username-input">Room # / Suite(Optional)</label>
+
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <p class="h4 mt-4">(Optional) Upload Photo Or Document</p>
+
+                                <div>
+                                    <label for="fileinput" class="selectfile  rounded d-flex justify-content-between">
+                                        <p class="m-2">Select File</p>
+                                        <input type="file" asp-for="Files" multiple="multiple" id="fileinput" style="display: none;">
+                                        <div class="upload-btn p-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                                <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                            </svg>
+                                            Upload
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="container d-flex justify-content-end my-3 ">
+                                    <button type="submit" class="btn btn-info me-2">Submit</button>
+                                    <button type="button" class="btn btn-transparent border border-2">Cancle</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+</body>

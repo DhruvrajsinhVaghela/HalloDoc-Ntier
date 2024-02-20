@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="microsoft-web-helpers" Version="2.1.20710.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HalloDoc.DbEntity\HalloDoc.DbEntity.csproj" />
+  </ItemGroup>
+
+</Project>
