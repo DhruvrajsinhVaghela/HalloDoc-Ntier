@@ -50,8 +50,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxQYXRpZW50TG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/project/HalloDoc-Ntier/HalloDoc/Views/Patient/PatientMeRequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxQYXRpZW50TWVSZXF1ZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/HalloDoc-Ntier/HalloDoc/Views/Patient/PatientResetPw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxQYXRpZW50UmVzZXRQdy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/project/HalloDoc-Ntier/HalloDoc/Views/Patient/PatientSite.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxQYXRpZW50U2l0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/HalloDoc-Ntier/HalloDoc/Views/Patient/PatientSomeOneElseRequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxQYXRpZW50U29tZU9uZUVsc2VSZXF1ZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/project/HalloDoc-Ntier/HalloDoc/Views/Patient/PatientSubmitRequest.cshtml]

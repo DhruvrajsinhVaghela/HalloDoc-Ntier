@@ -13,3 +13,4 @@ D:\Project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Reposi
 D:\Project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\refint\HalloDoc.Repositories.dll
 D:\Project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.pdb
 D:\Project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\ref\HalloDoc.Repositories.dll
+D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.sourcelink.json

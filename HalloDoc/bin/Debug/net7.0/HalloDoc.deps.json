@@ -9,6 +9,7 @@
       "HalloDoc/1.0.0": {
         "dependencies": {
           "HalloDoc.Repositories": "1.0.0",
+          "HalloDoc.services": "1.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.16",
           "Microsoft.EntityFrameworkCore.Design": "7.0.16",
           "Microsoft.PowerBI.Api": "4.18.0",
@@ -2387,6 +2388,14 @@
         "runtime": {
           "HalloDoc.Repositories.dll": {}
         }
+      },
+      "HalloDoc.services/1.0.0": {
+        "dependencies": {
+          "HalloDoc.Repositories": "1.0.0"
+        },
+        "runtime": {
+          "HalloDoc.services.dll": {}
+        }
       }
     }
   },
@@ -3893,6 +3902,11 @@
       "sha512": ""
     },
     "HalloDoc.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HalloDoc.services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

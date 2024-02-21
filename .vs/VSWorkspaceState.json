@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\HalloDoc",
+    "\\HalloDoc.DbEntity",
+    "\\HalloDoc.Repositories",
+    "\\HalloDoc.Repositories\\Implementation",
+    "\\HalloDoc.Repositories\\Interfaces",
+    "\\HalloDoc\\wwwroot",
+    "\\HalloDoc\\wwwroot\\css"
+  ],
+  "SelectedNode": "\\HalloDoc\\wwwroot\\css\\PatientResetPw.css",
+  "PreviewInSolutionExplorer": false
+}

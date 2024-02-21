@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HalloDoc.ViewModels.PatientDashboardVM>
+﻿@model IEnumerable<HalloDoc.DbEntity.ViewModels.PatientDashboardVM>
 @{
     ViewData["Title"] = "Patient View Documents";
     //ViewData["NavName"] = @Model.First().FirstName;
@@ -45,7 +45,7 @@
                         check here for any files that you or the doctors of your subsequents requestors have attached for you to
                         review.
                     </p>
-                    <form asp-action="PatientFileSave" asp-route-id="@Model.FirstOrDefault().View.AspNetUserId" class="form" enctype="multipart/form-data">
+                    <form asp-action="PatientFileSave" asp-route-id="@Model.FirstOrDefault().View.RequestId" class="form" enctype="multipart/form-data">
                         <div class="border rounded bg-light">
                             <label for="fileinput" class="selectfile rounded d-flex justify-content-between">
                                 <p class="m-2">Select File</p>
@@ -160,9 +160,9 @@
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="text" class="form-control" id="floatingInput"
                                            placeholder="First Name"
-                                           asp-for="@Model.FirstOrDefault().user.FirstName">@*
+                                           asp-for="@Model.FirstOrDefault().View.user.FirstName">@*
                                     value="@Model.First().FirstName" *@
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().user.FirstName">
+                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.FirstName">
                                         Your First
                                         Name
                                     </label>
@@ -171,8 +171,8 @@
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="text" class="form-control" id="floatingInput"
                                            placeholder="First Name"
-                                           asp-for="@Model.FirstOrDefault().user.LastName">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().user.LastName">
+                                           asp-for="@Model.FirstOrDefault().View.user.LastName">
+                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.LastName">
                                         Your Last
                                         Name
                                     </label>
@@ -180,9 +180,9 @@
                                 </div>
                                 <div class="form-floating col-lg-6">
                                     <input type="date" class="form-control" id="floatingPassword"
-                                           placeholder="Last Name" asp-for="@Model.First().Date"
+                                           placeholder="Last Name" asp-for="@Model.First().View.Date"
                                            asp-format="{0:yyyy-MM-dd}">
-                                    <label class="ms-2 text-secondary" for="floatingPassword" asp-for="@Model.First().Date">
+                                    <label class="ms-2 text-secondary" for="floatingPassword" asp-for="@Model.First().View.Date">
                                         Date Of
                                         Birth
                                     </label>
@@ -213,13 +213,13 @@
                                 </div>
                                 <div class="form-floating col-lg-4 phone-code mb-3">
                                     <input type="tel" class="form-control phone-input phone" id="phone"
-                                           asp-for="@Model.FirstOrDefault().user.Mobile">
-                                    <label class="ms-2 text-secondary" for="floatingInput" asp-for="@Model.FirstOrDefault().user.Mobile">Phone Number</label>
+                                           asp-for="@Model.FirstOrDefault().View.user.Mobile">
+                                    <label class="ms-2 text-secondary" for="floatingInput" asp-for="@Model.FirstOrDefault().View.user.Mobile">Phone Number</label>
                                 </div>
                                 <div class="form-floating col-lg-6">
                                     <input type="email" class="form-control" id="floatingPassword"
-                                           placeholder="Last Name" asp-for="@Model.FirstOrDefault().user.Email">
-                                    <label class="ms-2 text-secondary" for="floatingPassword" asp-for="@Model.FirstOrDefault().user.Email">Email</label>
+                                           placeholder="Last Name" asp-for="@Model.FirstOrDefault().View.user.Email">
+                                    <label class="ms-2 text-secondary" for="floatingPassword" asp-for="@Model.FirstOrDefault().View.user.Email">Email</label>
 
                                 </div>
 
@@ -231,26 +231,26 @@
 
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().user.Street">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().user.Street">street</label>
+                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.Street">
+                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.Street">street</label>
 
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().user.City">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().user.City">city</label>
+                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.City">
+                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.City">city</label>
 
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().user.State">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().user.State">state</label>
+                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.State">
+                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.State">state</label>
 
                                 </div>
                                 <div class="form-floating col-lg-5 mb-3">
                                     <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().user.ZipCode">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().user.ZipCode">
+                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.ZipCode">
+                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.ZipCode">
                                         zip
                                         code
                                     </label>

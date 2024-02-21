@@ -5,8 +5,24 @@
       "PackagePath": "staticwebassets\\HalloDoc.bundle.scp.css"
     },
     {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\ABBab.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\ABBab.pdf"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\asdklsd.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\asdklsd.pdf"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\asdklsd.xlsx",
+      "PackagePath": "staticwebassets\\UploadFiles\\asdklsd.xlsx"
+    },
+    {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\neel patel.pdf",
       "PackagePath": "staticwebassets\\UploadFiles\\neel patel.pdf"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\nilrajsinhvaghela.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\nilrajsinhvaghela.pdf"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\css\\PatientBusinessInfo.css",
@@ -27,6 +43,10 @@
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\css\\PatientInfoForm.css",
       "PackagePath": "staticwebassets\\css\\PatientInfoForm.css"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\css\\PatientResetPw.css",
+      "PackagePath": "staticwebassets\\css\\PatientResetPw.css"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\css\\PatientSite.css",
@@ -687,6 +707,14 @@
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientLogin.js",
       "PackagePath": "staticwebassets\\js\\PatientLogin.js"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientMeRequest.js",
+      "PackagePath": "staticwebassets\\js\\PatientMeRequest.js"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientResetPw.js",
+      "PackagePath": "staticwebassets\\js\\PatientResetPw.js"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientSite.js",

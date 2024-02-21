@@ -1,6 +1,6 @@
 ﻿using HalloDoc.DbEntity.Models;
 
-namespace HalloDoc.ViewModels
+namespace HalloDoc.DbEntity.ViewModels
 {
     public class PatientDashboardVM
     {

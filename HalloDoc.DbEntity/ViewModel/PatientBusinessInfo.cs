@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 
-namespace HalloDoc.ViewModels
+namespace HalloDoc.DbEntity.ViewModels
 {
     public class PatientBusinessInfo
     {

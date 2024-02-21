@@ -12,3 +12,4 @@ D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\refint\HalloDoc.DbE
 D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.pdb
 D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.genruntimeconfig.cache
 D:\Project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\ref\HalloDoc.DbEntity.dll
+D:\project\HalloDoc-Ntier\HalloDoc.DbEntity\obj\Debug\net7.0\HalloDoc.DbEntity.sourcelink.json

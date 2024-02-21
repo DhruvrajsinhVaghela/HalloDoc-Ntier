@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HalloDoc.Repositories\HalloDoc.Repositories.csproj" />
+    <ProjectReference Include="..\HalloDoc.services\HalloDoc.services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

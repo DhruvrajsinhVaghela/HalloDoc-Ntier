@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace HalloDoc.ViewModels
+namespace HalloDoc.DbEntity.ViewModels
 {
     public class PatientFamilyFriendInfo
     {

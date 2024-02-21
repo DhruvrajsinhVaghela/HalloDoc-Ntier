@@ -1,5 +1,5 @@
 ﻿@* @page *@
-@model IEnumerable<HalloDoc.ViewModels.PatientDashboardVM>
+@model IEnumerable<HalloDoc.DbEntity.ViewModels.PatientDashboardVM>
 @{
     ViewData["Title"] = "Patient Dashoboard";
     ViewBag.cssLink = "~/css/PatientDashboard.css";
@@ -25,13 +25,13 @@
                 <div class="d-flex justify-content-center m-auto">
                     <div class="">
                         <a>
-                            <a class="btn btn-primary mb-1" id="meButton" asp-action="PatientMeRequest">
+                            <a class="btn btn-primary mb-1" id="meButton" asp-action="PatientMeRequest" asp-route-id="@Model.FirstOrDefault().user.UserId">
                                 ME
                             </a>
                         </a>
                         <a>
                             @*  *@
-                            <a class="btn btn-primary mb-1 ms-2" id="someoneElseButton" asp-action="PatientSomeOneElseRequest">
+                            <a class="btn btn-primary mb-1 ms-2" id="someoneElseButton" asp-action="PatientSomeOneElseRequest" asp-route-id="@Model.FirstOrDefault().user.UserId">
                                 Some One Else
                             </a>
                         </a>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center align-items-center my-3 ms-auto">
-                    <a asp-route-id="@Model.FirstOrDefault().user.AspNetUserId" class="btn logout-btn me-3" id="continueButton">
+                    <a asp-route-id="" class="btn logout-btn me-3" id="continueButton">
                         Continue
                     </a>
                     <button type="button" class="btn" data-bs-dismiss="modal">
