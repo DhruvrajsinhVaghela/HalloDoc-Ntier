@@ -9,7 +9,7 @@ namespace HalloDoc.ViewModels
 {
     public class PatientInfo
     {
-        [Required(ErrorMessage = "UserName is required")]
+        [Required(ErrorMessage = "Notes is required")]
         public required string Notes { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

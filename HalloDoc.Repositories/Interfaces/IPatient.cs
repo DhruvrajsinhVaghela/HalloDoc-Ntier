@@ -27,5 +27,17 @@ namespace HalloDoc.Repositories.Interfaces
         string PatientConciergeForm(PatientConciergeInfo model);
 
         string PatientBusinessForm(PatientBusinessInfo model);
+
+        public RequestWiseFile Download(int id);
+
+        public List<RequestWiseFile> DownloadAll(int id);
+
+        public string Update(int id,ViewDocumentVM vm);
+
+        string PatientFileSave(int id, PatientDashboardVM model);
+
+        public PatientInfo PatientMeRequest(int id,PatientInfo model);
+
+        public PatientInfo PatientSomeOneElseRequest(int id,PatientInfo model);
     }
 }

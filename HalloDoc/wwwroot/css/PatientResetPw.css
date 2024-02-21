@@ -1,0 +1,145 @@
+﻿body {
+    overflow: hidden;
+}
+
+.main-container {
+    min-height: 100vh;
+    padding: 0;
+    /* background-image: url("/images/luxa.org-opacity-changed-11116016_415.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat; */
+}
+
+@media screen and (min-width:0px) {
+    .main-container::before {
+        content: "";
+        position: absolute;
+        width: 102vw;
+        height: 102vh;
+        z-index: -1;
+        opacity: 0.3;
+        background: url('/images/11116016_415.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    /* background-image: url("/images/luxa.org-opacity-changed-11116016_415.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat; */
+    /* uncomment below line for making column fixed in window */
+    width: 60vh;
+}
+
+.darkmode-div {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    border-radius: 5px;
+}
+
+#darkmode-btn {
+    border-radius: 5px;
+    border-color: #08BCEB;
+    background-color: white;
+}
+
+.darkmode-img {
+    color: #08BCEB;
+}
+
+
+#heading {
+    margin-bottom: 10%;
+}
+
+.back-div {
+    width: 80%;
+    margin-top: 20%;
+    margin-bottom: 5%;
+}
+
+/* below class is used for both forgot password link and back link */
+.forgot-pw {
+    color: #08BCEB;
+    text-decoration: none;
+    font-size: medium;
+    margin-top: 3%;
+}
+
+.form-floating {
+    width: 80%;
+    margin-top: 20px;
+}
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label,
+    .form-floating > .form-select ~ label {
+        color: #08BCEB;
+    }
+
+.input-icon {
+    position: absolute;
+    right: 1px;
+    top: -2px;
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: #fafafa;
+    width: 30px;
+    height: 70%;
+    border: none;
+}
+
+
+
+.login-btn {
+    background-color: #08BCEB;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.login-btn1 {
+    background-color: #030376;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.terms-div {
+    margin-top: auto;
+}
+
+#terms1 {
+    font-size: small;
+}
+
+#terms2 {
+    font-size: small;
+}
+
+/* @media screen and (max-width:990px){
+    .left-col{
+        display: none;
+    }
+
+  
+    .main-container::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%        ;
+        z-index: -1;
+        opacity: 0.3;
+        background: url('/images/11116016_415.jpg');
+        background-repeat: no-repeat;
+        background-size:100% 100%;
+       
+    }
+} */
+
+
+
