@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 
-namespace HalloDoc.ViewModels
+namespace HalloDoc.DbEntity.ViewModel
 {
     public class PatientInfo
     {

@@ -1,5 +1,5 @@
 ﻿using HalloDoc.DbEntity.Models;
-using HalloDoc.ViewModels;
+using HalloDoc.DbEntity.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace HalloDoc.Repositories.Interfaces
     {
 
 
-        public string Update(int id,ViewDocumentVM vm);
+        //public string Update(int id,ViewDocumentVM vm);
 
         public string PatientFileSave(int id, PatientDashboardVM model);
 
@@ -60,7 +60,7 @@ namespace HalloDoc.Repositories.Interfaces
 
         public AspNetUser GetAspNetUser(int id);
         //-----------------------------------------testing
-        public List<ViewDocumentVM> GetInfo(int id);
+        public List<ViewDocumentVM> GetInfo(int id,ViewDocumentVM vm);
 
     }
 }

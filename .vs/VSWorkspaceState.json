@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\HalloDoc",
-    "\\HalloDoc.Repositories",
     "\\HalloDoc.Repositories\\Implementation"
   ],
-  "SelectedNode": "\\HalloDoc.Repositories\\Implementation\\Patient.cs",
+  "SelectedNode": "\\HalloDoc\\HalloDoc.sln",
   "PreviewInSolutionExplorer": false
 }

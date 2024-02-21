@@ -1,4 +1,5 @@
-﻿using HalloDoc.DbEntity.Models;
+﻿using HalloDoc.DbEntity.ViewModel;
+using HalloDoc.DbEntity.Models;
 using HalloDoc.ViewModels;
 using System;
 using System.Collections.Generic;
