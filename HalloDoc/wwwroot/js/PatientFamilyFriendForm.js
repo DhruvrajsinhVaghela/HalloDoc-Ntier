@@ -66,6 +66,13 @@ const load = () => {
     btn.setAttribute('data-bs-toggle', 'modal');
     btn.click();
 }
-
+const getFileData = (myFile) => {
+    names = myFile.files;
+    let master = "";
+    for (i = 0; i < names.length; i++) {
+        master = master + " " + names[i].name;
+    }
+    document.getElementById("form-label").innerHTML = `${master}`;
+}
 
 // function load(){

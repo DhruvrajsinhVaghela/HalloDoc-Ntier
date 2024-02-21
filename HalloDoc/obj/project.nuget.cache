@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "OMngdmlPbmTeI6/8ZJ/B3dkHnAAsn6qkRuw6rjbS/gl+vxipI23bnZLq8IlEm1p3ug8UBDouKo2AT6nUYZk7wA==",
+  "dgSpecHash": "2oGY7ELQ1y3AZ7E6F8nJGvoXat0c+kOEzVTFO21Qf89CW6cEZc+NcM0mrNFUyYXFqmmBKu4RHY1xFN3F46bSMw==",
   "success": true,
   "projectFilePath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\HalloDoc.csproj",
   "expectedPackageFiles": [
@@ -82,6 +82,7 @@
     "C:\\Users\\pce120\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.16\\microsoft.entityframeworkcore.analyzers.7.0.16.nupkg.sha512",
     "C:\\Users\\pce120\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.16\\microsoft.entityframeworkcore.design.7.0.16.nupkg.sha512",
     "C:\\Users\\pce120\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.16\\microsoft.entityframeworkcore.relational.7.0.16.nupkg.sha512",
+    "C:\\Users\\pce120\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.16\\microsoft.entityframeworkcore.tools.7.0.16.nupkg.sha512",
     "C:\\Users\\pce120\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\pce120\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\pce120\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
