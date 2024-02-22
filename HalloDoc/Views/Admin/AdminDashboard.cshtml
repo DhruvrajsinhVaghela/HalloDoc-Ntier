@@ -1,0 +1,313 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+    ViewBag.cssLink = "AdminDashboard.css";
+}
+@model IEnumerable<HalloDoc.DbEntity.ViewModel.AdminDashboardVM>
+
+<div class="bg-body-tertiary vh-100 d-flex flex-column">
+    <partial name="_AdminHeaderDashboard" />
+    <div class="">
+        <div class="p-sm-2 p-md-5 mt-4 mt-sm-0">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                     tabindex="0">
+                    <div class="container-fluid">
+
+                        <button onclick="fetchRequests('2')">Pending</button>
+                        <button onclick="fetchRequests('3')">3</button>
+                        <button onclick="fetchRequests('4')">4</button> 
+
+                        <div class="row">
+
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-3">
+                                <div onclick="fetchRequests('1')" class="border rounded p-1 p-sm-3 new" id="new-tab">
+                                    <div class="d-flex align-items-center gap-1 ps-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus d-none d-md-block fs-4" viewBox="0 0 16 16">
+                                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                        </svg>
+                                        <h6 class="px-1 m-0">New</h6>
+                                    </div>
+                                    <div class="ps-1 pt-3">
+                                       
+                                     <h4>@Model.Last().Patientcount</h4>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                                <div onclick="fetchRequests('2')" class="border rounded p-1 p-sm-3 Pending" id="Pending-tab">
+                                    <div class="d-flex align-items-center gap-1 ps-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person d-none d-md-block fs-4" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                        </svg>
+                                        <h6 class="px-1 m-0">Pending</h6>
+                                    </div>
+                                    <div class="ps-1 pt-3">
+                                        <h4>266</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                                <div onclick="fetchRequests('3')" class="border rounded p-1 p-sm-3 Active" id="Active-tab">
+                                    <div class="d-flex align-items-center gap-1 ps-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle d-none d-md-block fs-4" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                            <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                                        </svg>
+                                        <h6 class="px-1 m-0">Active</h6>
+                                    </div>
+                                    <div class="ps-1 pt-3">
+                                        <h4>26</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                                <div onclick="fetchRequests('4')" class="border rounded p-1 p-sm-3 Conclude" id="Conclude-tab">
+                                    <div class="d-flex align-items-center gap-1 ps-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history d-none d-md-block fs-4" viewBox="0 0 16 16">
+                                            <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
+                                            <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
+                                            <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
+                                        </svg>          
+                                        <h6 class="px-1 m-0">Conclude</h6>
+                                    </div>
+                                    <div class="ps-1 pt-3">
+                                        <h4>1078</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                                <div onclick="fetchRequests('5')" class="border rounded p-1 p-sm-3 ToClose " id="ToClose-tab">
+                                    <div class="d-flex align-items-center gap-1 ps-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person-x d-none d-md-block fs-4" viewBox="0 0 16 16">
+                                            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
+                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708" />
+                                        </svg>
+                                        <h6 class="px-1 m-0 w-100">To Close</h6>
+                                    </div>
+                                    <div class="ps-1 pt-3">
+                                        <h4>519</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                                <div onclick="fetchRequests('6')" class="border rounded p-1 p-sm-3 Unpaid" id="Unpaid-tab">
+                                    <div class="d-flex align-items-center gap-1 ps-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar d-none d-md-block fs-4" viewBox="0 0 16 16">
+                                            <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z" />
+                                        </svg>
+                                        <h6 class="px-1 m-0">Unpaid</h6>
+                                    </div>
+                                    <div class="ps-1 pt-3">
+                                        <h4>16</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                            <h5>Patients (New)</h5>
+                            <div class="d-flex">
+                                <button type="button"
+                                        class="btn btn-info d-flex ms-1 ms-sm-2 p-sm-2 p-1 align-items-center text-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send me-md-1" viewBox="0 0 16 16">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                </svg><span class="d-md-block d-none  px-2 ">
+                                        Send
+                                        Link
+                                    </span>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-info d-flex ms-1 ms-sm-2 p-1 p-sm-2 align-items-center text-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square me-md-1" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                </svg>
+                                    <span class="d-md-block d-none px-2 ">
+                                        Create
+                                        Request
+                                    </span>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-info d-flex ms-1 ms-sm-2 p-1 p-sm-2 align-items-center text-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right me-md-1" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                                </svg>
+                                    <span class="d-md-block d-none px-2 ">Export</span>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-info d-flex ms-1 ms-sm-2 p-1 p-sm-2 align-items-center text-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right me-md-1" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5" />
+                                    <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z" />
+                                </svg>
+                                    <span class="d-md-block d-none px-2 ">
+                                        Export
+                                        All
+                                    </span>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-info d-flex ms-1 ms-sm-2 p-1 p-sm-2 align-items-center text-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus me-md-1" viewBox="0 0 16 16">
+                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                </svg>
+                                    <span class="d-md-block d-none px-2 ">
+                                        Request DTY
+                                        Support
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="mt-2 mb-2 container-fluid">
+                        <div class="d-md-flex justify-content-between align-items-center gap-2">
+
+                            <div class="d-md-flex gap-1">
+                                <form role="search" class="mb-2">
+                                    <!-- <i class="bi bi-search"></i> -->
+                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                </form>
+                                <!-- Example split danger button -->
+
+                                <select class="form-select mb-2" aria-label="Default select example">
+                                    <option selected>All Region</option>
+                                    <option value="1">Singapore</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex gap-2 align-items-center mb-2">
+                                <button class="btn btn-outline-secondary d-none d-md-block">All</button>
+                                <div class="d-md-flex gap-1 mx-auto text-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill text-success" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8" />
+                                </svg>
+                                    <div>Patient</div>
+                                </div>
+                                <div class="d-md-flex gap-1 mx-auto text-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill text-warning" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8" />
+                                </svg>
+                                    <div>Family/Friend</div>
+                                </div>
+                                <div class="d-md-flex gap-1 mx-auto text-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill text-danger" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8" />
+                                </svg>
+                                    <div>Business</div>
+                                </div>
+                                <div class="d-md-flex gap-1 mx-auto text-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill text-info" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8" />
+                                </svg>
+                                    <div>Concierge</div>
+                                </div>
+                                <div class="d-md-flex gap-1 mx-auto text-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill text-primary" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8" />
+                                </svg>
+                                    <div>Vip</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div id="partial_container">
+                            <partial name="_AdminNewStateData" />
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="tab-pane fade" id="provider-location-tab-pane" role="tabpanel"
+                     aria-labelledby="provider-location-tab" tabindex="0">
+                    <div class="container-fluid">
+                        <h3 class="mb-3 p-3 p-md-2 ">Provider Location</h3>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div class="container-fluid">
+                        <h3 class="mb-3 p-3 p-md-2 ">My Profile</h3>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="Providers-tab-pane" role="tabpanel" aria-labelledby="Providers-tab"
+                     tabindex="0">
+                    <div class="container-fluid">
+                        <h3 class="mb-3 p-3 p-md-2 ">Providers</h3>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="Partners-tab-pane" role="tabpanel" aria-labelledby="Partners-tab"
+                     tabindex="0">
+                    <div class="container-fluid">
+                        <h3 class="mb-3 p-3 p-md-2 ">Partners</h3>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="Access-tab-pane" role="tabpanel" aria-labelledby="Access-tab" tabindex="0">
+                    <div class="container-fluid">
+                        <h3 class="mb-3 p-3 p-md-2 ">Access</h3>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="Records-tab-pane" role="tabpanel" aria-labelledby="Records-tab" tabindex="0">
+                    <div class="container-fluid">
+                        <h3 class="mb-3 p-3 p-md-2 ">Records</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function fetchRequests(status) {
+        console.log("inside fetchreq");
+        var status = status;
+
+        $.ajax({
+            method: "GET",
+            url: "/Admin/fetchRequests",
+            data: { status: status },
+            success: function (response) {
+
+                console.log("Function Success")
+                $('#partial_container').html(response)
+            },
+            error: function () {
+                console.log("Function Fail")
+            }
+        })
+    }
+
+
+    function showmodel() {
+        var myModal = new bootstrap.Modal(document.getElementById('myModal1'), {})
+        myModal.show()
+    }
+
+
+
+</script>

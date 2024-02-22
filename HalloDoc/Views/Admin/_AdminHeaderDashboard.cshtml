@@ -1,0 +1,96 @@
+﻿@* @inject IHttpContextAccessor Accessor
+@using Microsoft.AspNetCore.Http; *@
+@* @ @model Data_Access.Custom_Models.PatientDashboardCm; @ *@
+
+<nav class="navbar bg-body-tertiary shadow px-2 py-0">
+    <div class="container-fluid">
+        <div>
+            <button class="navbar-toggler d-inline-block  d-sm-none " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" asp-controller="Admin" asp-action="AdminDashboard">
+                <img src="\images\Fig56._Patient_site_1.png" alt="logo" height="60px">
+            </a>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="d-none d-sm-inline-block ms-2 mt-3">
+                <p>Welcome <strong>Admin</strong></p>
+            </div>
+            <div class="ms-2">
+                <a asp-controller="Admin" asp-action="Index"
+                   class="border border-info px-2 py-1 rounded-2 text-info">
+                    <span class="d-none d-sm-inline-block ">Logout</span>
+                    <span class="d-inline-block d-sm-none"><i class="bi bi-box-arrow-right text-info"></i></span>
+                </a>
+            </div>
+            <div class="ms-2">
+                <button id="darkmode-btn" onclick="myFunction()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-moon" viewBox="0 0 16 16">
+                        <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="collapse show d-sm-block w-100" id="navbarToggleExternalContent">
+        <div>
+            <hr class="w-100 m-0">
+            <ul class="nav nav-underline" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active text-muted" id="home-tab" data-bs-toggle="tab"
+                            data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                            aria-selected="true">
+                        Dashboard
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="providerlocation-tab" data-bs-toggle="tab"
+                            data-bs-target="#providerlocation-tab-pane" type="button" role="tab"
+                            aria-controls="providerlocation-tab-pane" aria-selected="false">
+                        Provider Location
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="profile-tab" data-bs-toggle="tab"
+                            data-bs-target="#profile-tab-pane" type="button" role="tab"
+                            aria-controls="profile-tab-pane" aria-selected="false">
+                        My Profile
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="provider-tab" data-bs-toggle="tab"
+                            data-bs-target="#provider-tab-pane" type="button" role="tab"
+                            aria-controls="provider-tab-pane" aria-selected="false">
+                        Providers
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="partners-tab" data-bs-toggle="tab"
+                            data-bs-target="#partners-tab-pane" type="button" role="tab"
+                            aria-controls="partners-tab-pane" aria-selected="false">
+                        Partners
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="access-tab" data-bs-toggle="tab"
+                            data-bs-target="#access-tab-pane" type="button" role="tab"
+                            aria-controls="access-tab-pane" aria-selected="false">
+                        Access
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="records-tab" data-bs-toggle="tab"
+                            data-bs-target="#records-tab-pane" type="button" role="tab"
+                            aria-controls="records-tab-pane" aria-selected="false">
+                        Records
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+

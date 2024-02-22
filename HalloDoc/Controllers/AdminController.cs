@@ -7,26 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HalloDoc.DbEntity.Data;
 using HalloDoc.DbEntity.Models;
+using HalloDoc.services.Interface;
+using HalloDoc.DbEntity.ViewModel;
 
 namespace HalloDoc.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IAdminService _context;
 
-        public AdminController(ApplicationDbContext context)
+        public AdminController(IAdminService context)
         {
             _context = context;
         }
 
-        public async Task<IActionResult> AdminDashboard()
+        public async Task<IActionResult> AdminDashboard(AdminDashboardVM vm)
         {
-            return View();
+
+            var data = _context.GetUserData();
+            
+            return View(data);
         }
 
 
 
-        // GET: Admin
+      /*  // GET: Admin
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Admins.Include(a => a.AspNetUser).Include(a => a.CreatedByNavigation).Include(a => a.ModifiedByNavigation);
@@ -182,6 +187,6 @@ namespace HalloDoc.Controllers
         private bool AdminExists(int id)
         {
           return (_context.Admins?.Any(e => e.AdminId == id)).GetValueOrDefault();
-        }
+        }*/
     }
 }

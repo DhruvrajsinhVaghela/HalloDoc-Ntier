@@ -1,7 +1,7 @@
 ﻿using HalloDoc.DbEntity.Models;
 using HalloDoc.Repositories.Interfaces;
 using HalloDoc.services.Interface;
-using HalloDoc.ViewModels;
+using HalloDoc.DbEntity.ViewModel;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -536,7 +536,7 @@ namespace HalloDoc.services.Implementation
             return _repo.ReqWiseFileIdAll(id).Where(x => x.RequestId == id).ToList();
         }
 
-        public string Update(int id, ViewDocumentVM vm)
+      /*  public string Update(int id, ViewDocumentVM vm)
         {
             var use = _logger.Users.FirstOrDefault(u => u.AspNetUserId == id);
             var asp_net_u = _logger.AspNetUsers.FirstOrDefault(asp => asp.Id == use.AspNetUserId);
@@ -591,6 +591,6 @@ namespace HalloDoc.services.Implementation
             }
 
             return "yes";
-        }
+        }*/
     }
 }

@@ -60,7 +60,7 @@ namespace HalloDoc.Repositories.Interfaces
 
         public AspNetUser GetAspNetUser(int id);
         //-----------------------------------------testing
-        public List<ViewDocumentVM> GetInfo(int id,ViewDocumentVM vm);
+       // public List<ViewDocumentVM> GetInfo(int id,ViewDocumentVM vm);
 
     }
 }

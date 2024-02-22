@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HalloDoc.DbEntity.Models;
+using HalloDoc.DbEntity.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,6 @@ namespace HalloDoc.Repositories.Interfaces
 {
     public interface IAAdmin
     {
+        public List<Request> GetDetails();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using HalloDoc.DbEntity.Data;
-using HalloDoc.ViewModels;
-using HalloDoc.Models;
+using HalloDoc.DbEntity.ViewModel;
+using HalloDoc.DbEntity.Models;
 using HalloDoc.Repositories.Implementation;
 using HalloDoc.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +51,7 @@ namespace HalloDoc.Controllers
             {
                 HttpContext.Session.SetInt32("userId", data);
                 /*HttpContext.Session.SetString("userName", userIdObj.FirstName);*/
-                return RedirectToAction("Patient", new { id = data });//nameof(PatientDashboard),
+                return RedirectToAction("PatientSite", new { id = data });//nameof(PatientDashboard),
             }
             return View();
 
@@ -232,7 +232,7 @@ namespace HalloDoc.Controllers
         }
 
         //-------------PatientDetails Update
-        public async Task<IActionResult> Update(int id, ViewDocumentVM vm)
+        /*public async Task<IActionResult> Update(int id, ViewDocumentVM vm)
         {
             var data = _service.Update(id, vm);
             if (data == "yes")
@@ -240,7 +240,7 @@ namespace HalloDoc.Controllers
                 return RedirectToAction(nameof(PatientDashboard), new { id = id });
             }
             return View();
-        }
+        }*/
 
         //-------------PatientFileSave
         //public async Task<IActionResult> PatientFileSave(int id, PatientDashboardVM model)

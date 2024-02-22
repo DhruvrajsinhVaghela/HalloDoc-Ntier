@@ -284,61 +284,61 @@ namespace HalloDoc.Repositories.Implementation
 
         public AspNetUser GetAspNetUser(int id)
         {
-            return _logger.AspNetUsers.FirstOrDefault(asp => asp.Id == use.AspNetUserId);
+            return _logger.AspNetUsers.FirstOrDefault(asp => asp.Id == id);
         }
         //--------------------testing
-        public List<ViewDocumentVM> GetInfo(int id,ViewDocumentVM vm)
-        {
-            var use = _logger.Users.FirstOrDefault(u => u.AspNetUserId == id);
-            var asp_net_u = _logger.AspNetUsers.FirstOrDefault(asp => asp.Id == use.AspNetUserId);
-            var req = _logger.Requests.Where(u => u.User.AspNetUserId == id).ToList();
+        //public List<ViewDocumentVM> GetInfo(int id,ViewDocumentVM vm)
+        //{
+        //    var use = _logger.Users.FirstOrDefault(u => u.AspNetUserId == id);
+        //    var asp_net_u = _logger.AspNetUsers.FirstOrDefault(asp => asp.Id == use.AspNetUserId);
+        //    var req = _logger.Requests.Where(u => u.User.AspNetUserId == id).ToList();
 
-            use.FirstName = vm.user.FirstName;
-            use.LastName = vm.user.LastName;
-            use.Email = vm.user.Email;
-            use.Mobile = vm.user.Mobile;
-            use.Street = vm.user.Street;
-            use.City = vm.user.City;
-            use.State = vm.user.State;
-            use.ZipCode = vm.user.ZipCode;
+        //    use.FirstName = vm.user.FirstName;
+        //    use.LastName = vm.user.LastName;
+        //    use.Email = vm.user.Email;
+        //    use.Mobile = vm.user.Mobile;
+        //    use.Street = vm.user.Street;
+        //    use.City = vm.user.City;
+        //    use.State = vm.user.State;
+        //    use.ZipCode = vm.user.ZipCode;
 
-            _logger.Users.Update(use);
-            _logger.SaveChanges();
+        //    _logger.Users.Update(use);
+        //    _logger.SaveChanges();
 
-            asp_net_u.UserName = vm.user.FirstName + vm.user.LastName;
-            asp_net_u.Email = vm.user.Email;
-            asp_net_u.PhoneNumber = vm.user.Mobile;
-            _logger.AspNetUsers.Update(asp_net_u);
-            _logger.SaveChanges();
+        //    asp_net_u.UserName = vm.user.FirstName + vm.user.LastName;
+        //    asp_net_u.Email = vm.user.Email;
+        //    asp_net_u.PhoneNumber = vm.user.Mobile;
+        //    _logger.AspNetUsers.Update(asp_net_u);
+        //    _logger.SaveChanges();
 
-            foreach (var re in req)
-            {
-                re.FirstName = vm.user.FirstName;
-                re.LastName = vm.user.LastName;
-                re.PhoneNumber = vm.user.Mobile;
-                re.Email = vm.user.Email;
-                _logger.Requests.Update(re);
-                _logger.SaveChanges();
+        //    foreach (var re in req)
+        //    {
+        //        re.FirstName = vm.user.FirstName;
+        //        re.LastName = vm.user.LastName;
+        //        re.PhoneNumber = vm.user.Mobile;
+        //        re.Email = vm.user.Email;
+        //        _logger.Requests.Update(re);
+        //        _logger.SaveChanges();
 
-                var reqclient = _logger.RequestClients.FirstOrDefault(m => m.RequestId == re.RequestId);
-                if (reqclient != null)
-                {
-                    reqclient.FirstName = vm.user.FirstName;
-                    reqclient.LastName = vm.user.LastName;
-                    reqclient.PhoneNumber = vm.user.Mobile;
+        //        var reqclient = _logger.RequestClients.FirstOrDefault(m => m.RequestId == re.RequestId);
+        //        if (reqclient != null)
+        //        {
+        //            reqclient.FirstName = vm.user.FirstName;
+        //            reqclient.LastName = vm.user.LastName;
+        //            reqclient.PhoneNumber = vm.user.Mobile;
 
-                    reqclient.Address = vm.user.Street + " , " + vm.user.City + " , " + vm.user.State;
-                    reqclient.Email = vm.user.Email;
-                    reqclient.Street = vm.user.Street;
-                    reqclient.City = vm.user.City;
-                    reqclient.State = vm.user.State;
-                    reqclient.ZipCode = vm.user.ZipCode;
-                    _logger.RequestClients.Update(reqclient);
-                    _logger.SaveChanges();
-                }
-            }
-            return...;
-        }
+        //            reqclient.Address = vm.user.Street + " , " + vm.user.City + " , " + vm.user.State;
+        //            reqclient.Email = vm.user.Email;
+        //            reqclient.Street = vm.user.Street;
+        //            reqclient.City = vm.user.City;
+        //            reqclient.State = vm.user.State;
+        //            reqclient.ZipCode = vm.user.ZipCode;
+        //            _logger.RequestClients.Update(reqclient);
+        //            _logger.SaveChanges();
+        //        }
+        //    }
+        //    return ;
+        //}
 
     }
 }

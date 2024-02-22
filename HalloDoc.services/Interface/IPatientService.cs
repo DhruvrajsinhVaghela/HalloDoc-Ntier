@@ -1,6 +1,5 @@
 ﻿using HalloDoc.DbEntity.ViewModel;
 using HalloDoc.DbEntity.Models;
-using HalloDoc.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +24,6 @@ namespace HalloDoc.services.Interface
         public List<ViewDocumentVM> PatientViewDocuments(int id);
         public RequestWiseFile Download(int id);
         public List<RequestWiseFile> DownloadAll(int id);
-        public string Update(int id, ViewDocumentVM vm);
+        //public string Update(int id, ViewDocumentVM vm);
     }
 }

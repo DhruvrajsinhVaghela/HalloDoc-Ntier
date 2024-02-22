@@ -12,6 +12,9 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IPatient, Patient>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 
+builder.Services.AddScoped<IAAdmin, AAdmin>();
+builder.Services.AddScoped<IAdminService, AdminService>();
+
 
 builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -36,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Patient}/{action=PatientSite}/{id?}");
+    pattern: "{controller=Admin}/{action=AdminDashboard}/{id?}");
 
 app.Run();
