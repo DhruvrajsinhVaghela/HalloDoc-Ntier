@@ -1,10 +1,11 @@
-﻿@{
+﻿
+@model HalloDoc.DbEntity.ViewModel.StatusWiseCount
+@{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_layoutAdmin.cshtml";
     ViewBag.cssLink = "AdminDashboard.css";
 }
-@model IEnumerable<HalloDoc.DbEntity.ViewModel.AdminDashboardVM>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="bg-body-tertiary vh-100 d-flex flex-column">
     <partial name="_AdminHeaderDashboard" />
     <div class="">
@@ -14,13 +15,13 @@
                      tabindex="0">
                     <div class="container-fluid">
 
-                        <button onclick="fetchRequests('2')">Pending</button>
+                     @*    <button onclick="fetchRequests('2')">Pending</button>
                         <button onclick="fetchRequests('3')">3</button>
-                        <button onclick="fetchRequests('4')">4</button> 
+                        <button onclick="fetchRequests('4')">4</button>  *@
 
                         <div class="row">
 
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-3">
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-3 Cards" value="1">
                                 <div onclick="fetchRequests('1')" class="border rounded p-1 p-sm-3 new" id="new-tab">
                                     <div class="d-flex align-items-center gap-1 ps-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus d-none d-md-block fs-4" viewBox="0 0 16 16">
@@ -31,13 +32,13 @@
                                     </div>
                                     <div class="ps-1 pt-3">
                                        
-                                     <h4>@Model.Last().Patientcount</h4>
+                                     <h4>@Model.CountNewState</h4>
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6 Cards" value="2">
                                 <div onclick="fetchRequests('2')" class="border rounded p-1 p-sm-3 Pending" id="Pending-tab">
                                     <div class="d-flex align-items-center gap-1 ps-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person d-none d-md-block fs-4" viewBox="0 0 16 16">
@@ -46,12 +47,12 @@
                                         <h6 class="px-1 m-0">Pending</h6>
                                     </div>
                                     <div class="ps-1 pt-3">
-                                        <h4>266</h4>
+                                        <h4>@Model.CountPendingState</h4>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6 Cards" value="3">
                                 <div onclick="fetchRequests('3')" class="border rounded p-1 p-sm-3 Active" id="Active-tab">
                                     <div class="d-flex align-items-center gap-1 ps-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle d-none d-md-block fs-4" viewBox="0 0 16 16">
@@ -61,12 +62,12 @@
                                         <h6 class="px-1 m-0">Active</h6>
                                     </div>
                                     <div class="ps-1 pt-3">
-                                        <h4>26</h4>
+                                        <h4>@Model.CountActiveState</h4>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6 Cards" value="4">
                                 <div onclick="fetchRequests('4')" class="border rounded p-1 p-sm-3 Conclude" id="Conclude-tab">
                                     <div class="d-flex align-items-center gap-1 ps-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history d-none d-md-block fs-4" viewBox="0 0 16 16">
@@ -77,12 +78,12 @@
                                         <h6 class="px-1 m-0">Conclude</h6>
                                     </div>
                                     <div class="ps-1 pt-3">
-                                        <h4>1078</h4>
+                                        <h4>@Model.CountConcludeState</h4>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6 Cards" value="5">
                                 <div onclick="fetchRequests('5')" class="border rounded p-1 p-sm-3 ToClose " id="ToClose-tab">
                                     <div class="d-flex align-items-center gap-1 ps-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person-x d-none d-md-block fs-4" viewBox="0 0 16 16">
@@ -92,12 +93,12 @@
                                         <h6 class="px-1 m-0 w-100">To Close</h6>
                                     </div>
                                     <div class="ps-1 pt-3">
-                                        <h4>519</h4>
+                                        <h4>@Model.CountCloseState</h4>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6">
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 mb-3 col-6 Cards" value="6">
                                 <div onclick="fetchRequests('6')" class="border rounded p-1 p-sm-3 Unpaid" id="Unpaid-tab">
                                     <div class="d-flex align-items-center gap-1 ps-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar d-none d-md-block fs-4" viewBox="0 0 16 16">
@@ -106,7 +107,7 @@
                                         <h6 class="px-1 m-0">Unpaid</h6>
                                     </div>
                                     <div class="ps-1 pt-3">
-                                        <h4>16</h4>
+                                        <h4>@Model.CountUnpaidState</h4>
                                     </div>
                                 </div>
                             </div>
@@ -228,13 +229,15 @@
 
                         </div>
 
-
+@* 
                         <div id="partial_container">
                             <partial name="_AdminNewStateData" />
-                        </div>
+                        </div> *@
+                       
                     </div>
 
-
+                <div id="Content">
+                </div>
                 </div>
 
                 <div class="tab-pane fade" id="provider-location-tab-pane" role="tabpanel"
@@ -278,35 +281,52 @@
 
             </div>
         </div>
+   
     </div>
+
 </div>
 
 
 <script>
-    function fetchRequests(status) {
-        console.log("inside fetchreq");
-        var status = status;
-
+  
+        $(document).ready(function () {
+            var Action;
         $.ajax({
-            method: "GET",
-            url: "/Admin/fetchRequests",
-            data: { status: status },
+            url: '/Admin/CardsView',
+            method: 'POST',
+            data: { status: 1 },
             success: function (response) {
-
-                console.log("Function Success")
-                $('#partial_container').html(response)
+                $('#Content').html(response);
             },
-            error: function () {
-                console.log("Function Fail")
+            error: function (error) {
+                console.error('Error in AJAX', error);
             }
         })
-    }
 
+            $('.Cards').click(function () {
+                var cardValue = $(this).attr('value');
+                switch (cardValue) {
+                    case '1': Action = 1; break;
+                    case '2': Action = 2; break;
+                    case '3': Action = 3; break;
+                    case '4': Action = 4; break;
+                    case '5': Action = 5; break;
+                    case '6': Action = 6; break;
+                }
 
-    function showmodel() {
-        var myModal = new bootstrap.Modal(document.getElementById('myModal1'), {})
-        myModal.show()
-    }
+                $.ajax({
+                    url: '/Admin/CardsView',
+                    method: 'POST',
+                    data: { status: Action },
+                    success: function (response) {
+                        $('#Content').html(response);
+                    },
+                    error: function (error) {
+                        console.error('Error in AJAX', error);
+                    }
+                })
+            });
+        });
 
 
 

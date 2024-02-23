@@ -10,6 +10,7 @@ namespace HalloDoc.Repositories.Interfaces
 {
     public interface IAAdmin
     {
-        public List<Request> GetDetails();
+        public List<Request> GetAdminDashboardData();
+        //public StatusWiseCount GetCount();
     }
 }

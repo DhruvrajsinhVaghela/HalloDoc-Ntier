@@ -11,6 +11,9 @@ namespace HalloDoc.services.Interface
 {
     public interface IAdminService
     {
-        public List<AdminDashboardVM> GetUserData();
+        public StatusWiseCount PatientStatus(StatusWiseCount swc);
+
+        public List<AdminDashboardVM> GetNewStateData(int status);
+        //public StatusWiseCount PatientCount(StatusWiseCount swc);
     }
 }

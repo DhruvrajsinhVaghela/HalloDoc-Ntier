@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HalloDoc.DbEntity.ViewModel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -73,4 +74,5 @@ public partial class Request
     public virtual ICollection<RequestConcierge> RequestConcierges { get; set; } = new List<RequestConcierge>();
 
     public virtual User? User { get; set; }
+
 }

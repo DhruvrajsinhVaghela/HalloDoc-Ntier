@@ -27,9 +27,8 @@ namespace HalloDoc.DbEntity.ViewModel
         public string ProviderName { get; set; }//from physician
         public string? BirthDate { get; set; }
         public string? Address { get; set; }
-
-        public int Patientcount { get; set; }
-
         public int RequestType { get; set; }
+
+       
     }
 }

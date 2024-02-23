@@ -48,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0FkbWluTmV3U3RhdGVEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Project/HalloDoc-Ntier/HalloDoc/Views/Admin/_AdminPendingstateData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0FkbWluUGVuZGluZ3N0YXRlRGF0YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Project/HalloDoc-Ntier/HalloDoc/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
