@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pD6SdPBKPTXErIQmw6LcG5QpJkbWUB19TKSPZRIN7cjZ8GeGezW54XMtGlMXJcgsxVuZLnxUN0aYToJt/H+3+A==",
+  "dgSpecHash": "fKCk5VwhDcJ94MvNlQnk72H5Z3LDzWI1izjzB+SqddvipIt3jhIAzZenFkag11NyN6wDh6SGSVF5+04a2ye7Zw==",
   "success": true,
-  "projectFilePath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc\\HalloDoc.csproj",
+  "projectFilePath": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\HalloDoc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vaghe\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\vaghe\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

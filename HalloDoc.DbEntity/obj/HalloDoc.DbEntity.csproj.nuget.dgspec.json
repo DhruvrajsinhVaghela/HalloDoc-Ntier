@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {}
+    "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {}
   },
   "projects": {
-    "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {
+    "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
+        "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
         "projectName": "HalloDoc.DbEntity",
-        "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
+        "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
         "packagesPath": "C:\\Users\\vaghe\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.DbEntity\\obj\\",
+        "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vaghe\\AppData\\Roaming\\NuGet\\NuGet.Config",

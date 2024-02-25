@@ -495,3 +495,6 @@ D:\project\HalloDoc-Ntier\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\refint\HalloD
 D:\project\HalloDoc-Ntier\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\HalloDoc.pdb
 D:\project\HalloDoc-Ntier\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\HalloDoc.genruntimeconfig.cache
 D:\project\HalloDoc-Ntier\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\ref\HalloDoc.dll
+D:\project\HalloDoc-Ntier\HalloDoc\bin\Debug\net7.0\HalloDoc.Service.dll
+D:\project\HalloDoc-Ntier\HalloDoc\bin\Debug\net7.0\HalloDoc.Service.pdb
+D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\HalloDoc.sourcelink.json

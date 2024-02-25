@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ypI7X8veQz0RHUrJ0VPlYf6dGpkcCeSl7oQtmRS9LGX3Rn6NIUiKjvJaAkAJ6xuaS58h+ZORX/LaDRNCQ85P6w==",
+  "dgSpecHash": "JhEZLeUu3sNg1YhtQijx59ofgVOadpJ9tLUW9vkE5V1nSf2u1Cp7UeoUIZ3TnKBe7bDGnDOjPfvM9STmJMO67w==",
   "success": true,
-  "projectFilePath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj",
+  "projectFilePath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vaghe\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\vaghe\\.nuget\\packages\\microsoft-web-helpers\\2.1.20710.2\\microsoft-web-helpers.2.1.20710.2.nupkg.sha512",

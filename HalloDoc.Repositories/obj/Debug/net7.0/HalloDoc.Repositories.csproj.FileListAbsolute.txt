@@ -31,3 +31,6 @@ D:\project\HalloDoc-Ntier\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\
 D:\project\HalloDoc-Ntier\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\ref\HalloDoc.Repositories.dll
 D:\project\HalloDoc-Ntier\HalloDoc-Ntier\HalloDoc.Repositories\bin\Debug\net7.0\HalloDoc.Repositories.runtimeconfig.json
 D:\project\HalloDoc-Ntier\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.genruntimeconfig.cache
+D:\project\HalloDoc-Ntier\HalloDoc.Repositories\bin\Debug\net7.0\HalloDoc.Repositories.runtimeconfig.json
+D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.sourcelink.json
+D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.genruntimeconfig.cache

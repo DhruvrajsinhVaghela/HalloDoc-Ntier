@@ -1328,11 +1328,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.Service\\HalloDoc.Service.csproj",
+      "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Service\\HalloDoc.Service.csproj",
       "projectName": "HalloDoc.Service",
-      "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.Service\\HalloDoc.Service.csproj",
+      "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Service\\HalloDoc.Service.csproj",
       "packagesPath": "C:\\Users\\vaghe\\.nuget\\packages\\",
-      "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.Service\\obj\\",
+      "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\vaghe\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1349,8 +1349,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj": {
-              "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj"
+            "D:\\project\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj": {
+              "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj"
             }
           }
         }
