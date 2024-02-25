@@ -1,13 +1,14 @@
 ﻿using HalloDoc.DbEntity.Models;
 
-namespace HalloDoc.ViewModels
-{
+namespace HalloDoc.DbEntity.ViewModel 
+{ 
     public class PatientDashboardVM
     {
         public int requestID { get; set; }
 
         public string FirstName { get; set; }
 
+        public string confirmation_no { get; set; }
         public string LastName { get; set; }
 
         public string Email { get; set; }
@@ -35,5 +36,7 @@ namespace HalloDoc.ViewModels
         public DateOnly? Date { get; set; }
 
         public ViewDocumentVM? View { get; set; }
+
+        public Request? req { get; set; }
     }
 }

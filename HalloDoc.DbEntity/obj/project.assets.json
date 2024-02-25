@@ -1098,6 +1098,7 @@
     "net7.0": [
       "Microsoft.AspNetCore.Http.Features >= 5.0.17",
       "Microsoft.EntityFrameworkCore >= 7.0.16",
+      "Microsoft.EntityFrameworkCore.Design >= 7.0.16",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.16",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.11"
     ]
@@ -1108,11 +1109,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
+      "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
       "projectName": "HalloDoc.DbEntity",
-      "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
+      "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
       "packagesPath": "C:\\Users\\vaghe\\.nuget\\packages\\",
-      "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\obj\\",
+      "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc-Ntier\\HalloDoc.DbEntity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\vaghe\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1146,6 +1147,12 @@
             "version": "[5.0.17, )"
           },
           "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.16, )"
+          },
+          "Microsoft.EntityFrameworkCore.Design": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
             "target": "Package",
             "version": "[7.0.16, )"
           },

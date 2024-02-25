@@ -1,6 +1,8 @@
 using HalloDoc.DbEntity.Data;
 using HalloDoc.Repositories.Implementation;
 using HalloDoc.Repositories.Interfaces;
+using HalloDoc.Service.Implementation;
+using HalloDoc.Service.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,14 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IPatient, Patient>();
-
+builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddSession();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
-
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

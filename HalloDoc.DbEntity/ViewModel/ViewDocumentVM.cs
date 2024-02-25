@@ -1,6 +1,6 @@
 ﻿using HalloDoc.DbEntity.Models;
 
-namespace HalloDoc.ViewModels
+namespace HalloDoc.DbEntity.ViewModel
 {
     public class ViewDocumentVM
     {
@@ -43,5 +43,7 @@ namespace HalloDoc.ViewModels
         public String Notes { get; set; }
 
         public string Room { get; set; }
+
+        public string ConfirmationNo { get; set; }
     }
 }

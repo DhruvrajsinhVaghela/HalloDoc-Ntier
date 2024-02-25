@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "5.0.17",
           "Microsoft.EntityFrameworkCore": "7.0.16",
+          "Microsoft.EntityFrameworkCore.Design": "7.0.16",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.16",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
         },

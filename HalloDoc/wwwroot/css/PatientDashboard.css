@@ -121,7 +121,7 @@ label {
     width: 90%;
 }
 
-.main-form-div {
+#main-form-div {
     width: 90%;
     min-height: 105vh;
 }

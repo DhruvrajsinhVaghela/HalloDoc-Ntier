@@ -99,3 +99,13 @@ async function fetch_email() {
 
 
 }
+
+const getFileData = (myFile) => {
+    console.log("hi");
+    names = myFile.files;
+    let master = "";
+    for (i = 0; i < names.length; i++) {
+        master = master + "  " + names[i].name;
+    }
+    document.getElementById("form-label").innerHTML = `${master}`;
+}

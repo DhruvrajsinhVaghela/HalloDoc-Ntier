@@ -10,10 +10,20 @@
         "dependencies": {
           "HalloDoc.DbEntity": "1.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.16",
+          "Microsoft.EntityFrameworkCore.Design": "7.0.16",
+          "Microsoft.EntityFrameworkCore.Tools": "7.0.16",
           "microsoft-web-helpers": "2.1.20710.2"
         },
         "runtime": {
           "HalloDoc.Repositories.dll": {}
+        }
+      },
+      "Humanizer.Core/2.14.1": {
+        "runtime": {
+          "lib/net6.0/Humanizer.dll": {
+            "assemblyVersion": "2.14.0.0",
+            "fileVersion": "2.14.1.48190"
+          }
         }
       },
       "microsoft-web-helpers/2.1.20710.2": {
@@ -115,16 +125,35 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/7.0.16": {},
-      "Microsoft.EntityFrameworkCore.Relational/7.0.11": {
+      "Microsoft.EntityFrameworkCore.Design/7.0.16": {
+        "dependencies": {
+          "Humanizer.Core": "2.14.1",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.16",
+          "Microsoft.Extensions.DependencyModel": "7.0.0",
+          "Mono.TextTemplating": "2.2.1"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "7.0.16.0",
+            "fileVersion": "7.0.1624.6616"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Relational/7.0.16": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "7.0.16",
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0"
         },
         "runtime": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.dll": {
-            "assemblyVersion": "7.0.11.0",
-            "fileVersion": "7.0.1123.40906"
+            "assemblyVersion": "7.0.16.0",
+            "fileVersion": "7.0.1624.6616"
           }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools/7.0.16": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "7.0.16"
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
@@ -183,6 +212,18 @@
           }
         }
       },
+      "Microsoft.Extensions.DependencyModel/7.0.0": {
+        "dependencies": {
+          "System.Text.Encodings.Web": "7.0.0",
+          "System.Text.Json": "7.0.0"
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.Extensions.DependencyModel.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51805"
+          }
+        }
+      },
       "Microsoft.Extensions.Logging/7.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
@@ -233,6 +274,17 @@
           }
         }
       },
+      "Mono.TextTemplating/2.2.1": {
+        "dependencies": {
+          "System.CodeDom": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Mono.TextTemplating.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.1.1"
+          }
+        }
+      },
       "Npgsql/7.0.6": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "7.0.0"
@@ -248,7 +300,7 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "7.0.16",
           "Microsoft.EntityFrameworkCore.Abstractions": "7.0.16",
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.11",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.16",
           "Npgsql": "7.0.6"
         },
         "runtime": {
@@ -258,12 +310,26 @@
           }
         }
       },
+      "System.CodeDom/4.4.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.CodeDom.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.25519.3"
+          }
+        }
+      },
       "System.IO.Pipelines/5.0.2": {
         "runtime": {
           "lib/netcoreapp3.0/System.IO.Pipelines.dll": {
             "assemblyVersion": "5.0.0.1",
             "fileVersion": "5.0.1522.11506"
           }
+        }
+      },
+      "System.Text.Encodings.Web/7.0.0": {},
+      "System.Text.Json/7.0.0": {
+        "dependencies": {
+          "System.Text.Encodings.Web": "7.0.0"
         }
       },
       "HalloDoc.DbEntity/1.0.0": {
@@ -283,6 +349,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Humanizer.Core/2.14.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
+      "path": "humanizer.core/2.14.1",
+      "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
     },
     "microsoft-web-helpers/2.1.20710.2": {
       "type": "package",
@@ -347,12 +420,26 @@
       "path": "microsoft.entityframeworkcore.analyzers/7.0.16",
       "hashPath": "microsoft.entityframeworkcore.analyzers.7.0.16.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Relational/7.0.11": {
+    "Microsoft.EntityFrameworkCore.Design/7.0.16": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yHEEyah1XARStV1SJOsdKj8ieoMCZ0MkNuQaLfWONMWmbqwuDohfGQZk/FuzdT4aO/lJrUYiXbBSFv0ACzphEw==",
-      "path": "microsoft.entityframeworkcore.relational/7.0.11",
-      "hashPath": "microsoft.entityframeworkcore.relational.7.0.11.nupkg.sha512"
+      "sha512": "sha512-Z5Ra/VP8JfWPHE/3Ix0WzTlupk0KDhlCuUTOdUWREg1JpWpk8B8k7i3dX5TOLkAIvFfph1F3KT/5+sspuJtiEg==",
+      "path": "microsoft.entityframeworkcore.design/7.0.16",
+      "hashPath": "microsoft.entityframeworkcore.design.7.0.16.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Relational/7.0.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g5G9SDhhxi9jUvUIrWl8r5Xi3cxY1W549ijLjO6y/2xTQv5ZF83u9MOrO9LYVi1wmm7Dih37U46rh9ZNcWBl0g==",
+      "path": "microsoft.entityframeworkcore.relational/7.0.16",
+      "hashPath": "microsoft.entityframeworkcore.relational.7.0.16.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Tools/7.0.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZqBGxy8X1877dnGMVwmLzuMhZz8IstuX5QfUoKiQGIGRYV4r2YvxZX3oLw9BvyMZBgtm95dcW6Bev0gerKRNfA==",
+      "path": "microsoft.entityframeworkcore.tools/7.0.16",
+      "hashPath": "microsoft.entityframeworkcore.tools.7.0.16.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
       "type": "package",
@@ -389,6 +476,13 @@
       "path": "microsoft.extensions.dependencyinjection.abstractions/7.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.DependencyModel/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oONNYd71J3LzkWc4fUHl3SvMfiQMYUCo/mDHDEu76hYYxdhdrPYv6fvGv9nnKVyhE9P0h20AU8RZB5OOWQcAXg==",
+      "path": "microsoft.extensions.dependencymodel/7.0.0",
+      "hashPath": "microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -424,6 +518,13 @@
       "path": "microsoft.web.infrastructure/1.0.0",
       "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
     },
+    "Mono.TextTemplating/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
+      "path": "mono.texttemplating/2.2.1",
+      "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
+    },
     "Npgsql/7.0.6": {
       "type": "package",
       "serviceable": true,
@@ -438,12 +539,33 @@
       "path": "npgsql.entityframeworkcore.postgresql/7.0.11",
       "hashPath": "npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512"
     },
+    "System.CodeDom/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2sCCb7doXEwtYAbqzbF/8UAeDRMNmPaQbU2q50Psg1J9KzumyVVCgKQY8s53WIPTufNT0DpSe9QRvVjOzfDWBA==",
+      "path": "system.codedom/4.4.0",
+      "hashPath": "system.codedom.4.4.0.nupkg.sha512"
+    },
     "System.IO.Pipelines/5.0.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-Iew+dfa6FFiyvWBdRmXApixRY1db+beyutpIck4SOSe0NLM8FD/7AD54MscqVLhvfSMLHO7KadjTRT7fqxOGTA==",
       "path": "system.io.pipelines/5.0.2",
       "hashPath": "system.io.pipelines.5.0.2.nupkg.sha512"
+    },
+    "System.Text.Encodings.Web/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OP6umVGxc0Z0MvZQBVigj4/U31Pw72ITihDWP9WiWDm+q5aoe0GaJivsfYGq53o6dxH7DcXWiCTl7+0o2CGdmg==",
+      "path": "system.text.encodings.web/7.0.0",
+      "hashPath": "system.text.encodings.web.7.0.0.nupkg.sha512"
+    },
+    "System.Text.Json/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DaGSsVqKsn/ia6RG8frjwmJonfos0srquhw09TlT8KRw5I43E+4gs+/bZj4K0vShJ5H9imCuXupb4RmS+dBy3w==",
+      "path": "system.text.json/7.0.0",
+      "hashPath": "system.text.json.7.0.0.nupkg.sha512"
     },
     "HalloDoc.DbEntity/1.0.0": {
       "type": "project",

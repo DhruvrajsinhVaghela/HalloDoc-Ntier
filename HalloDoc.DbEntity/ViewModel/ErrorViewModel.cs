@@ -1,4 +1,5 @@
-﻿namespace HalloDoc.Models
+﻿namespace HalloDoc.DbEntity.ViewModel
+
 {
     public class ErrorViewModel
     {

@@ -1,5 +1,5 @@
 ﻿@* @page *@
-@model IEnumerable<HalloDoc.ViewModels.PatientDashboardVM>
+@model IEnumerable<HalloDoc.DbEntity.ViewModel.PatientDashboardVM>
 @{
     ViewData["Title"] = "Patient Dashoboard";
     ViewBag.cssLink = "~/css/PatientDashboard.css";
@@ -25,13 +25,13 @@
                 <div class="d-flex justify-content-center m-auto">
                     <div class="">
                         <a>
-                            <a class="btn btn-primary mb-1" id="meButton" asp-action="PatientMeRequest">
+                            <a class="btn btn-primary mb-1" id="meButton" >
                                 ME
                             </a>
                         </a>
                         <a>
                             @*  *@
-                            <a class="btn btn-primary mb-1 ms-2" id="someoneElseButton" asp-action="PatientSomeOneElseRequest">
+                            <a class="btn btn-primary mb-1 ms-2" id="someoneElseButton">
                                 Some One Else
                             </a>
                         </a>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center align-items-center my-3 ms-auto">
-                    <a asp-route-id="@Model.FirstOrDefault().user.AspNetUserId" class="btn logout-btn me-3" id="continueButton">
+                    <a class="btn logout-btn me-3" id="continueButton">
                         Continue
                     </a>
                     <button type="button" class="btn" data-bs-dismiss="modal">
@@ -56,13 +56,13 @@
     <ul class="nav nav-tabs bg-white" id="myTab" role="tablist">
         <li class="nav-item " role="presentation">
             <button class="nav-link active " id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
-                    type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                    type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" onclick="showaccordian()">
                 Dashboard
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                    type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                    type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false" onclick="hideaccordian()">
                 Profile
             </button>
         </li>
@@ -72,7 +72,7 @@
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
              tabindex="0">
             <h4>Medical History</h4>
-            <div class="border rounded bg-white">
+            <div class="border rounded" id="main-div">
 
                 <div class="d-none d-sm-block">
                     <div class=" d-flex justify-content-end my-3 me-3">
@@ -99,20 +99,21 @@
                                             @item.CreatedDate
                                 </td>
                                 <td>
-                                            @item.Status
+                                        @if(item.Status==1)
+                                            {
+                                               <p>Unassigned</p>                
+                                            }
                                 </td>
                                 <td>
-                                            @if (item.count_file != 0)//42
-                                            {
-
-                                        <a class="btn" asp-action="PatientViewDocuments"
-                                           asp-route-id="@item.requestID">
+                                    @if (item.count_file != 0)//42
+                                    {
+                                    <a class="btn" asp-action="PatientViewDocuments" asp-route-id="@item.requestID">
                                             <button class="logout-btn btn">
-                                                Document<span>&nbsp;(@item.count_file)</span>
+                                                Document
+                                                <span>&nbsp;(@item.count_file)</span>
                                             </button>
-                                        </a>
-
-                                            }
+                                    </a>
+                                    }
                                 </td>
                             </tr>
                                 }
@@ -130,14 +131,16 @@
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
              tabindex="0">
 
-            <div class="d-flex justify-content-between m-auto" id="profile-div">
-                <h4>User Profile</h4>
-                <button class="btn logout-btn mb-1">
-                    &lt; Back
-                </button>
+            <div class=" w-100" id="profile-div">
+                <div class="d-flex justify-content-between m-auto" >
+                    <h4>User Profile</h4>
+                    <button class="btn logout-btn mb-1">
+                        &lt; Back
+                    </button>
+                </div>
             </div>
 
-            <div class="main-form-div m-auto">
+            <div class=" m-auto border rounded-3 w-100" id="main-form-div">
                 <form class="form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().user.AspNetUserId">
                     <fieldset id="myForm" disabled>
                             @* disabled *@
@@ -334,12 +337,49 @@
                                     <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
                                 </svg>
                             </span>
-                            Current Status : <span>@item.Status</span>
+                            Current Status : <span>
+                                @if(item.Status==1)
+                                {
+                                    <span>Unassigned</span>
+                                }
+                                </span>
                         </p>
                     </div>
                 </div>
             </div>
         }
     </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var meButton = document.getElementById('meButton');
+            var someoneElseButton = document.getElementById('someoneElseButton');
+            var continueButton = document.getElementById('continueButton');
+            // Event listener for "ME" button
+            meButton.addEventListener('click', function () {
+                meButton.classList.add('btn-success');
+                someoneElseButton.classList.remove('btn-success');
+            });
+
+            // Event listener for "SOMEONE ELSE" button
+            someoneElseButton.addEventListener('click', function () {
+                meButton.classList.remove('btn-success');
+                someoneElseButton.classList.add('btn-success');
+            });
+
+            // Event listener for "Continue" button
+            continueButton.addEventListener('click', function () {
+                var userType = meButton.classList.contains('btn-success') ? 'me' : 'someoneElse';
+                if (userType === 'me') {
+                    document.location.href = '/Patient/PatientMeRequest?id='+@Model.FirstOrDefault().user.UserId;
+                } else {
+                    document.location.href = '/Patient/PatientSomeOneElseRequest?id=' + @Model.FirstOrDefault().user.UserId;
+                }
+            });
+
+
+        });
+    </script>
 
 </body>

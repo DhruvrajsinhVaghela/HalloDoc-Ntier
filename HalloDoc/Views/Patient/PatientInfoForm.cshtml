@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_layoutWithHeaderFooter.cshtml";
 
 }
-@model HalloDoc.ViewModels.PatientInfo
+@model HalloDoc.DbEntity.ViewModel.PatientInfo
 <body onload="load()">
    
     <form asp-action="PatientInfoForm" class="form" enctype="multipart/form-data">
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="container d-flex justify-content-end my-3 ">
                                     <button type="submit" class="btn btn-info me-2">Submit</button>
-                                    <button type="button" class="btn btn-transparent border border-2">Cancle</button>
+                                    <a asp-action="PatientSubmitRequest"><button type="button" class="btn btn-transparent border border-2">Cancle</button></a>
                                 </div>
 
                             </div>

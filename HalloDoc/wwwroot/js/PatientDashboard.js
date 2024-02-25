@@ -14,7 +14,10 @@ function myFunction() {
         document.getElementById("home-tab-pane").style.color = "#08BCEB";
         document.getElementById("profile-div").style.backgroundColor = "black";
         document.getElementById("profile-div").style.color = "#08BCEB";
-        document.getElementById("home-tab-pane").style.backgroundColor = "black";
+        document.getElementById("main-div").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
+        document.getElementById("main-form-div").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
+
+
         light = 0;
         return;
     }
@@ -24,7 +27,9 @@ function myFunction() {
         document.getElementById("home-tab-pane").style.color = "black";
         document.getElementById("profile-div").style.backgroundColor = "white";
         document.getElementById("profile-div").style.color = "black";
-        document.getElementById("home-tab-pane").style.color = "black";
+        document.getElementById("main-div").style.backgroundColor = "white";
+        document.getElementById("main-form-div").style.backgroundColor = "white";
+
         light = 1;
     }
 
@@ -81,36 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
         saveButton.classList.add('d-none'); // Hide save button
     });
 });
-document.addEventListener('DOMContentLoaded', function () {
-    var meButton = document.getElementById('meButton');
-    var someoneElseButton = document.getElementById('someoneElseButton');
-    var continueButton = document.getElementById('continueButton');
 
-    // Event listener for "ME" button
-    meButton.addEventListener('click', function () {
-        meButton.classList.add('btn-success');
-        someoneElseButton.classList.remove('btn-success');
-    });
-
-    // Event listener for "SOMEONE ELSE" button
-    someoneElseButton.addEventListener('click', function () {
-        meButton.classList.remove('btn-success');
-        someoneElseButton.classList.add('btn-success');
-    });
-
-    // Event listener for "Continue" button
-    continueButton.addEventListener('click', function () {
-        var userType = meButton.classList.contains('btn-success') ? 'me' : 'someoneElse';
-        if (userType === 'me') {
-            document.location.href = '/Home/PatientMeRequest';
-        } else {
-            document.location.href = '/Home/PatientSomeOneElseRequest';
-
-        }
-    });
-
-
-});
 const getFileData = (myFile) => {
     names = myFile.files;
     let master = "";
@@ -118,4 +94,13 @@ const getFileData = (myFile) => {
         master = master + "  " + names[i].name;
     }
     document.getElementById("form-label").innerHTML = `${master}`;
+}
+function hideaccordian() {
+    console.log("hide");
+    document.getElementById("accordionExample").style.display = "none";
+}
+function showaccordian() {
+    console.log("show");
+
+    document.getElementById("accordionExample").style.display = "block";
 }

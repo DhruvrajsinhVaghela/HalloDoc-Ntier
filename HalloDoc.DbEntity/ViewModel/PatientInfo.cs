@@ -5,11 +5,11 @@ using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 
-namespace HalloDoc.ViewModels
+namespace HalloDoc.DbEntity.ViewModel
 {
     public class PatientInfo
     {
-        [Required(ErrorMessage = "UserName is required")]
+        [Required(ErrorMessage = "Notes is required")]
         public required string Notes { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

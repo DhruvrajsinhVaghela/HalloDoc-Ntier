@@ -9,10 +9,13 @@
       "HalloDoc/1.0.0": {
         "dependencies": {
           "HalloDoc.Repositories": "1.0.0",
+          "HalloDoc.Service": "1.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.16",
           "Microsoft.EntityFrameworkCore.Design": "7.0.16",
+          "Microsoft.EntityFrameworkCore.Tools": "7.0.16",
           "Microsoft.PowerBI.Api": "4.18.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.12"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.12",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
         },
         "runtime": {
           "HalloDoc.dll": {}
@@ -1170,6 +1173,11 @@
             "assemblyVersion": "7.0.16.0",
             "fileVersion": "7.0.1624.6616"
           }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools/7.0.16": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "7.0.16"
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
@@ -2387,6 +2395,14 @@
         "runtime": {
           "HalloDoc.Repositories.dll": {}
         }
+      },
+      "HalloDoc.Service/1.0.0": {
+        "dependencies": {
+          "HalloDoc.Repositories": "1.0.0"
+        },
+        "runtime": {
+          "HalloDoc.Service.dll": {}
+        }
       }
     }
   },
@@ -2941,6 +2957,13 @@
       "sha512": "sha512-g5G9SDhhxi9jUvUIrWl8r5Xi3cxY1W549ijLjO6y/2xTQv5ZF83u9MOrO9LYVi1wmm7Dih37U46rh9ZNcWBl0g==",
       "path": "microsoft.entityframeworkcore.relational/7.0.16",
       "hashPath": "microsoft.entityframeworkcore.relational.7.0.16.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Tools/7.0.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZqBGxy8X1877dnGMVwmLzuMhZz8IstuX5QfUoKiQGIGRYV4r2YvxZX3oLw9BvyMZBgtm95dcW6Bev0gerKRNfA==",
+      "path": "microsoft.entityframeworkcore.tools/7.0.16",
+      "hashPath": "microsoft.entityframeworkcore.tools.7.0.16.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
       "type": "package",
@@ -3893,6 +3916,11 @@
       "sha512": ""
     },
     "HalloDoc.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HalloDoc.Service/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
