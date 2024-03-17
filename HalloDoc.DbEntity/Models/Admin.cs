@@ -49,5 +49,7 @@ public partial class Admin
 
     public virtual AspNetUser? ModifiedByNavigation { get; set; }
 
+    public virtual ICollection<RequestStatusLog> RequestStatusLogs { get; set; } = new List<RequestStatusLog>();
+
     public virtual ICollection<RequestWiseFile> RequestWiseFiles { get; set; } = new List<RequestWiseFile>();
 }

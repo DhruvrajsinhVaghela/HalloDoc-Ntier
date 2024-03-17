@@ -1,0 +1,471 @@
+﻿@using System.Globalization;
+
+@* @model HalloDoc.DbEntity.ViewModel.AdminDashboardVM; *@
+@model IEnumerable<HalloDoc.DbEntity.ViewModel.AdminDashboardVM>;
+
+<div class="table-responsive d-none d-md-block vh-100">
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col" class="text-clr">Name</th>
+                <th scope="col" class="text-clr">Date Of Birth</th>
+                <th scope="col" class="text-clr">Requestor</th>
+                <th scope="col" class="text-clr">Physician Name</th>
+                <th scope="col" class="text-clr">Date Of Service</th>
+                <th scope="col" class="text-clr">Requested date</th>
+                <th scope="col" class="text-clr">Phone</th>
+                <th scope="col" class="text-clr">Address</th>
+                <th scope="col" class="text-clr">Notes</th>
+                <th scope="col" class="text-clr">Chat With</th>
+                <th scope="col" class="text-clr">Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var obj in Model)
+            {
+                string cls = "bg-warning";
+                string name = "";
+                {
+                    if (obj.RequestType == 1)
+                    {
+                        cls = "bg-success";
+                        name = "Patient";
+                    }
+                    else if (obj.RequestType == 2)
+                    {
+                        cls = "bg-warning";
+                        name = "Family/Friend";
+                    }
+                    else if (obj.RequestType == 3)
+                    {
+                        cls = "bg-info";
+                        name = "Concierge";
+                    }
+                    else if (obj.RequestType == 4)
+                    {
+                        cls = "bg-danger";
+                        name = "Business";
+                    }
+                }
+
+                <tr class="align-middle @cls ">
+                    <td class="text-white">
+                        <div class="d-flex justify-content-between">
+                            <span>@obj.PatientName</span>
+                            <div class="border border-white rounded-2 justify-content-center d-flex ms-3 p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope text-white" viewBox="0 0 16 16">
+                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-white">@obj.BirthDate</td>
+                    <td class="text-white">@obj.RequestorName</td>
+                    <td class="text-white">@obj.ProviderName</td>
+                    <td></td>
+                    <td class="text-white">@obj.RequestDate.ToString("MMM-dd-yyyy",CultureInfo.InvariantCulture)</td>
+
+                    <td class="text-white">
+                        @if (obj.RequestorPhoneNumber == obj.Phonenumber)
+                        {
+                            obj.RequestorPhoneNumber = "";
+                        }
+                        @if (obj.Phonenumber != "")
+                        {
+                            <button class="btn px-1 btn-outline-light">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                    </svg>
+                                </span>
+                                @obj.Phonenumber
+                            </button>
+                            <p>Patient</p>
+                        }
+                        @if (obj.RequestorPhoneNumber != "")
+                        {
+                            <button class="btn px-1 btn-outline-light">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                    </svg>
+                                    @obj.RequestorPhoneNumber
+                                </span>
+
+                            </button>
+                            <p>@name</p>
+                        }
+
+                    </td>
+                    <td class="text-white">@obj.Address</td>
+                    <td class="text-white">@obj.Notes</td>
+                    <td>
+                        @*  @if (@obj.ChatWith != null)
+                    {
+                    <button class="btn btn-outline-secondary d-none d-md-block">Provider</button>
+                    } *@ abc
+                    </td>
+                    <td class="text-white">
+                        <div class="dropdown">
+                            <a class="btn btn-secondary bg-transparent" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li class="d-flex align-items-center ms-2">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                    </svg>
+                                    <span> <a class="dropdown-item" asp-action="ViewReservation" asp-controller="Admin" asp-route-id="@obj.ReqID">View Case</a></span>
+                                </li>
+                                <li class="d-flex align-items-center ms-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-arrow-up" viewBox="0 0 16 16">
+                                        <path d="M8 11a.5.5 0 0 0 .5-.5V6.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 6.707V10.5a.5.5 0 0 0 .5.5" />
+                                        <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1" />
+                                    </svg>
+                                    <span><a class="dropdown-item" href="#">View Uploads</a></span>
+                                </li>
+                                <li class="d-flex align-items-center ms-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                        <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                    </svg>
+                                    <span> <a class="dropdown-item" href="#">View Notes</a></span>
+                                </li>
+                                <li class="d-flex align-items-center ms-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
+                                        <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
+                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                                    </svg>
+                                    <a class="dropdown-item" asp-action="SendOrder" asp-controller="Admin" asp-route-id="@obj.ReqID">Orders</a>
+                                </li>
+
+
+                                <li class="d-flex align-items-center ms-2">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                        </svg>
+                                    </span><a class="dropdown-item" href="#">Doctors Note</a>
+                                </li>
+                                <li class="d-flex align-items-center ms-2">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-ruled" viewBox="0 0 16 16">
+                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5zM3 12v-2h2v2zm0 1h2v2H4a1 1 0 0 1-1-1zm3 2v-2h7v1a1 1 0 0 1-1 1zm7-3H6v-2h7z" />
+                                        </svg>
+                                    </span><a class="dropdown-item" href="#">Encounter</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    <div class="w-100 d-flex justify-content-center mb-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @{
+                    double? ItemOnPage = 2;
+                    var i = 1;
+                    double? pagecount = 0;
+                    if (Model.FirstOrDefault()?.ItemCountPagination != null)
+                    {
+                        pagecount = Model.FirstOrDefault()!.ItemCountPagination;
+                    }
+
+                    double? totalPages = 0;
+                    if (pagecount % ItemOnPage == 0)
+                    {
+                        totalPages = pagecount / ItemOnPage;
+                    }
+                    else
+                    {
+                        totalPages = (pagecount / ItemOnPage) + 0.5;
+                    }
+                    <li class="page-item" id="previous"><a class="page-link" onclick="Previous()">Previous</a></li>
+                    <li class="page-item"><a class="page-link" id="CurrentTab">@i</a></li>
+                    <li class="page-item" id="next"><a class="page-link" onclick="Next(@totalPages,@i)">Next</a></li>
+
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+@foreach (var obj in Model)
+{
+    string cls = "text-warning";
+    string name = "";
+    {
+        if (obj.RequestType == 1)
+        {
+            cls = "text-success";
+            name = "Patient";
+
+        }
+        else if (obj.RequestType == 2)
+        {
+            cls = "text-warning";
+            name = "Family/Friend";
+        }
+        else if (obj.RequestType == 3)
+        {
+            cls = "text-info";
+            name = "Concierge";
+        }
+        else if (obj.RequestType == 4)
+        {
+            cls = "text-danger";
+            name = "Business";
+        }
+    }
+    @*  TimeSpan myDateResult = DateTime.Now - obj.RequestDate.ToDateTime(TimeOnly.Parse(""));
+        int hours = (int)myDateResult.TotalHours; *@
+    string ID = "a" + obj.ReqID.ToString();
+
+    <div class="accordion d-md-none" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@ID" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="w-100">
+
+                        <div class="d-flex w-100 justify-content-between p-2">
+
+                            <div>@obj.PatientLastName @obj.PatientName</div>
+                            <div>
+                                <div class="d-md-flex gap-1 mx-auto text-center align-items-center">
+                                    <span>@name</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill @cls" viewBox="0 0 16 16">
+                                        <circle cx="8" cy="8" r="8" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between w-100 p-2">
+                            <div>
+                                <p>@obj.Street @obj.City</p>
+                                <p>@obj.State @obj.ZipCode</p>
+                            </div>
+                            <div class="w-100">
+                                <div class="border border-info  rounded-3 px-2 py-1 text-decoration-none text-info">
+                                    Map Location
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock text-info" viewBox="0 0 16 16">
+                                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                                </svg>
+                                <span>
+                                    Wait Time:@obj.RequestDate
+                                    <span>  </span>
+
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </button>
+            </h2>
+            <div id="@ID" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div>
+                        <hr>
+                        <div class="w-100 d-flex justify-content-end">
+
+                            <button class="btn border rounded-pill border-info position-absolute ViewCaseBtn bg-white">
+                                View Case
+                            </button>
+                        </div>
+                        <p>
+                            <div class="d-flex align-items-center">
+
+                                <div class="border border-2 px-2 py-1 rounded-circle border-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar4-week" viewBox="0 0 16 16">
+                                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                        <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                    </svg>
+                                </div>
+                                <span class="ms-2">Date Of Birth: @obj.BirthDate</span>
+                            </div>
+                        </p>
+                        <p>
+                            <div class="d-flex align-items-center">
+
+                                <div class="border border-2 px-2 py-1 rounded-circle border-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                    </svg>
+                                </div>
+                                <span class="ms-2">Email: @obj.Email</span>
+                            </div>
+                        </p>
+                        <p>
+                            <div class="d-flex align-items-center">
+
+                                <div class="border border-2 px-2 py-1 rounded-circle border-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                    </svg>
+                                </div>
+                                <span class="ms-2">Patient: @obj.Phonenumber</span>
+                            </div>
+                        </p>
+                        <p>
+                            <div class="d-flex align-items-center">
+
+                                <div class="border border-2 px-2 py-1 rounded-circle border-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                        <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                    </svg>
+                                </div>
+                                <span class="ms-2">Transfer Notes:</span>
+                            </div>
+                        </p>
+                        <p>
+                            <div class="d-flex align-items-center">
+
+                                <div class="border border-2 px-2 py-1 rounded-circle border-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar4-week" viewBox="0 0 16 16">
+                                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                        <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                    </svg>
+                                </div>
+                                <span class="ms-2">Date Of Service:</span>
+                            </div>
+                        </p>
+                        <p>
+                            <div class="d-flex align-items-center">
+
+                                <div class="border border-2 px-2 py-1 rounded-circle border-info">
+                                    <img src="~/images/icons8-medical-doctor-50.png" width="20" height="20">
+                                </div>
+                                <span class="ms-2">Physician:@obj.ProviderName</span>
+                            </div>
+                        </p>
+                        <p>
+                            <div class="d-flex align-items-center">
+
+                                <div class="border border-2 px-2 py-1 rounded-circle border-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                    </svg>
+                                </div>
+                                <span class="ms-2">Requestor:@obj.RequestorName</span>
+                            </div>
+                        </p>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col ">
+                                <button class="btn rounded-pill bg-success  py-1 w-75">View Notes</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn rounded-pill bg-success py-1 w-75">Doctor Notes</button>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col">
+                                <button class="btn rounded-pill bg-success  py-1 w-75">View Uploads</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn rounded-pill bg-success  py-1 w-75">Encounter</button>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col ">
+                                <button class="btn rounded-pill bg-warning py-1 w-75">Orders</button>
+                            </div>
+                            <div class="col ">
+                                <button class="btn rounded-pill bg-success py-1 w-75">Email</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="w-100 d-flex justify-content-end align-items-center">
+                        <span class="me-2">Chat With:</span>
+                        <span class="me-2">
+                            <button class="btn btn-outline-info border border-info rounded-3">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person text-dark" viewBox="0 0 16 16">
+                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                    </svg>
+                                </span>
+                                Patient
+                            </button>
+                        </span>
+                        <span class="me-2">
+                            <button class="btn btn-outline-info border border-info rounded-3">
+                            <span>
+                                    <img src="~/images/icons8-medical-doctor-50.png" width="20" height="20">
+                            </span>
+                                Provider
+                            </button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+<script>
+    function Next(totalpages) {
+
+        var a = $('#CurrentTab').text();
+        var b = parseInt(a);
+        b = b + 1;
+
+        if (b <= totalpages) {
+
+            pagination(b, @ItemOnPage);
+        }
+
+    }
+    function Previous() {
+        var a = $('#CurrentTab').text();
+        var b = parseInt(a);
+        b = b - 1;
+
+        if (b > 0) {
+            pagination(b, @ItemOnPage);
+        }
+    }
+    function pagination(number, itemsperpage) {
+
+
+        $.ajax({
+            url: '/Admin/Page',
+            method: 'POST',
+            data: {
+                status: 3,
+                pn: number,
+                item: itemsperpage,
+            },
+            success: function (response) {
+
+                $('#Content').html(response);
+                $('#CurrentTab').html(number);
+            },
+            error: function (error) {
+                console.error('Error in AJAX', error);
+            }
+        })
+
+    }
+</script>

@@ -1,0 +1,268 @@
+﻿/*ADMIN LOGIN PAGE*/
+
+/*.main_wrapper {
+    height: 100vh;
+}
+
+.login_wrapper {
+    max-width: 500px;
+}
+
+.adminlogin_wrapper {
+    height: 100vh;
+    width: 100vw;
+}
+
+
+*/
+
+
+
+/*Dashboard Cards*/
+.new {
+    background-color:linen;
+    color: lightcoral;
+}
+
+    .new:hover{
+        background-color: rgba(2, 2, 146);
+        color: white;
+    }
+.NewStateBg {
+    background-color: rgba(2, 2, 146);
+    color: white;
+}
+.NewStateArw {
+    border-top: 15px solid rgba(2, 2, 146) !important;
+    display: block !important;
+}
+
+.Pending {
+    background-color: lightblue;
+    color: rgb(41, 179, 197);
+}
+
+    .Pending:hover{
+        background-color: rgb(0, 92, 104);
+        color: white;
+    }
+.PendingStateBg {
+    background-color: rgb(0, 92, 104);
+    color: white;
+}
+.PendingStateArw {
+    border-top: 15px solid rgb(0, 92, 104) !important;
+    display: block !important;
+}
+
+.Active1 {
+    background-color: lightgreen;
+    color: darkgreen;
+}
+
+    .Active1:hover {
+        background-color: rgb(2, 54, 37);
+        color: white;
+    }
+
+.ActiveStateBg {
+    background-color: rgb(2, 54, 37);
+    color: white;
+}
+
+.ActiveStateArw {
+    border-top: 15px solid rgb(2, 54, 37) !important;
+    display: block !important;
+}
+
+.Conclude {
+    background-color: orchid;
+    color: lightpink;
+}
+
+    .Conclude:hover {
+        background-color: rgb(99, 3, 91);
+        color: white;
+    }
+.ConcludeStateBg {
+    background-color: rgb(99, 3, 91);
+    color: white;
+}
+
+.ConcludeStateArw {
+    border-top: 15px solid rgb(99, 3, 91) !important;
+    display: block !important;
+}
+
+
+
+.ToClose {
+    background-color: lightcyan;
+    color: lightskyblue;
+}
+
+
+    .ToClose:hover {
+        background-color: rgb(3, 47, 83);
+        color: white;
+    }
+.CloseStateBg {
+    background-color: rgb(3, 47, 83);
+    color: white;
+}
+
+.CloseStateArw {
+    border-top: 15px solid rgb(3, 47, 83) !important;
+    display: block !important;
+}
+.Unpaid {
+    background-color:mediumpurple;
+    color: plum;
+}
+
+    .Unpaid:hover, {
+        background-color: rgb(44, 1, 70);
+        color: white;
+    }
+.UnpaidStateBg {
+    background-color: rgb(3, 47, 83);
+    color: white;
+}
+
+.UnpaidStateArw {
+    border-top: 15px solid rgb(3, 47, 83) !important;
+    display: block !important;
+}
+
+.table > :not(caption) > * > *{
+    background:none !important;
+    /*padding:0 !important;*/
+}
+
+#darkmode-btn {
+    border-radius: 5px;
+    border-color: #08BCEB;
+    background-color:transparent;
+}
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 8vh;
+    background-color: black;
+    color: white;
+    text-align: right;
+}
+.notes-div{
+    width:95%;
+    margin:auto;
+}
+.selectfile {
+    margin-right: 2px;
+    width: 100%;
+    border: 1px solid black;
+}
+.upload-btn {
+    background-color: #00bde7;
+    color: white;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.main-container {
+    min-height: 100vh;
+    padding: 0;
+}
+
+.login-btn {
+    height: 7vh;
+    width: 80%;
+}
+
+#heading {
+    margin-bottom: 10%;
+}
+.btn-info {
+    color: white;
+}
+
+    .btn-info:hover {
+        border-color: black;
+        color: black;
+        background-color: #99ebff;
+    }
+
+.btn-primary:hover {
+    border-color: black;
+    color: black;
+    background-color: #9999ff;
+}
+.supportive-img{
+    width:100%;
+    height:100%
+}
+.input-icon {
+    right: 1px;
+    top: 1px;
+    /*margin-top: 10px;*/
+    width: 30px;
+    height: 70%;
+}
+
+
+.form-floating > .form-select {
+    padding:0 !important;
+}
+
+.backg-color{
+    background-color:lightgrey !important;
+}
+
+.form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-select ~ label::after{
+    background-color:none !important;
+}
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear {
+    display: none;
+}
+
+@media screen and (min-width:0px) {
+    .main-container::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.3;
+        background: url('/images/11116016_415.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+}
+.phone-code, .phone-input {
+    height: calc(3.5rem + calc(var(--bs-border-width) * 2)) !important;
+}
+
+.iti {
+    width: 100%;
+}
+
+.iti__country-list {
+    z-index: 3 !important;
+}
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 15px solid black;
+    position:relative;
+    margin-bottom:10px;
+    display:none;
+
+}
+
+.ViewCaseBtn {
+    transform: scale(0.85) translateY(-2.5rem) translateX(-0.85rem);
+}
+

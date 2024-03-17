@@ -18,11 +18,23 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Admin> Admins { get; set; }
 
+    public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+
     public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+
+    public virtual DbSet<Blockrequest> Blockrequests { get; set; }
 
     public virtual DbSet<Business> Businesses { get; set; }
 
+    public virtual DbSet<CaseTag> CaseTags { get; set; }
+
     public virtual DbSet<Concierge> Concierges { get; set; }
+
+    public virtual DbSet<HealthProfessional> HealthProfessionals { get; set; }
+
+    public virtual DbSet<HealthProfessionalType> HealthProfessionalTypes { get; set; }
+
+    public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
     public virtual DbSet<Physician> Physicians { get; set; }
 
@@ -35,6 +47,10 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<RequestClient> RequestClients { get; set; }
 
     public virtual DbSet<RequestConcierge> RequestConcierges { get; set; }
+
+    public virtual DbSet<RequestNote> RequestNotes { get; set; }
+
+    public virtual DbSet<RequestStatusLog> RequestStatusLogs { get; set; }
 
     public virtual DbSet<RequestWiseFile> RequestWiseFiles { get; set; }
 
@@ -109,6 +125,18 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("admin_modified_by_fkey");
         });
 
+        modelBuilder.Entity<AspNetRole>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("asp_net_roles_pkey");
+
+            entity.ToTable("asp_net_roles");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(256)
+                .HasColumnName("name");
+        });
+
         modelBuilder.Entity<AspNetUser>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("asp_net_users_pkey");
@@ -139,6 +167,60 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.UserName)
                 .HasMaxLength(256)
                 .HasColumnName("user_name");
+
+            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "AspNetUserRole",
+                    r => r.HasOne<AspNetRole>().WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("asp_net_user_roles_role_id_fkey"),
+                    l => l.HasOne<AspNetUser>().WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("asp_net_user_roles_user_id_fkey"),
+                    j =>
+                    {
+                        j.HasKey("UserId", "RoleId").HasName("asp_net_user_roles_primary_key");
+                        j.ToTable("asp_net_user_roles");
+                        j.IndexerProperty<int>("UserId")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnName("user_id");
+                        j.IndexerProperty<int>("RoleId")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnName("role_id");
+                    });
+        });
+
+        modelBuilder.Entity<Blockrequest>(entity =>
+        {
+            entity.HasKey(e => e.BlockrequestId).HasName("blockrequests_pkey");
+
+            entity.ToTable("blockrequests");
+
+            entity.Property(e => e.BlockrequestId).HasColumnName("blockrequestId");
+            entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .HasColumnName("email");
+            entity.Property(e => e.Ip)
+                .HasMaxLength(20)
+                .HasColumnName("IP");
+            entity.Property(e => e.IsActive)
+                .HasColumnType("bit(1)")
+                .HasColumnName("isActive");
+            entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
+            entity.Property(e => e.Phonenumber)
+                .HasMaxLength(50)
+                .HasColumnName("phonenumber");
+            entity.Property(e => e.Reason)
+                .HasColumnType("character varying")
+                .HasColumnName("reason");
+            entity.Property(e => e.RequestId).HasColumnName("request_id");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.Blockrequests)
+                .HasForeignKey(d => d.RequestId)
+                .HasConstraintName("blockrequests_request_id_fkey");
         });
 
         modelBuilder.Entity<Business>(entity =>
@@ -199,6 +281,15 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("business_region_id_fkey");
         });
 
+        modelBuilder.Entity<CaseTag>(entity =>
+        {
+            entity.HasKey(e => e.CaseTagId).HasName("CaseTag_pkey");
+
+            entity.ToTable("CaseTag");
+
+            entity.Property(e => e.Name).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Concierge>(entity =>
         {
             entity.HasKey(e => e.ConciergeId).HasName("concierge_pkey");
@@ -237,6 +328,120 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.RegionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("concierge_region_id_fkey");
+        });
+
+        modelBuilder.Entity<HealthProfessional>(entity =>
+        {
+            entity.HasKey(e => e.VendorId).HasName("health_professionals_pkey");
+
+            entity.ToTable("health_professionals");
+
+            entity.Property(e => e.VendorId).HasColumnName("vendor_id");
+            entity.Property(e => e.Address)
+                .HasMaxLength(150)
+                .HasColumnName("address");
+            entity.Property(e => e.BusinessContact)
+                .HasMaxLength(100)
+                .HasColumnName("business_contact");
+            entity.Property(e => e.City)
+                .HasMaxLength(100)
+                .HasColumnName("city");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .HasColumnName("email");
+            entity.Property(e => e.FaxNumber)
+                .HasMaxLength(50)
+                .HasColumnName("fax_number");
+            entity.Property(e => e.Ip)
+                .HasDefaultValueSql("inet_client_addr()")
+                .HasColumnName("ip");
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(100)
+                .HasColumnName("phone_number");
+            entity.Property(e => e.Profession).HasColumnName("profession");
+            entity.Property(e => e.RegionId).HasColumnName("region_id");
+            entity.Property(e => e.State)
+                .HasMaxLength(50)
+                .HasColumnName("state");
+            entity.Property(e => e.VendorName)
+                .HasMaxLength(50)
+                .HasColumnName("vendor_name");
+            entity.Property(e => e.Zip)
+                .HasMaxLength(50)
+                .HasColumnName("zip");
+
+            entity.HasOne(d => d.ProfessionNavigation).WithMany(p => p.HealthProfessionals)
+                .HasForeignKey(d => d.Profession)
+                .HasConstraintName("health_professionals_profession_fkey");
+
+            entity.HasOne(d => d.Region).WithMany(p => p.HealthProfessionals)
+                .HasForeignKey(d => d.RegionId)
+                .HasConstraintName("health_professionals_region_id_fkey");
+        });
+
+        modelBuilder.Entity<HealthProfessionalType>(entity =>
+        {
+            entity.HasKey(e => e.HealthProfessionalId).HasName("health_professional_type_pkey");
+
+            entity.ToTable("health_professional_type");
+
+            entity.Property(e => e.HealthProfessionalId).HasColumnName("health_professional_id");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.IsActive).HasColumnName("is_active");
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
+            entity.Property(e => e.ProfessionName)
+                .HasMaxLength(50)
+                .HasColumnName("profession_name");
+        });
+
+        modelBuilder.Entity<OrderDetail>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("order_details_pkey");
+
+            entity.ToTable("order_details");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.BusinessContact)
+                .HasMaxLength(100)
+                .HasColumnName("business_contact");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .HasColumnName("email");
+            entity.Property(e => e.FaxNumber)
+                .HasMaxLength(50)
+                .HasColumnName("fax_number");
+            entity.Property(e => e.NoOfRefill).HasColumnName("no_of_refill");
+            entity.Property(e => e.Prescription).HasColumnName("prescription");
+            entity.Property(e => e.RequestId).HasColumnName("request_id");
+            entity.Property(e => e.VendorId).HasColumnName("vendor_id");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.OrderDetails)
+                .HasForeignKey(d => d.CreatedBy)
+                .HasConstraintName("order_details_created_by_fkey");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.OrderDetails)
+                .HasForeignKey(d => d.RequestId)
+                .HasConstraintName("order_details_request_id_fkey");
+
+            entity.HasOne(d => d.Vendor).WithMany(p => p.OrderDetails)
+                .HasForeignKey(d => d.VendorId)
+                .HasConstraintName("order_details_vendor_id_fkey");
         });
 
         modelBuilder.Entity<Physician>(entity =>
@@ -558,6 +763,80 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.RequestId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("request_concierge_request_id_fkey");
+        });
+
+        modelBuilder.Entity<RequestNote>(entity =>
+        {
+            entity.HasKey(e => e.RequestNotesId).HasName("RequestNotes_pkey");
+
+            entity.Property(e => e.AdminNotes).HasMaxLength(500);
+            entity.Property(e => e.AdministrativeNotes).HasMaxLength(500);
+            entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
+            entity.Property(e => e.IntDate).HasColumnName("intDate");
+            entity.Property(e => e.IntYear).HasColumnName("intYear");
+            entity.Property(e => e.Ip)
+                .HasMaxLength(20)
+                .HasColumnName("IP");
+            entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
+            entity.Property(e => e.PhysicianNotes).HasMaxLength(500);
+            entity.Property(e => e.StrMonth)
+                .HasMaxLength(20)
+                .HasColumnName("strMonth");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.RequestNoteCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .HasConstraintName("RequestNotes_CreatedBy_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.RequestNoteModifiedByNavigations)
+                .HasForeignKey(d => d.ModifiedBy)
+                .HasConstraintName("RequestNotes_ModifiedBy_fkey");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.RequestNotes)
+                .HasForeignKey(d => d.RequestId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("RequestNotes_RequestId_fkey");
+        });
+
+        modelBuilder.Entity<RequestStatusLog>(entity =>
+        {
+            entity.HasKey(e => e.RequestStatusLogId).HasName("request_status_log_pkey");
+
+            entity.ToTable("request_status_log");
+
+            entity.Property(e => e.RequestStatusLogId).HasColumnName("request_status_log_id");
+            entity.Property(e => e.AdminId).HasColumnName("admin_id");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.Ip)
+                .HasDefaultValueSql("inet_client_addr()")
+                .HasColumnName("ip");
+            entity.Property(e => e.Notes)
+                .HasMaxLength(500)
+                .HasColumnName("notes");
+            entity.Property(e => e.PhysicianId).HasColumnName("physician_id");
+            entity.Property(e => e.RequestId).HasColumnName("request_id");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.TransToAdmin).HasColumnName("trans_to_admin");
+            entity.Property(e => e.TransToPhysicianId).HasColumnName("trans_to_physician_id");
+
+            entity.HasOne(d => d.Admin).WithMany(p => p.RequestStatusLogs)
+                .HasForeignKey(d => d.AdminId)
+                .HasConstraintName("request_status_log_admin_id_fkey");
+
+            entity.HasOne(d => d.Physician).WithMany(p => p.RequestStatusLogPhysicians)
+                .HasForeignKey(d => d.PhysicianId)
+                .HasConstraintName("request_status_log_physician_id_fkey");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.RequestStatusLogs)
+                .HasForeignKey(d => d.RequestId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("request_status_log_request_id_fkey");
+
+            entity.HasOne(d => d.TransToPhysician).WithMany(p => p.RequestStatusLogTransToPhysicians)
+                .HasForeignKey(d => d.TransToPhysicianId)
+                .HasConstraintName("request_status_log_trans_to_physician_id_fkey");
         });
 
         modelBuilder.Entity<RequestWiseFile>(entity =>

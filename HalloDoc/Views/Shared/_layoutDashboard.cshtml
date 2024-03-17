@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="@ViewBag.cssLink" asp-append-version="true" />
 </head>
-<body>
+<body onload="load()">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <img class="logo-img-1" src="\images\Fig56._Patient_site_1.png" alt="">
@@ -32,7 +32,7 @@
                         </p></li>@* @ViewData["NavName"] *@
                     <li class="nav-item">
 
-                        <a asp-controller="Patient" asp-action="PatientLogin">
+                        <a asp-controller="Login" asp-action="PatientLogout">
                             <button class="btn logout-btn me-3">
                                 Logout
                             </button>

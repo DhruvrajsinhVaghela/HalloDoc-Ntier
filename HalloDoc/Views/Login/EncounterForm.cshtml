@@ -1,0 +1,266 @@
+﻿@* @model HalloDoc.DbEntity.ViewModel.ViewCaseVM *@
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_layoutAdmin";
+    ViewBag.cssLink = "AdminDashboard.css";
+}
+
+<div>
+
+    <partial name="_AdminHeaderDashboard" />
+
+    <div class="container-fluid ">
+
+        <div class="row main-row  d-flex justify-content-center ">
+
+            <div class="col-lg-8  main-column-1">
+                <div class="d-flex justify-content-between my-4">
+                    <div class="d-flex align-items-end ">
+                        <h5 class="me-2">
+                            Encounter Form
+                        </h5>
+
+                    </div>
+                    <a>
+                        <button type="button" class="btn border-info rounded-3 btn-outline-info">
+                            &lt; Back
+                        </button>
+                    </a>
+
+                </div>
+                <div class="shadow-lg container border rounded-3 border-white mb-5" id="main_box">
+                    <div class="row">
+
+                        <p class="h4 mt-4 d-flex justify-content-center text-info fw-bold">Medical Report-Confidential</p>
+
+
+                        <div class="form-floating mb-3 col-lg-6">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="First Name">
+                            <label class="ms-2 " for="floatingInput">First Name</label>
+                        </div>
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingPassword"
+                                   placeholder="Last Name">
+                            <label class="ms-2 " for="floatingPassword">Last Name</label>
+                        </div>
+                        <div class="form-floating col-lg-12 mb-3">
+                            <input type="text" class="form-control" id="floatingPassword"
+                                   placeholder="Location">
+                            <label class="ms-2 " for="floatingPassword">Location</label>
+                        </div>
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="date" class="form-control" id="floatingPassword"
+                                   placeholder="Date Of Birth"
+                                   asp-format="{0:yyyy-MM-dd}">
+                            <label class="ms-2 text-secondary" for="floatingPassword">
+                                Date Of
+                                Birth
+                            </label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="date" class="form-control" id="floatingPassword"
+                                   placeholder="Date"
+                                   asp-format="{0:yyyy-MM-dd}">
+                            <label class="ms-2 text-secondary" for="floatingPassword">
+                                Date
+                            </label>
+                        </div>
+
+                        <div class="form-floating col-lg-6  phone-code mb-3 ">
+                            <input type="tel" class="form-control phone-input phone" id="phone">
+                            
+                        </div>
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <label class="ms-2" for="floatingInput" id="username-input">Email</label>
+                            @* <span asp-validation-for="Email" class="text-danger"></span> *@
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="History Of Present Illness Or Injury">
+                            <label class="ms-2 " for="floatingInput" id="username-input">History Of Present Illness Or Injury</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Medical History">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Medical History</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Medications">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Medications</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Allergies">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Allergies</label>
+                        </div>
+
+                        <div class="form-floating col-lg-4 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Temp">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Temp</label>
+                        </div>
+                        <div class="form-floating col-lg-4 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="HR">
+                            <label class="ms-2 " for="floatingInput" id="username-input">HR</label>
+                        </div>
+                        <div class="form-floating col-lg-4 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="RR">
+                            <label class="ms-2 " for="floatingInput" id="username-input">RR</label>
+                        </div>
+
+                        <div class="form-floating col-lg-2 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Blood Pressure">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Blood Pressure</label>
+                        </div>
+                        <div class="form-floating col-lg-2 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Blood Pressure">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Blood Pressure</label>
+                        </div>
+                        <div class="form-floating col-lg-4 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="O2">
+                            <label class="ms-2 " for="floatingInput" id="username-input">O2</label>
+                        </div>
+                        <div class="form-floating col-lg-4 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Pain">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Pain</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Heent">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Heent</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="CV">
+                            <label class="ms-2 " for="floatingInput" id="username-input">CV</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Chest">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Chest</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="ABD">
+                            <label class="ms-2 " for="floatingInput" id="username-input">ABD</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Extr">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Extr</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Skin">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Skin</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Neuro">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Neuro</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Other">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Other</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Diagnosis">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Diagnosis</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Treatment Plan">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Treatment Plan</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Medications Dispensed">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Medications Dispensed</label>
+                        </div>
+
+                        <div class="form-floating col-lg-6 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Procedures">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Procedures     </label>
+                        </div>
+
+                        <div class="form-floating col-lg-12 mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Follow Up">
+                            <label class="ms-2 " for="floatingInput" id="username-input">Follow Up</label>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-end my-2 mb-3">
+                            <button class="bg-info border rounded-3 p-2 me-3">Save Changes</button>
+                            <button class="bg-warning border rounded-3 p-2 me-3">View Finalize</button>
+                            <button class="bg-transparent border-info rounded-3 p-2 ">Cancel</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    const load = () => {
+        console.log("hello");
+        const phoneInputField = document.getElementsByClassName("phone");
+        for (let i = 0; i < phoneInputField.length; ++i) {
+            const phoneInput = window.intlTelInput(phoneInputField[i], {
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
+        }
+
+    }
+    var light = 1;
+    function DarkMode() {
+        if (light == 1) {
+            document.body.setAttribute('data-bs-theme', 'dark');
+
+            light = 0;
+        }
+        else {
+            document.body.setAttribute('data-bs-theme', 'light');
+
+
+            light = 1;
+        }
+    }
+
+    const getFileData = (myFile) => {
+        names = myFile.files;
+        let master = "";
+        for (i = 0; i < names.length; i++) {
+            master = master + "  " + names[i].name;
+        }
+        document.getElementById("form-label").innerHTML = `${master}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Find all elements with the class "go-back-button"
+        var goBackButtons = document.querySelectorAll('.go-back-button');
+
+        // Attach click event listener to each button
+        goBackButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                window.history.back();
+            });
+        });
+    });
+
+
+
+
+
+</script>
+ 

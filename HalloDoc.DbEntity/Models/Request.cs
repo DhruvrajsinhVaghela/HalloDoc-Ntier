@@ -26,7 +26,7 @@ public partial class Request
 
     public string? ConfirmationNumber { get; set; }
 
-    public DateTime? CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public bool? IsDeleted { get; set; }
 
@@ -62,7 +62,11 @@ public partial class Request
 
     public int PatientAccountId { get; set; }
 
+    public virtual ICollection<Blockrequest> Blockrequests { get; set; } = new List<Blockrequest>();
+
     public virtual User? CreatedUser { get; set; }
+
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual Physician? Physician { get; set; }
 
@@ -71,6 +75,10 @@ public partial class Request
     public virtual ICollection<RequestClient> RequestClients { get; set; } = new List<RequestClient>();
 
     public virtual ICollection<RequestConcierge> RequestConcierges { get; set; } = new List<RequestConcierge>();
+
+    public virtual ICollection<RequestNote> RequestNotes { get; set; } = new List<RequestNote>();
+
+    public virtual ICollection<RequestStatusLog> RequestStatusLogs { get; set; } = new List<RequestStatusLog>();
 
     public virtual User? User { get; set; }
 }

@@ -1,0 +1,73 @@
+﻿@model HalloDoc.DbEntity.ViewModel.AssignCaseVM
+
+<div class="modal fade" id=Assign tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-action="UpdateAssignCase" asp-route-id="@Model.reqId" method="post">
+                <div class="modal-header bg-info">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Assign Request</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>To Assign This Request, Search and select another physician</p>
+                  
+                    <select class="form-select mt-4 text-secondary" aria-label="Narrow search by region" id="regionoption" onchange="getphy()">
+                        <option selected>Narrow search by region</option>
+                        @foreach (var item in Model.region)
+                        {
+                            <option value="@item.RegionId">@item.Name</option>
+                        }
+                    </select>
+
+                    <select class="form-select mt-4 text-secondary" aria-label="Select Physician" id="physician" asp-for="SelectedPhysicianName">
+                    </select>
+                    <div class="my-3">
+                        <textarea class="form-control" asp-for="AdminNotes" id="exampleFormControlTextarea1" rows="3" placeholder="Description"></textarea>
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-end mx-3 mb-2">
+                    <a><button type="submit" class="btn btn-outline-info me-2">Submit</button></a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function getphy() {
+        var id = $('#regionoption').val();
+        console.log(id)
+        $.ajax({
+
+            url: '/Admin/AssignCase1',
+            data: { id: id },
+            success: function (data) {
+                debugger;
+                if (data) {
+                    var content = "";
+                    if (data.length == 0) {
+                        console.log("break");
+                        content += `<option selected>Select Physician</option>`;
+                    }
+                    else {
+                        for (const item of data) {
+                            debugger
+                            content += `<option value="${item.physicianId}">${item.firstName}</option>`;
+                        }
+                    } 
+
+                    $('#physician').html(content);
+                } else {
+                    var content = `<option disabled selected class="d-none"> Select Physician </option>`;
+
+
+                    $('#physicians').html(content);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('AJAX Error:', textStatus, errorThrown);
+            }
+        });
+    }
+</script>

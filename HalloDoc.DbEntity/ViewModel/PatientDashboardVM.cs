@@ -6,28 +6,18 @@ namespace HalloDoc.DbEntity.ViewModel
     {
         public int requestID { get; set; }
 
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
-        public string confirmation_no { get; set; }
-        public string LastName { get; set; }
+        
 
-        public string Email { get; set; }
-
-        public string Mobile { get; set; }
-
-        public string City { get; set; }
-        public string ZipCode { get; set; }
-        public string Street { get; set; }
-        public string State { get; set; }
-
-        public DateTime? CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public short Status { get; set; }
 
 
         public int count_file { get; set; }
 
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
         public User? user { get; set; }
 
@@ -37,6 +27,6 @@ namespace HalloDoc.DbEntity.ViewModel
 
         public ViewDocumentVM? View { get; set; }
 
-        public Request? req { get; set; }
+     
     }
 }

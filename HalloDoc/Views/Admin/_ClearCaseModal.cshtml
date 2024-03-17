@@ -1,0 +1,28 @@
+﻿@model HalloDoc.DbEntity.ViewModel.BlockCaseVM
+<div class="modal fade" id=Clear tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
+                <div class="modal-body">
+                    
+                    <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                    <img src="~/images/info_img1-removebg-preview.png" alt="Image 1" width="100" height="100" class="mb-3" />
+                    <h4 class="mb-3">Confirmation For Clear Case</h4>
+
+                    <div class="d-flex align-items-center flex-column mb-3">
+                        <div>Are sure you want to clear this request? Once clear this request</div>
+                        <div>then you are not able to see this request</div>
+                    </div>
+                    
+                    </div>
+
+                </div>
+            <form asp-action="UpStatusClearCase" asp-route-id="@Model.reqID">
+                <div class="d-flex justify-content-center mb-3">
+                    <a><button type="submit" class="btn btn-outline-info me-2">Clear</button></a>
+                    <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                </form>
+        </div>
+    </div>
+</div>

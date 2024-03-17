@@ -1,0 +1,26 @@
+﻿@model HalloDoc.DbEntity.ViewModel.BlockCaseVM
+
+<div class="modal fade" id=Block tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-action="UpdateStatus" asp-route-id="@Model.reqID" method="post">
+                <div class="modal-header bg-info">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Block</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Block"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>Patient Name:<span class="text-info">@Model.PateintFirstName @Model.PatientLastName</span></h5>
+                    
+                    <div class="my-3">
+                        <textarea class="form-control" asp-for="ReasonForBlock" id="exampleFormControlTextarea1" rows="3" placeholder="Reason for Block Request"></textarea>
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-end mx-3 mb-2">
+                    <a><button type="submit" class="btn btn-outline-info">Confirm</button></a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

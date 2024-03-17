@@ -1,33 +1,4 @@
-﻿let light = 1;
-// document.getElementById("vr1").style.color = "black";
-function myFunction() {
-    if (light == 1) {
-        document.body.style.backgroundColor = "black";
-        // document.getElementById("heading").style.color = "#08BCEB";
-        document.getElementById("main_box").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
-
-        document.getElementById("terms1").style.color = "#08BCEB";
-        document.getElementById("terms2").style.color = "#08BCEB";
-        // document.getElementById("darkmode-btn").style.backgroundColor = "black";
-        document.getElementById("vr1").style.color = "#08BCEB";
-        document.getElementById("footer").style.backgroundColor = "white";
-        light = 0;
-        return;
-    }
-    {
-        document.body.style.backgroundColor = "white";
-        document.getElementById("main_box").style.backgroundColor = "white";
-        // document.getElementById("heading").style.color = "black";
-        document.getElementById("terms1").style.color = "white";
-        document.getElementById("terms2").style.color = "white";
-        // document.getElementById("darkmode-btn").style.backgroundColor = "white";
-        document.getElementById("vr1").style.color = "black";
-        document.getElementById("footer").style.backgroundColor = "black";
-        light = 1;
-    }
-
-}
-
+﻿
 
 let size = 0;
 function showhide() {
@@ -48,12 +19,9 @@ function showhide() {
 }
 
 
-// function load(){
-//     document.getElementByClassName("terms").style.color = "black";
-// }
+
 const load = () => {
-    document.getElementById("terms1").style.color = "#08BCEB";
-    document.getElementById("terms2").style.color = "#08BCEB";
+    
     const phoneInputField = document.getElementsByClassName("phone");
     for (let i = 0; i < phoneInputField.length; ++i) {
         const phoneInput = window.intlTelInput(phoneInputField[i], {
@@ -62,27 +30,31 @@ const load = () => {
         });
     }
     let btn = document.getElementById('btn_modal');
-    btn.setAttribute('data-bs-target', '#exampleModal');
-    btn.setAttribute('data-bs-toggle', 'modal');
-    btn.click();
+    if (btn) {
+        btn.setAttribute('data-bs-target', '#exampleModal');
+        btn.setAttribute('data-bs-toggle', 'modal');
+        btn.click();
+    }
+
+    var light = localStorage.getItem("light");
+    if (light == 0) {
+        document.body.setAttribute('data-bs-theme', 'dark');
+
+    }
+    else {
+        document.body.setAttribute('data-bs-theme', 'light');
+
+    }
 }
 
 
 // function load(){
 
-const getFileData = (myFile) => {
-    names = myFile.files;
-    let master = "";
-    for (i = 0; i < names.length; i++) {
-        master = master + "  " + names[i].name;
-    }
-    document.getElementById("form-label").innerHTML = `${master}`;
-}
 
 async function fetch_email() {
     var email = document.getElementById('email').value;
     var exist;
-    await fetch('/Patient/validate_Email?email=' + email).then(res => res.json()).then(res1 => { exist = res1.exist });
+    await fetch('/Login/validate_Email?email=' + email).then(res => res.json()).then(res1 => { exist = res1.exist });
     if (exist == false) {
         document.getElementById('passwordDiv').classList.remove('d-none');
         document.getElementById('cpasswordDiv').classList.remove('d-none');
@@ -101,7 +73,6 @@ async function fetch_email() {
 }
 
 const getFileData = (myFile) => {
-    console.log("hi");
     names = myFile.files;
     let master = "";
     for (i = 0; i < names.length; i++) {
@@ -109,3 +80,31 @@ const getFileData = (myFile) => {
     }
     document.getElementById("form-label").innerHTML = `${master}`;
 }
+
+
+function myFunction() {
+    var light = localStorage.getItem("light");
+    console.log(light);
+    if (light == 1) {
+        document.body.setAttribute('data-bs-theme', 'dark');
+
+        localStorage.setItem("light", 0);
+    }
+    else {
+        document.body.setAttribute('data-bs-theme', 'light');
+
+        localStorage.setItem("light", 1);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Find all elements with the class "go-back-button"
+    var goBackButtons = document.querySelectorAll('.back-button');
+
+    // Attach click event listener to each button
+    goBackButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            window.history.back();
+        });
+    });
+});

@@ -1,0 +1,35 @@
+﻿@model HalloDoc.DbEntity.ViewModel.CancelCaseVM
+
+<div class="modal fade" id=Cancel tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-action="UpdateStatus" asp-route-id="@Model.reqID" method="post">
+                <div class="modal-header bg-info">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Cancellation</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>Patient Name:<span class="text-info">@Model.PatientName</span></h5>
+                    <div class="w-100">
+                        <select class="form-select w-100 border rounded-3" asp-for="CaseID">
+                            @foreach (var item in Model.ReasonName)
+                            {
+
+                                <option value="@item.CaseTagId">@item.Name</option>
+
+                            }
+                        </select>
+                    </div>
+                    <div class="my-3">
+                        <textarea class="form-control" asp-for="AdminNotes" id="exampleFormControlTextarea1" rows="3" placeholder="Provide Additional Notes"></textarea>
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-end mx-3 mb-2">
+                    <a><button type="submit" class="btn btn-outline-info">Confirm</button></a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

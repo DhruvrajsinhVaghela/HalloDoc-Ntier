@@ -63,6 +63,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[7.0.11, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.4.0, )"
             }
           },
           "imports": [
@@ -140,6 +144,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.16, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.4.0, )"
             },
             "microsoft-web-helpers": {
               "target": "Package",

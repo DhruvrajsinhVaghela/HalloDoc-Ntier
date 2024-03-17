@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HalloDoc</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <link rel="stylesheet" href="~/css/AdminDashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
+    <script src="~/js/AdminDash.js"></script>
+
+
+
+
+</head>
+<body onload="load()">
+
+
+    @RenderBody()
+    <div id="footer">
+        <div class="h-25">
+        </div>
+        <div class="">
+            <a href="" class="text-decoration-none " id="terms1"> Terms of Conditions </a>
+            <span class="vr mx-3" id="vr1"></span>
+            <a href="" class="text-decoration-none" id="terms2">Privacy Policy</a>
+
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</body>
+</html>

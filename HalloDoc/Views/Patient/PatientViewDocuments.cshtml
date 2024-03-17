@@ -9,7 +9,7 @@
 
 <body onload="load1()">
 
-    <ul class="nav nav-tabs bg-white" id="myTab" role="tablist">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item " role="presentation">
             <button class="nav-link active " id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
                     role="tab" aria-controls="home-tab-pane" aria-selected="true" >
@@ -23,18 +23,18 @@
             </button>
         </li>
     </ul>
-    <div class="tab-content mt-5 m-auto dashboard-div bg-light " id="myTabContent">
+    <div class="tab-content mt-5 m-auto dashboard-div  shadow-lg" id="myTabContent">
 
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 
             <div class="d-flex justify-content-between ">
                 <h4>Documents</h4>
-                <button class="btn logout-btn mb-1 go-back-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button asp-action="PatientDashboard" asp-route-id="@Model.FirstOrDefault().View.AspNetUserId" class="btn logout-btn mb-1 go-back-button" >
                     &lt; Back
                 </button>
             </div>
 
-            <div class="border rounded d-flex justify-content-center" id="main-div">
+            <div class="border rounded d-flex justify-content-center profile-form" id="main-div">
                 <div class="document-div" >
                     <p>Patient Name</p>
                     <p>
@@ -46,7 +46,7 @@
                         review.
                     </p>
                     <form asp-action="PatientFileSave" asp-route-id="@Model.FirstOrDefault().View.RequestId" class="form" enctype="multipart/form-data">
-                        <div class="border rounded bg-light">
+                        <div class="border rounded">
                             <label for="fileinput" class="selectfile rounded d-flex justify-content-between">
                                 <p class="m-2" id="form-label">Select File</p>
                                 <input type="file" asp-for="@Model.FirstOrDefault().View.UploadFile" onchange="getFileData(this)" multiple="multiple" id="fileinput" style="display: none;">
@@ -68,8 +68,8 @@
                         <h4>Documents</h4>
                         @*  @foreach(var item in Model)
                         { *@
-                        <button class="btn logout-btn mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <a asp-action="DownloadAll" asp-route-id="@Model.First().View.RequestId" class="text-dark text-decoration-none"><span class="d-none d-sm-block">Download All</span></a>
+                        <button class="btn rounded-2 border-info btn-outline-light mb-1">
+                            <a asp-action="DownloadAll" asp-route-id="@Model.First().View.RequestId" class="text-info text-decoration-none"><span class="d-none d-sm-block">Download All</span></a>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-cloud-arrow-down-fill d-sm-none text-info" viewBox="0 0 16 16">
                                 <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708" />
@@ -80,7 +80,7 @@
                     <table class="table">
                         <thead>
                             <div>
-                            <tr class="bg-light">
+                            <tr class="">
                                 <th scope="col">Document</th>
                                 <th scope="col">Uploader</th>
                                 <th scope="col">Upload Date<i>&uarr;</i></th>
@@ -108,7 +108,7 @@
                                             @item.View.PatientName
                                 </td>
                                 <td>
-                                            @item.View.user.CreatedDate 
+                                            @item.View.UploadDate
                                 </td>
                                 <td>
                                     <a asp-action="Download" asp-route-id="@item.View.FileId">
@@ -150,7 +150,7 @@
             </div>
 
             <div class=" m-auto border rounded-3 w-100" id="main-form-div">
-                <form class="form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().View.user.AspNetUserId">
+                <form class="form profile-form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().View.user.AspNetUserId">
                     <fieldset id="myForm" disabled>
                             @* disabled *@
                         <div class="document-div">

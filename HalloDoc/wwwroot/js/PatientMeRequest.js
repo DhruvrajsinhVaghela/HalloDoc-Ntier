@@ -1,4 +1,4 @@
-﻿const load = () => {
+﻿/*const load = () => {
     console.log("hello");
     const phoneInputField = document.getElementsByClassName("phone");
     for (let i = 0; i < phoneInputField.length; ++i) {
@@ -12,7 +12,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     // Find all elements with the class "go-back-button"
-    var goBackButtons = document.querySelectorAll('.go-back-button');
+    var goBackButtons = document.querySelectorAll('.back-button');
 
     // Attach click event listener to each button
     goBackButtons.forEach(function (button) {
@@ -22,3 +22,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+*/

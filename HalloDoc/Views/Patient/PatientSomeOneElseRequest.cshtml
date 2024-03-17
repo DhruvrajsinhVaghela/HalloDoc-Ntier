@@ -1,15 +1,11 @@
 ﻿@{
     ViewData["Title"] = "PatientMeRequest";
     ViewBag.cssLink = "~/css/PatientInfoForm.css";
-    ViewBag.jsLink = "PatientMeRequest.js";
+    ViewBag.jsLink = "PatientInfoForm.js";
     Layout = "~/Views/Shared/_layoutWithHeaderFooter.cshtml";
 }
 @model HalloDoc.DbEntity.ViewModel.PatientInfo
-<style>
-    .phone-code, .phone-input {
-        height: calc(3.5rem + calc(var(--bs-border-width) * 2)) !important;
-    }
-</style>
+
 <body onload=load()>
     <form asp-action="PatientSomeOneElseRequest" class="form" enctype="multipart/form-data">
         <div class="container-fluid ">
@@ -19,8 +15,8 @@
 
                     <div class="col-lg-8  main-column-1">
                         <div class="d-flex justify-content-end  my-4">
-                            <a asp-action="PatientSubmitRequest">
-                                <button type="button" class="btn back-btn">
+                            <a >
+                                <button type="button" class="btn back-btn back-button">
                                     Back
                                 </button>
                             </a>
@@ -161,20 +157,5 @@
         </div>
 
     </form>
-    <script>
-        const getFileData = (myFile) => {
-            names = myFile.files;
-            let master = "";
-            for (i = 0; i < names.length; i++) {
-                master = master + "  " + names[i].name;
-            }
-            document.getElementById("form-label").innerHTML = `${master}`;
-        }
-
-
-
-
-
-                        }
-    </script>
+    
 </body>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace HalloDoc.DbEntity.Models;
@@ -10,8 +11,10 @@ public partial class AspNetUser
 
     public string? UserName { get; set; }
 
+    [Required(ErrorMessage = "Password is required")]
     public string? PasswordHash { get; set; }
 
+    [Required(ErrorMessage = "Email is required")]
     public string? Email { get; set; }
 
     public string? PhoneNumber { get; set; }
@@ -34,11 +37,19 @@ public partial class AspNetUser
 
     public virtual ICollection<Business> BusinessModifiedByNavigations { get; set; } = new List<Business>();
 
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
     public virtual ICollection<Physician> PhysicianAspNetUsers { get; set; } = new List<Physician>();
 
     public virtual ICollection<Physician> PhysicianCreatedByNavigations { get; set; } = new List<Physician>();
 
     public virtual ICollection<Physician> PhysicianModifiedByNavigations { get; set; } = new List<Physician>();
 
+    public virtual ICollection<RequestNote> RequestNoteCreatedByNavigations { get; set; } = new List<RequestNote>();
+
+    public virtual ICollection<RequestNote> RequestNoteModifiedByNavigations { get; set; } = new List<RequestNote>();
+
     public virtual ICollection<User> Users { get; set; } = new List<User>();
+
+    public virtual ICollection<AspNetRole> Roles { get; set; } = new List<AspNetRole>();
 }

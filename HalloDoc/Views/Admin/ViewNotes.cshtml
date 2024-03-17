@@ -1,0 +1,157 @@
+﻿@model HalloDoc.DbEntity.ViewModel.ViewNotesVM;
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_layoutAdmin";
+    ViewBag.cssLink = "AdminDashboard.css";
+}
+
+<div>
+
+    <partial name="_AdminHeaderDashboard" />
+    
+        <div class="container-fluid ">
+
+            <div>
+                <div class="row main-row  d-flex justify-content-center ">
+
+                    <div class="col-lg-8  main-column-1">
+                        <div class="d-flex justify-content-between my-4 notes-div">
+                            <strong>Notes</strong>
+                        <a asp-action="AdminDashboard">
+                            <button type="button" class="btn border-info rounded-3 px-2 btn-outline-info" >
+                                    &lt; Back
+                                </button>
+                            </a>
+
+                        </div>
+                        <div class="container " id="main_box">
+                            <div class="row">
+                                <div class="form-floating mb-3 col-lg-6">
+                                    <div class="border rounded-3 d-flex align-items-center shadow-lg">
+                                        
+                                        <div class ="p-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <strong>Transfer Notes</strong>
+                                        <div>
+                                            @if (Model.StatusLogNotes != null)
+                                            {
+                                                @foreach (var item in Model.StatusLogNotes)
+                                                {
+                                                    @item
+                                                }
+                                            }
+
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <div class="border rounded-3 d-flex align-items-center shadow-lg">
+                                        <div class="p-3">
+                                            <img src="~/images/icons8-medical-doctor-50.png" width="20" height="20">
+                                        </div>
+                                        <div>
+                                            <strong>Physician Notes</strong>
+                                            <p>test add</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <div class="border rounded-3 d-flex align-items-center shadow-lg">
+                                        <div class="p-3">
+                                            <img src="~/images/person-svgrepo-com.png" width="20" height="20">
+                                        </div>
+                                        <div>
+                                            <strong>Admin Notes</strong>
+                                        @if (Model != null)
+                                        {
+                                        <p>@Model.AdminNotes</p>
+                                        }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <form method="POST" asp-action="ViewNotes" asp-controller="Admin">
+                                <div class="row shadow-lg border-1 rounded-3">
+                                    <div class="col-lg-12 mb-3 ">
+                                        <div class="mb-3 rounded-3 bg-transparent">
+                                            <label for="exampleFormControlTextarea1" class="form-label"></label>
+                                            <textarea asp-for="AdminNotes" placeholder="Admin Notes" class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+                                        </div>
+                                    </div>
+                                <div class="w-100 d-flex justify-content-end">
+                                    <button type="submit" class="btn border-info rounded-3 px-2 btn-outline-info mb-2">Save Changes</button>
+                                </div>
+
+                                </div>
+                            
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+</div>
+<script>
+    const load = () => {
+        consol.log("hello");
+        const phoneInputField = document.getElementsByClassName("phone");
+        for (let i = 0; i < phoneInputField.length; ++i) {
+            const phoneInput = window.intlTelInput(phoneInputField[i], {
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
+        }
+
+    }
+    var light = 0;
+    function DarkMode() {
+        if (light == 1) {
+            document.body.setAttribute('data-bs-theme', 'dark');
+       
+            light = 0;
+            return;
+        }
+        {
+            document.body.setAttribute('data-bs-theme', 'light');
+
+            light = 1;
+        }
+
+    }
+
+    const getFileData = (myFile) => {
+        names = myFile.files;
+        let master = "";
+        for (i = 0; i < names.length; i++) {
+            master = master + "  " + names[i].name;
+        }
+        document.getElementById("form-label").innerHTML = `${master}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Find all elements with the class "go-back-button"
+        var goBackButtons = document.querySelectorAll('.go-back-button');
+
+        // Attach click event listener to each button
+        goBackButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                window.history.back();
+            });
+        });
+    });
+
+
+
+
+
+</script>

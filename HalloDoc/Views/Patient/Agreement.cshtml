@@ -1,0 +1,44 @@
+﻿@model HalloDoc.DbEntity.ViewModel.SendAgreementVM
+
+<div class="w-100 vh-100 d-flex justify-content-center">
+    <div class="d-flex justify-content-center flex-column align-items-center w-75 vh-100">
+        <p class="fs-5">
+            To Provide Best Medical Service,We cannot determine the cosr right away.if you agree to our <br>service,
+            so we will provide care and follow-up untill all care is completed
+            .so with this point,if you <br> like us to provide care to you click on "Agree"
+            and we'll get started immediately,if you do not <br> agree simply click on "Cancel"
+        </p>
+        <div class="w-75 d-flex justify-content-between">
+        <form asp-action="PatientAgreed" method="post" asp-route-id="@Model.reqId">
+            <button class="btn text-white bg-success border rounded-3" type="submit">I Agree</button>
+        </form>
+            <button class="btn text-white bg-danger border rounded-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Cancel Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="PatientCanceled" asp-route-id="@Model.reqId" method="post">
+                <div class="modal-body">
+                    <p>@Model.PatientName</p>
+                    <div class="form-floating w-100">
+                        <textarea asp-for="Note" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label asp-for="Note" for="floatingTextarea2">Please Provide brief explaination for your cancelation</label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-2">
+                    <a><button type="submit" class="btn btn-outline-info me-3">Confirm</button></a>
+                    </form>
+                    <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">Cancel</button>
+                </div>
+        </div>
+    </div>
+</div>
+

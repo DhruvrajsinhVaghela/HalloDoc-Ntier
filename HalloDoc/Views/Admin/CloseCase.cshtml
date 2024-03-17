@@ -1,0 +1,208 @@
+﻿@using System.Globalization;
+@model HalloDoc.DbEntity.ViewModel.CloseCaseVM;
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_layoutAdmin";
+    ViewBag.cssLink = "AdminDashboard.css";
+}
+
+<div>
+  
+    <partial name="_AdminHeaderDashboard" />
+        @* asp-action="PatientInfoForm" *@
+        <div class="container-fluid ">
+
+            <div>
+                <div class="row main-row  d-flex justify-content-center ">
+
+                    <div class="col-lg-8">
+                        <div class="d-flex justify-content-between my-4">
+                            <div class="d-flex align-items-end ">
+                                <h6 class="me-2">
+                                    Close Case
+                                </h6>
+                            </div>
+                            <a>
+                                <button type="button" class="btn border-info rounded-3 btn-outline-info">
+                                  &lt; Back
+                                </button>
+                            </a>
+
+                        </div>
+                        <div class="shadow-lg container" id="main_box">
+                            <div class="d-flex justify-content-between w-100">
+                                <div class="mt-2">
+                                    Patient Name
+                                    <p class="text-info"><strong>@Model.FirstName @Model.LastName</strong><span class="text-dark">(@Model.ConfNo)</span></p>
+                                </div>
+                                <div class="mt-2">
+                                    <button class="btn border-info rounded-3 btn-outline-info">Create Invoice Through Quickbooks</button>
+                                </div>
+                            </div>
+                            <div class="w-100">
+                                <h6>Documents</h6>
+                                <table class="table">
+                                    <thead>
+                                        <div>
+                                            <tr class="bg-light">
+                                                <th scope="col"></th>
+                                                <th scope="col">Upload Date<i class="w-100 h-100">&uarr;</i></th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                        </div>
+                                    </thead>
+                                    <tbody>
+                                         @foreach (var item in Model.FileList)
+                                        {
+
+                                    <tr>
+                                        <td>
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill text-danger" viewBox="0 0 16 16">
+                                                    <path d="M5.523 12.424q.21-.124.459-.238a8 8 0 0 1-.45.606c-.28.337-.498.516-.635.572l-.035.012a.3.3 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548m2.455-1.647q-.178.037-.356.078a21 21 0 0 0 .5-1.05 12 12 0 0 0 .51.858q-.326.048-.654.114m2.525.939a4 4 0 0 1-.435-.41q.344.007.612.054c.317.057.466.147.518.209a.1.1 0 0 1 .026.064.44.44 0 0 1-.06.2.3.3 0 0 1-.094.124.1.1 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256M8.278 6.97c-.04.244-.108.524-.2.829a5 5 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.5.5 0 0 1 .145-.04c.013.03.028.092.032.198q.008.183-.038.465z" />
+                                                    <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05 11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227 7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103" />
+                                                </svg>
+                                            </span> @item.FileName
+                                        </td>
+                                        <td>
+                                                    @item.CreatedDate.ToString("MMM dd,yyyy", CultureInfo.InvariantCulture)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Download" asp-route-id="@item.RequestWiseFileId">
+                                                <button class="btn border-info btn-outline-dark">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-download text-info" viewBox="0 0 16 16">
+                                                        <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                                        <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                                                    </svg>
+                                                </button>
+                                            </a>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                        } 
+                                    </tbody>
+                                </table>
+                            </div>
+                            <form asp-action="UpCloseCaseUser" asp-controller="Admin" asp-route-id="@Model.reqId" method="post">
+                            <div class="row">
+
+                                <p class="h4 mt-4">patient information</p>
+
+                                <div class="form-floating mb-3 col-lg-6">
+                                    <input type="text" asp-for="@Model.FirstName" class="form-control" id="floatingInput" placeholder="First Name">
+                                    <label asp-for="FirstName" class="ms-2 " for="floatingInput">First Name</label>
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input type="text" asp-for="@Model.LastName" class="form-control" id="floatingPassword"
+                                           placeholder="Last Name">
+                                    <label asp-for="LastName" class="ms-2 " for="floatingPassword">Last Name</label>
+                                </div>
+                                <div class="form-floating col-lg-6">
+                                    <input type="date" class="form-control" id="floatingPassword"
+                                           placeholder="Date Of Birth" asp-for="@Model.BirthDate"
+                                           asp-format="{0:yyyy-MM-dd}">
+                                    <label class="ms-2 text-secondary" for="floatingPassword">
+                                        Date Of
+                                        Birth
+                                    </label>
+
+                                </div>
+                                <div class="form-floating col-lg-5 mb-3 ">
+                                    <input type="tel" asp-for="@Model.PhoneNo" class="form-control" id="floatingPassword"
+                                           placeholder="Phone Number">
+                                    <label asp-for="PhoneNo
+" class="ms-2 " for="floatingPassword">Phone Number</label>
+                                </div>
+                                <div class="col-lg-1">
+                                    <button class="btn border-info rounded-3 btn-outline-info w-100 h-75">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="form-floating col-lg-6 mb-3">
+                                    <input type="email" asp-for="@Model.Email" onblur="fetch_email()" class="form-control" id="email" placeholder="Email">
+                                    <label class="ms-2" asp-for="Email" for="floatingInput" id="username-input">Email</label>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                </div>
+                        <div class="w-100 d-flex justify-content-end">
+                            <button type="submit" class="btn border-info rounded-3 btn-outline-info me-2">
+                                Edit
+                            </button>
+                            <button class="btn border-info rounded-3 btn-outline-info">
+                                Close Case
+                            </button>
+                        </div>
+                              </form>
+                           
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    
+    <script>
+   
+        function myFunction() {
+            console.log(light);
+            if (light == 1) {
+                console.log("hello");
+                /*document.body.style.backgroundColor = "black";
+                document.getElementById("home-tab-pane").style.backgroundColor = "black";
+                document.getElementById("home-tab-pane").style.color = "#08BCEB";
+                document.getElementById("profile-div").style.backgroundColor = "black";
+                document.getElementById("profile-div").style.color = "#08BCEB";*/
+                //document.getElementById("main_box").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
+                //document.getElementById("main-form-div").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
+
+
+                light = 0;
+                return;
+            }
+            {
+                /*  document.body.style.backgroundColor = "#F8f9fa";
+                  document.getElementById("home-tab-pane").style.backgroundColor = "#F8f9fa";
+                  document.getElementById("home-tab-pane").style.color = "black";
+                  document.getElementById("profile-div").style.backgroundColor = "white";
+                  document.getElementById("main-box").style.backgroundColor = "white";
+                 */// document.getElementById("main_box").style.color = "black";
+                //document.getElementById("main-form-div").style.backgroundColor = "white";
+
+                light = 1;
+            }
+
+        }
+
+        const getFileData = (myFile) => {
+            names = myFile.files;
+            let master = "";
+            for (i = 0; i < names.length; i++) {
+                master = master + "  " + names[i].name;
+            }
+            document.getElementById("form-label").innerHTML = `${master}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Find all elements with the class "go-back-button"
+            var goBackButtons = document.querySelectorAll('.go-back-button');
+
+            // Attach click event listener to each button
+            goBackButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    window.history.back();
+                });
+            });
+        });
+
+
+   
+
+
+    </script>

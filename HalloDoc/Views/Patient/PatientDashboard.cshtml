@@ -25,7 +25,7 @@
                 <div class="d-flex justify-content-center m-auto">
                     <div class="">
                         <a>
-                            <a class="btn btn-primary mb-1" id="meButton" >
+                            <a class="btn btn-primary mb-1" id="meButton">
                                 ME
                             </a>
                         </a>
@@ -53,7 +53,7 @@
     </div>
 
 
-    <ul class="nav nav-tabs bg-white" id="myTab" role="tablist">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item " role="presentation">
             <button class="nav-link active " id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
                     type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" onclick="showaccordian()">
@@ -67,12 +67,12 @@
             </button>
         </li>
     </ul>
-    <div class="tab-content mt-5 m-auto dashboard-div bg-light" id="myTabContent">
+    <div class="tab-content mt-5 m-auto dashboard-div" id="myTabContent">
 
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
              tabindex="0">
             <h4>Medical History</h4>
-            <div class="border rounded" id="main-div">
+            <div class="border rounded shadow-lg" id="main-div">
 
                 <div class="d-none d-sm-block">
                     <div class=" d-flex justify-content-end my-3 me-3">
@@ -84,7 +84,7 @@
                         <table class="table">
                             <thead>
                                 <div>
-                                <tr class="bg-light">
+                                <tr class="">
                                     <th scope="col">Created Date<i>&darr;</i></th>
                                     <th scope="col">Current Status</th>
                                     <th scope="col">Document</th>
@@ -96,24 +96,73 @@
                                 {
                             <tr>
                                 <td>
-                                            @item.CreatedDate
+                                            @item.CreatedDate.ToString("d MMMM yyyy")
                                 </td>
                                 <td>
-                                        @if(item.Status==1)
-                                            {
-                                               <p>Unassigned</p>                
+                                            @{
+                                                if (item.Status == 1)
+                                                {
+                                                    <p>Unassigned</p>
+                                                }
+                                                else if(item.Status==2)
+                                                {
+                                                    <p>Accepted</p>
+                                                }
+                                                else if (item.Status == 3)
+                                                {
+                                                    <p>Cancelled</p>
+                                                }
+                                                else if (item.Status == 4)
+                                                {
+                                                    <p>Reserving</p>
+                                                }
+                                                else if (item.Status == 5)
+                                                {
+                                                    <p>MD0nRoute</p>
+                                                }
+                                                else if (item.Status == 6)
+                                                {
+                                                    <p>MD on Site</p>
+                                                }else if (item.Status == 7)
+                                                {
+                                                    <p>FollowUp</p>
+                                                }else if (item.Status == 8)
+                                                {
+                                                    <p>Closed</p>
+                                                }else if (item.Status == 9)
+                                                {
+                                                    <p>Locked</p>
+                                                }else if (item.Status == 10)
+                                                {
+                                                    <p>Declined</p>
+                                                }else if (item.Status == 11)
+                                                {
+                                                    <p>Consult</p>
+                                                }else if (item.Status == 12)
+                                                {
+                                                    <p>Clear</p>
+                                                }else if (item.Status == 13)
+                                                {
+                                                    <p>CancelledByProvider</p>
+                                                }else if (item.Status == 14)
+                                                {
+                                                    <p>CCUploadedByClient</p>
+                                                }else if (item.Status == 15)
+                                                {
+                                                        <p>CCApprovedByAdmin</p>
+                                                }
                                             }
                                 </td>
                                 <td>
-                                    @if (item.count_file != 0)//42
-                                    {
-                                    <a class="btn" asp-action="PatientViewDocuments" asp-route-id="@item.requestID">
+                                            @if (item.count_file != 0)//42
+                                            {
+                                        <a class="btn" asp-action="PatientViewDocuments" asp-route-id="@item.requestID">
                                             <button class="logout-btn btn">
                                                 Document
                                                 <span>&nbsp;(@item.count_file)</span>
                                             </button>
-                                    </a>
-                                    }
+                                        </a>
+                                            }
                                 </td>
                             </tr>
                                 }
@@ -132,7 +181,7 @@
              tabindex="0">
 
             <div class=" w-100" id="profile-div">
-                <div class="d-flex justify-content-between m-auto" >
+                <div class="d-flex justify-content-between m-auto">
                     <h4>User Profile</h4>
                     <button class="btn logout-btn mb-1">
                         &lt; Back
@@ -141,7 +190,7 @@
             </div>
 
             <div class=" m-auto border rounded-3 w-100" id="main-form-div">
-                <form class="form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().user.AspNetUserId">
+                <form class="form profile-form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().user.AspNetUserId">
                     <fieldset id="myForm" disabled>
                             @* disabled *@
                         <div class="document-div">
@@ -338,11 +387,11 @@
                                 </svg>
                             </span>
                             Current Status : <span>
-                                @if(item.Status==1)
+                                @if (item.Status == 1)
                                 {
                                     <span>Unassigned</span>
                                 }
-                                </span>
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -372,7 +421,7 @@
             continueButton.addEventListener('click', function () {
                 var userType = meButton.classList.contains('btn-success') ? 'me' : 'someoneElse';
                 if (userType === 'me') {
-                    document.location.href = '/Patient/PatientMeRequest?id='+@Model.FirstOrDefault().user.UserId;
+                    document.location.href = '/Patient/PatientMeRequest?id=' + @Model.FirstOrDefault().user.UserId;
                 } else {
                     document.location.href = '/Patient/PatientSomeOneElseRequest?id=' + @Model.FirstOrDefault().user.UserId;
                 }

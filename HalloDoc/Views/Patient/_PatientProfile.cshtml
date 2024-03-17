@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @model IEnumerable<HalloDoc.DbEntity.ViewModel.PatientDashboardVM>
 @{
     ViewData["Title"] = "Patient Dashoboard";
@@ -14,8 +10,7 @@
 
 
 
-    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-         tabindex="0">
+    
 
         <div class="d-flex justify-content-between m-auto" id="profile-div">
             <h4>User Profile</h4>
@@ -25,7 +20,7 @@
         </div>
 
         <div class="main-form-div m-auto">
-            <form class="form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().View.user.AspNetUserId">
+        <form class="form profile-form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().user.AspNetUserId">
                 <fieldset id="myForm" disabled>
                     @* disabled *@
                     <div class="document-div">
@@ -168,5 +163,4 @@
 
         </div>
 
-    </div>
 

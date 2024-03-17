@@ -1,36 +1,21 @@
 ﻿
 
-function load1() {
-    document.body.style.backgroundColor = "#black";
-}
 
-let light = 1;
-// document.getElementById("vr1").style.color = "black";
+
 function myFunction() {
+    var light = localStorage.getItem("light");
     console.log(light);
     if (light == 1) {
-        document.body.style.backgroundColor = "black";
-        document.getElementById("home-tab-pane").style.backgroundColor = "black";
-        document.getElementById("home-tab-pane").style.color = "#08BCEB";
-        document.getElementById("profile-div").style.backgroundColor = "black";
-        document.getElementById("profile-div").style.color = "#08BCEB";
-        document.getElementById("main-div").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
-        document.getElementById("main-form-div").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
-
-
-        light = 0;
-        return;
+        document.body.setAttribute('data-bs-theme', 'dark');
+        document.getElementById('main-div').classList.remove('bg-light');
+        document.getElementById('myTabContent').classList.remove('bg-light');
+        localStorage.setItem("light", 0);
     }
-    {
-        document.body.style.backgroundColor = "#F8f9fa";
-        document.getElementById("home-tab-pane").style.backgroundColor = "#F8f9fa";
-        document.getElementById("home-tab-pane").style.color = "black";
-        document.getElementById("profile-div").style.backgroundColor = "white";
-        document.getElementById("profile-div").style.color = "black";
-        document.getElementById("main-div").style.backgroundColor = "white";
-        document.getElementById("main-form-div").style.backgroundColor = "white";
-
-        light = 1;
+    else {
+        document.body.setAttribute('data-bs-theme', 'light');
+        document.getElementById('main-div').classList.add('bg-light');
+        document.getElementById('myTabContent').classList.add('bg-light');
+        localStorage.setItem("light", 1);
     }
 
 }
@@ -39,6 +24,17 @@ function updateDropdown(value) {
 }
 function load() {
     document.getElementById("save-btn").style.display = "none";
+    var light = localStorage.getItem("light");
+    if (light == 0) {
+        document.body.setAttribute('data-bs-theme', 'dark');
+        document.getElementById('main-div').classList.remove('bg-light');
+        document.getElementById('myTabContent').classList.remove('bg-light');
+    }
+    else {
+        document.body.setAttribute('data-bs-theme', 'light');
+        document.getElementById('main-div').classList.add('bg-light');
+        document.getElementById('myTabContent').classList.add('bg-light');
+    }
 }
 function toggleFormFields() {
     console.log("hi");
@@ -98,9 +94,12 @@ const getFileData = (myFile) => {
 function hideaccordian() {
     console.log("hide");
     document.getElementById("accordionExample").style.display = "none";
+
+
 }
 function showaccordian() {
     console.log("show");
 
     document.getElementById("accordionExample").style.display = "block";
 }
+

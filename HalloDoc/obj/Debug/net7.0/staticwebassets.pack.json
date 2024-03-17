@@ -9,6 +9,22 @@
       "PackagePath": "staticwebassets\\UploadFiles\\ABBab.pdf"
     },
     {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\abcdef.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\abcdef.pdf"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\amitjain.png",
+      "PackagePath": "staticwebassets\\UploadFiles\\amitjain.png"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\amitpatel.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\amitpatel.pdf"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\arjunpandit.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\arjunpandit.pdf"
+    },
+    {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\asdklsd.pdf",
       "PackagePath": "staticwebassets\\UploadFiles\\asdklsd.pdf"
     },
@@ -17,12 +33,40 @@
       "PackagePath": "staticwebassets\\UploadFiles\\asdklsd.xlsx"
     },
     {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\dhruvivaghela.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\dhruvivaghela.pdf"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\dishantsoni.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\dishantsoni.pdf"
+    },
+    {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\neel patel.pdf",
       "PackagePath": "staticwebassets\\UploadFiles\\neel patel.pdf"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\nilrajsinhvaghela.pdf",
       "PackagePath": "staticwebassets\\UploadFiles\\nilrajsinhvaghela.pdf"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\sunnydeol.pdf",
+      "PackagePath": "staticwebassets\\UploadFiles\\sunnydeol.pdf"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\sunnydeol.png",
+      "PackagePath": "staticwebassets\\UploadFiles\\sunnydeol.png"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\sunnydeol.xlsx",
+      "PackagePath": "staticwebassets\\UploadFiles\\sunnydeol.xlsx"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\yashprajapati.png",
+      "PackagePath": "staticwebassets\\UploadFiles\\yashprajapati.png"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\css\\AdminDashboard.css",
+      "PackagePath": "staticwebassets\\css\\AdminDashboard.css"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\css\\PatientBusinessInfo.css",
@@ -71,6 +115,10 @@
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\11116016_415.jpg",
       "PackagePath": "staticwebassets\\images\\11116016_415.jpg"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\403-forbidden-error-2.jpg",
+      "PackagePath": "staticwebassets\\images\\403-forbidden-error-2.jpg"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\7768657_3763028.jpg",
@@ -657,6 +705,14 @@
       "PackagePath": "staticwebassets\\images\\LesfImage.png"
     },
     {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\R.png",
+      "PackagePath": "staticwebassets\\images\\R.png"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\denied",
+      "PackagePath": "staticwebassets\\images"
+    },
+    {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\eye-slash.svg",
       "PackagePath": "staticwebassets\\images\\eye-slash.svg"
     },
@@ -665,8 +721,16 @@
       "PackagePath": "staticwebassets\\images\\eye.svg"
     },
     {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\icons8-medical-doctor-50.png",
+      "PackagePath": "staticwebassets\\images\\icons8-medical-doctor-50.png"
+    },
+    {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\info_image.jfif",
       "PackagePath": "staticwebassets\\images\\info_image.jfif"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\info_img1-removebg-preview.png",
+      "PackagePath": "staticwebassets\\images\\info_img1-removebg-preview.png"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\info_img1.jpeg",
@@ -685,48 +749,36 @@
       "PackagePath": "staticwebassets\\images\\person-circle.svg"
     },
     {
-      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientBusinessInfo.js",
-      "PackagePath": "staticwebassets\\js\\PatientBusinessInfo.js"
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\images\\person-svgrepo-com.png",
+      "PackagePath": "staticwebassets\\images\\person-svgrepo-com.png"
     },
     {
-      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientConciergeInfo.js",
-      "PackagePath": "staticwebassets\\js\\PatientConciergeInfo.js"
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\AdminDash.js",
+      "PackagePath": "staticwebassets\\js\\AdminDash.js"
+    },
+    {
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\AdminDashboard.js",
+      "PackagePath": "staticwebassets\\js\\AdminDashboard.js"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientDashboard.js",
       "PackagePath": "staticwebassets\\js\\PatientDashboard.js"
     },
     {
-      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientFamilyFriendForm.js",
-      "PackagePath": "staticwebassets\\js\\PatientFamilyFriendForm.js"
-    },
-    {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientInfoForm.js",
       "PackagePath": "staticwebassets\\js\\PatientInfoForm.js"
-    },
-    {
-      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientLogin.js",
-      "PackagePath": "staticwebassets\\js\\PatientLogin.js"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientMeRequest.js",
       "PackagePath": "staticwebassets\\js\\PatientMeRequest.js"
     },
     {
-      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientResetPw.js",
-      "PackagePath": "staticwebassets\\js\\PatientResetPw.js"
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientSubmitReq.js",
+      "PackagePath": "staticwebassets\\js\\PatientSubmitReq.js"
     },
     {
-      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientSite.js",
-      "PackagePath": "staticwebassets\\js\\PatientSite.js"
-    },
-    {
-      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\PatientSubmitRequest.js",
-      "PackagePath": "staticwebassets\\js\\PatientSubmitRequest.js"
-    },
-    {
-      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\site.js",
-      "PackagePath": "staticwebassets\\js\\site.js"
+      "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
     },
     {
       "Id": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\lib\\bootstrap\\LICENSE",

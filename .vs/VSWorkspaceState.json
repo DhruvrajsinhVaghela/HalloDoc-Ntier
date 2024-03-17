@@ -3,9 +3,11 @@
     "",
     "\\HalloDoc",
     "\\HalloDoc\\Controllers",
+    "\\HalloDoc\\Views",
+    "\\HalloDoc\\Views\\Admin",
     "\\HalloDoc\\wwwroot",
-    "\\HalloDoc\\wwwroot\\css"
+    "\\HalloDoc\\wwwroot\\js"
   ],
-  "SelectedNode": "\\HalloDoc\\HalloDoc.sln",
+  "SelectedNode": "\\HalloDoc\\Controllers\\PatientController.cs",
   "PreviewInSolutionExplorer": false
 }

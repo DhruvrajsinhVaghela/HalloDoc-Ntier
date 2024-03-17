@@ -1,0 +1,160 @@
+﻿@model HalloDoc.DbEntity.ViewModel.SendOrderVM
+@{
+    ViewData["Title"] = "View Uploads";
+    Layout = "_layoutAdmin";
+    ViewBag.cssLink = "AdminDashboard.css"; 
+}
+<div class="bg-body-tertiary vh-100 d-flex flex-column">
+    <partial name="_AdminHeaderDashboard" />
+    <div class="tab-content mt-5 m-auto dashboard-div" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+
+            <div class="d-flex justify-content-between w-75 m-auto">
+                <h4>Send Order</h4>
+                <a asp-action="AdminDashboard">
+                    <button class="btn border rounded-3 btn-outline-info mb-1 border-info">
+                        &lt; Back
+                    </button>
+                </a>
+            </div>
+
+            <form class="container-lg" asp-action="AddSendOrders" asp-route-id="@Model.reqId" method="Post">
+            <div class="container border rounded d-flex justify-content-center shadow-lg w-75" id="main-div">
+                <div class="row">
+
+                    <div class="col-lg-6 my-3">
+                        <select class="form-select text-secondary p-3" aria-label="Select Profession" id="Profession" onchange="GetVendors()">
+                            <option selected>Select Profession</option>
+                            @foreach (var item in Model.professionTypes)
+                            {
+                                <option value="@item.HealthProfessionalId">@item.ProfessionName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-lg-6 my-3">
+                        <select class="form-select text-secondary p-3" aria-label="Business" id="vendors" onchange="GetVendorData(this.value)">
+                        </select>
+                   </div>
+                    <div class="form-floating col-lg-6 mb-3">
+                        <input asp-for="phone" id="bphone" type="text" class="form-control " 
+                               placeholder="Business Contact" readonly>
+                            <label class="ms-2" for="floatingPassword">Business Contact</label>
+                    </div>
+
+                    <div class="form-floating col-lg-6 mb-3">
+                            <input asp-for="email" id="email" type="email" class="form-control "
+                               placeholder="Email" readonly>
+                            <label class="ms-2" for="floatingPassword">Email</label>
+                    </div>
+
+                    <div class="form-floating col-lg-6 mb-3">
+                            <input asp-for="fax" id="fax" type="number" class="form-control "
+                               placeholder="Fax Number" readonly>
+                        <label class="ms-2" for="floatingPassword">Fax Number</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                            <textarea asp-for="Prescription" class="form-control" placeholder="Prescription or Order Details"
+                                  id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label class="ms-2  " for="floatingTextarea2">
+                            Prescription or Order Details
+                        </label>
+                    </div>
+                    <div class="form-floating col-lg-6 mb-3">
+                            <input asp-for="refill" type="number" class="form-control"
+                               placeholder="Number Of Refill">
+                        <label class="ms-2" for="floatingPassword">Number Of Refill</label>
+                    </div>
+                    <div class="w-100 d-flex justify-content-end">
+                            <a >
+                                <button class="btn border-info rounded-3 btn-outline-info me-2" type="submit">
+                                    Submit
+                                </button>
+                            </a>
+                        <button class="btn border-info rounded-3 btn-outline-info">
+                                Cancel
+                            </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<script>
+
+    var light = 1;
+    function DarkMode() {
+        if (light == 1) {
+            document.body.setAttribute('data-bs-theme', 'dark');
+
+            light = 0;
+        }
+        else {
+            document.body.setAttribute('data-bs-theme', 'light');
+
+
+            light = 1;
+        }
+    }
+    function GetVendors() {
+
+        var dropdown = document.getElementById("Profession");
+        var select = dropdown.value;
+        $.ajax({
+        
+            url: '/Admin/SelectVendor/',
+            data: { ProfId: select },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var content;
+
+                if (data.length == 0) {
+                    content += `<option >No Vendors</option>`
+                }
+                content += `<option value:"0",
+                            text: "Select an Bussiness",
+                            hidden : true,
+                            selected : true,
+                            disabled: true >Select Vendor</option>`
+                for (const item of data) {
+                    console.log(item);
+                    content += `<option value=${item.vendorId}>${item.vendorName}</option>`
+                }
+                $('#vendors').html(content);
+                
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                debugger;
+                console.error('AJAX Error:');
+            }
+        });
+    }
+
+    function GetVendorData(id) {
+
+        var dropdown = document.getElementById("vendors");
+        var select = dropdown.value;
+
+        $.ajax({
+            url: '/Admin/VendorData',
+            data: { VendorId: id },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                $('#bphone').val(data.phone);
+                $('#email').val(data.email);
+                $('#fax').val(data.fax);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('AJAX Error:', textStatus, errorThrown);
+            }
+        });
+    }
+</script>

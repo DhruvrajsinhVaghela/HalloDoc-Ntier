@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HalloDoc.Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46a38900bc3d9c6f38f883160c2f6a604177a701")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9abf60737b90c17e5d7960f22f77c2f33422aa6e")]
 [assembly: System.Reflection.AssemblyProductAttribute("HalloDoc.Service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HalloDoc.Service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -9,6 +9,7 @@ namespace HalloDoc.DbEntity.ViewModel
 {
     public class PatientInfo
     {
+        public int reqId { get; set; }
         [Required(ErrorMessage = "Notes is required")]
         public required string Notes { get; set; }
 
@@ -48,6 +49,7 @@ namespace HalloDoc.DbEntity.ViewModel
         public int RegionID { get; set; }
 
         public string? RelationName { get; set; }
+        
     }
 
 

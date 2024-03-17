@@ -1,39 +1,50 @@
 ﻿
 using HalloDoc.DbEntity.Models;
-using HalloDoc.DbEntity.ViewModel;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HalloDoc.Repositories.Interfaces
 {
     public interface IPatient
     {
 
-        public RequestWiseFile Download(int id);
+        RequestWiseFile? Download(int id);
 
-        public List<RequestWiseFile> DownloadAll(int id);
+        List<RequestWiseFile> DownloadAll(int id);
         
         //--------------------------------------
-        public AspNetUser GetAspUserData(string email);
-        public User GetUserUserData(string email);
-        public User GetUserAspIdData(int id);
-        public void GetSaveChanges();
-        public DbSet<AspNetUser> GetAspData();
-        public DbSet<Region> GetRegionData();
-        public DbSet<User> GetUserData();
-        public DbSet<Request> GetRequestData();
-        public DbSet<RequestClient> GetReqClientData();
-        public DbSet<RequestWiseFile> GetReqWisFileData();
-        public DbSet<Concierge> GetConciergeData();
-        public DbSet<RequestConcierge> GetReqConciergeData();
-        public DbSet<Business> GetBusinessData();
-        public DbSet<RequestBusiness> GetReqBusinessData();
-        public DbSet<Physician> GetPhysicianData();
-        public string GetConfirmationNo();
-        public User GetUserUserIdData(int id);
+        AspNetUser GetAspUserData(string email);
+        User GetUserUserData(string email);
+        User GetUserAspIdData(int id);
+        
+        DbSet<User> GetUserData();
+        DbSet<Request> GetRequestData();
+        
+        DbSet<RequestWiseFile> GetReqWisFileData();
+        DbSet<Physician> GetPhysicianData();
+        string GetConfirmationNo();
+        User GetUserUserIdData(int id);
+        bool GetEmail(string? email);
+        Region GetUniqueRegion(string State);
+        RequestClient GetRequestClientinfo(int id);
+        void AddReqStatusLog(RequestStatusLog x);
+        void AddAspNetUser(AspNetUser aspnetuser1);
+        AspNetUser GetAspNetUser(int? aspNetUserId);
+        void UpdateAspNetUser(AspNetUser asp_net_u);
+        void AddRegion(Region region);
+        void AddUser(User user1);
+        User GetUser(int patientAccountId);
+        void UpdateUser(User use);
+        void AddRequest(Request request);
+        Request GetRequestByEmail(string email);
+        Request GetRequestById(int id);
+        void UpdateRequest(Request req);
+        void AddReqClient(RequestClient requestClient);
+        void UpdateReqClient(RequestClient reqclient);
+        RequestClient GetReqClientById(int requestId);
+        void AddReqWisFile(RequestWiseFile requestWiseFile);
+        void AddConcierge(Concierge concierge);
+        void AddReqConcierge(RequestConcierge request1);
+        void AddBusiness(Business business);
+        void AddReqBusiness(RequestBusiness requestBusiness);
     }
 }

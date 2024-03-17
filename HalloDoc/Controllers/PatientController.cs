@@ -1,186 +1,30 @@
-﻿using HalloDoc.DbEntity.Data;
-using HalloDoc.DbEntity.ViewModel;
-using HalloDoc.DbEntity.Models;
-using HalloDoc.Repositories.Implementation;
-using HalloDoc.Repositories.Interfaces;
+﻿using HalloDoc.DbEntity.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Web.Helpers;
-using Microsoft.PowerBI.Api.Models;
-using Microsoft.PowerBI.Api;
 using System.IO.Compression;
-using System.Runtime.Intrinsics.X86;
 using HalloDoc.Service.Interface;
-using Microsoft.AspNetCore.Http;
+using HalloDoc.Services.Interfaces;
+using HalloDoc.Auth;
+using System.IdentityModel.Tokens.Jwt;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace HalloDoc.Controllers
 {
+    [CustomAuthorize("Patient")]
 
     public class PatientController : Controller
     {
         private readonly IPatientService _service;
-        public PatientController(IPatientService service)
+        private readonly IJwtToken _token;
+        public PatientController(IPatientService service, IJwtToken token)
         {
             _service = service;
+            _token = token;
         }
 
-        //-------------------Patient Site
-        public IActionResult PatientSite()
-        {
-            return View();
-        }
-
-        //------------------Patient Login
-        public IActionResult PatientLogin()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PatientLogin([Bind("Email,PasswordHash")] DbEntity.Models.AspNetUser aspNetUser)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(aspNetUser);
-            }
-
-            var data = _service.PatientLogin(aspNetUser);
-
-            if (data > 0)
-            {
-            
-
-                //HttpContext.Session.SetInt32("userId", data);
-                /*HttpContext.Session.SetString("userName", userIdObj.FirstName);*/
-                return RedirectToAction(nameof(PatientDashboard), "Patient", new { id = data });
-            }
-            return View();
-
-
-        }
-        //------------------Patient Reset PW
-        public IActionResult PatientResetPw()
-        {
-            return View();
-        }
-
-        //------------------Patient Submit Request
-
-        public IActionResult PatientSubmitRequest()
-        {
-            return View();
-        }
-
-        //-----------------   Patient Info
-        public IActionResult PatientInfoForm()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> validate_Email(System.String email)
-        {
-            var ans = await _service.validate_Email(email);
-            if (ans == false)
-            {
-                return Json(new { exist = false });
-            }
-            return Json(new { exist = true });
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PatientInfoForm([FromForm] PatientInfo model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var data = _service.PatientInfoForm(model);
-            if (data == "yes")
-            {
-                return RedirectToAction("PatientSite", "Patient");
-            }
-            return View();
-        }
-
-        //-----------------Patient Family Friend Form
-        public IActionResult PatientFamilyFriendForm()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PatientFamilyFriendForm(PatientFamilyFriendInfo model)
-        {
-
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var data = _service.PatientFamilyFriendForm(model);
-            if (data == "yes")
-            {
-                return RedirectToAction("PatientSite", "Patient");
-            }
-            return View();
-        }
-
-        //-----------------Patient Concierge Info Form
-        public IActionResult PatientConciergeInfo()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PatientConciergeInfo([FromForm] PatientConciergeInfo model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var data = _service.PatientConciergeForm(model);
-            {
-                if (data == "yes")
-                {
-                    return RedirectToAction("PatientSite", "Patient");
-                }
-                return View();
-            }
-
-        }
-
-
-        //---------------Patient Business Info Form
-        public IActionResult PatientBusinessInfo()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PatientBusinessInfo([FromForm] PatientBusinessInfo model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var data = _service.PatientBusinessForm(model);
-            {
-                if (data == "yes")
-                {
-                    return RedirectToAction("PatientSite", "Patient");
-                }
-                return View();
-            }
-        }
+       
 
         //-------------------------------Patient Dashboard
+        
         public IActionResult PatientDashboard(int id)
         {
             var dash = _service.PatientDashboard(id);
@@ -235,7 +79,7 @@ namespace HalloDoc.Controllers
         }
 
         //-------------PatientDetails Update
-        public async Task<IActionResult> Update(int id, ViewDocumentVM vm)
+        public IActionResult Update(int id, ViewDocumentVM vm)
         {
             var data = _service.Update(id, vm);
             if (data == "yes")
@@ -246,7 +90,7 @@ namespace HalloDoc.Controllers
         }
 
         //-------------PatientFileSave
-        public async Task<IActionResult> PatientFileSave(int id, PatientDashboardVM model)
+        public IActionResult PatientFileSave(int id, PatientDashboardVM model)
         {
             var data = _service.PatientFileSave(id, model);
             if (data == "yes")
@@ -257,7 +101,7 @@ namespace HalloDoc.Controllers
             return View();
         }
 
-        public async Task<IActionResult> PatientMeRequest(int id, PatientInfo model)//int id, ViewDocumentVM model
+        public IActionResult PatientMeRequest(int id, PatientInfo model)//int id, ViewDocumentVM model
         {
             var data = _service.PatientMeRequest(id, model);
             if (data != null)
@@ -273,7 +117,6 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult PatientSomeOneElseRequest(int id, PatientInfo model)
         {
             var data = _service.PatientSomeOneElseRequest(id, model);
@@ -287,23 +130,43 @@ namespace HalloDoc.Controllers
          {
 
          }*/
-        public IActionResult Index()
+
+        
+        
+        public IActionResult Agreement(string token, int id)
         {
-            return View();
+            var data = _service.GetRequest(id);
+            //return View(data);
+            bool x=_token.  
+                ValidateJwtToken(token, out JwtSecurityToken jwtSecurityToken);
+            if (x)
+            {
+                return View(data);
+            }
+            return NotFound();
         }
 
-        public IActionResult Privacy()
+        public IActionResult PatientAgreed(SendAgreementVM vm,int id)
         {
-            return View();
+            var x=_service.GetAgree(id);
+            if(x==true)
+            {
+                return RedirectToAction("PatientDashboard","Patient",new { id = id });
+            }
+            return NotFound();
+        }
+         
+        public IActionResult PatientCanceled(SendAgreementVM vm,int id)
+        {
+            var x =_service.CancelAgreement(id,vm);
+            if (x == true)
+            {
+                return RedirectToAction("PatientDashboard", "Patient", new { id = id });
+            }
+            return NotFound();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-
+       
 
     }
 }

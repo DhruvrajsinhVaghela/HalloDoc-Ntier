@@ -1,0 +1,62 @@
+﻿@model HalloDoc.DbEntity.ViewModel.AdminDashboardVM
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div class="bg-body-tertiary vh-100 d-flex flex-column">
+    <partial name="_AdminHeaderDashboard" />
+    <div class="" id="main-div">
+    </div>
+</div>
+
+<script>
+    function load() {
+
+        
+        $.ajax({
+            url: '/Admin/NavTabs',
+            method: 'GET',
+            data: { nav: 1 },
+
+            success: function (response) {
+                $('#main-div').html(response);
+            },
+            error: function (error) {
+                console.log(error);
+                console.error('Error in AJAX', error);
+            }
+        });
+
+
+
+        var light = localStorage.getItem("light");
+        if (light == 0) {
+            document.body.setAttribute('data-bs-theme', 'dark');
+
+        }
+        else {
+            document.body.setAttribute('data-bs-theme', 'light');
+
+        }
+
+
+    }
+
+    function tab(val) {
+        $.ajax({
+            url: '/Admin/NavTabs',
+            method: 'GET',
+            data: { nav: val },
+
+            success: function (response) {
+                $('#main-div').html(response);
+            },
+            error: function (error) {
+                console.log(error);
+                console.error('Error in AJAX', error);
+            }
+        });
+    };
+</script>

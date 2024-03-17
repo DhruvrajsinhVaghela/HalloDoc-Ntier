@@ -1,15 +1,11 @@
 ﻿@{
     ViewData["Title"] = "PatientMeRequest";
     ViewBag.cssLink = "~/css/PatientInfoForm.css";
-    ViewBag.jsLink = "PatientMeRequest.js";
+    ViewBag.jsLink = "PatientInfoForm.js";
     Layout = "~/Views/Shared/_layoutWithHeaderFooter.cshtml";
 }
 @model HalloDoc.DbEntity.ViewModel.PatientInfo
-<style>
-    .phone-code, .phone-input {
-        height: calc(3.5rem + calc(var(--bs-border-width) * 2)) !important;
-    }
-</style>
+
 <body onload=load()>
     <form asp-action="PatientInfoForm" class="form" enctype="multipart/form-data">
         <div class="container-fluid ">
@@ -20,7 +16,7 @@
                     <div class="col-lg-8  main-column-1">
                         <div class="d-flex justify-content-end  my-4">
                             <a>
-                                <button type="button" class="btn back-btn go-back-button">
+                                <button type="button" class="btn back-btn back-button">
                                     Back
                                 </button>
                             </a>
@@ -40,18 +36,15 @@
                                         Enter Brief Details Of
                                         Symptoms
                                     </label>
-                                    <span asp-validation-for="Notes" class="text-danger"></span>
                                 </div>
                                 <div class="form-floating mb-3 col-lg-6">
                                     <input type="text" asp-for="@Model.FirstName" class="form-control" id="floatingInput" placeholder="First Name">
                                     <label asp-for="FirstName" class="ms-2 " for="floatingInput"></label>
-                                    <span asp-validation-for="FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="text" asp-for="@Model.LastName" class="form-control" id="floatingPassword"
                                            placeholder="Last Name">
                                     <label asp-for="LastName" class="ms-2 " for="floatingPassword">Last Name</label>
-                                    <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
                                 <div class="form-floating col-lg-6">
                                     <input type="date" class="form-control" id="floatingPassword"
@@ -61,7 +54,6 @@
                                         Date Of
                                         Birth
                                     </label>
-                                    <span asp-validation-for="BirthDate" class="text-danger"></span>
 
                                 </div>
 
@@ -73,12 +65,10 @@
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="email" asp-for="@Model.Email" onblur="fetch_email()" class="form-control" id="email" placeholder="Email">
                                     <label class="ms-2" asp-for="Email" for="floatingInput" id="username-input">Email</label>
-                                    <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-floating col-lg-6  phone-code mb-3 ">
                                     <input type="tel" asp-for="@Model.PhoneNumber" class="form-control phone-input phone" id="phone">
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
 
 
@@ -90,7 +80,6 @@
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="text" asp-for="Street" class="form-control" id="floatingInput" placeholder="street">
                                     <label asp-for="Street" class="ms-2 " for="floatingInput" id="username-input">street</label>
-                                    <span asp-validation-for="Street" class="text-danger"></span>
 
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
@@ -106,7 +95,6 @@
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="text" asp-for="ZipCode" class="form-control" id="floatingInput" placeholder="zip code">
                                     <label class="ms-2" asp-for="ZipCode" for="floatingInput" id="username-input">zip code</label>
-                                    <span asp-validation-for="ZipCode" class="text-danger"></span>
 
                                 </div>
                                 <div class="form-floating col-lg-6 ">
@@ -151,61 +139,5 @@
         </div>
 
     </form>
-    <script>
-        function myFunction() {
-            console.log(light);
-            if (light == 1) {
-                console.log("hello");
-                /*document.body.style.backgroundColor = "black";
-                document.getElementById("home-tab-pane").style.backgroundColor = "black";
-                document.getElementById("home-tab-pane").style.color = "#08BCEB";
-                document.getElementById("profile-div").style.backgroundColor = "black";
-                document.getElementById("profile-div").style.color = "#08BCEB";*/
-                //document.getElementById("main_box").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
-                //document.getElementById("main-form-div").style.backgroundColor = "rgba(153, 145, 145, 0.872)";
 
-
-                light = 0;
-                return;
-            }
-            {
-                /*  document.body.style.backgroundColor = "#F8f9fa";
-                  document.getElementById("home-tab-pane").style.backgroundColor = "#F8f9fa";
-                  document.getElementById("home-tab-pane").style.color = "black";
-                  document.getElementById("profile-div").style.backgroundColor = "white";
-                  document.getElementById("main-box").style.backgroundColor = "white";
-                 */// document.getElementById("main_box").style.color = "black";
-                //document.getElementById("main-form-div").style.backgroundColor = "white";
-
-                light = 1;
-            }
-
-        }
-        
-        const getFileData = (myFile) => {
-            names = myFile.files;
-            let master = "";
-            for (i = 0; i < names.length; i++) {
-                master = master + "  " + names[i].name;
-            }
-            document.getElementById("form-label").innerHTML = `${master}`;
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Find all elements with the class "go-back-button"
-            var goBackButtons = document.querySelectorAll('.go-back-button');
-
-            // Attach click event listener to each button
-            goBackButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    window.history.back();
-                });
-            });
-        });
-
-
-
-                }
-
-    </script>
 </body>

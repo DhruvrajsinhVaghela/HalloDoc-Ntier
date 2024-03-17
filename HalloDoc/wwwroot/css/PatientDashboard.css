@@ -8,7 +8,6 @@
 #darkmode-btn {
     border-radius: 5px;
     border-color: #08BCEB;
-    background-color: white;
     height: 40px;
     width: 40px;
 }
@@ -53,7 +52,7 @@
 .logout-btn {
     border-radius: 5px;
     border-color: #08BCEB;
-    background-color: white;
+    /*background-color: white;*/
     border-width: 2px;
 }
 
@@ -123,7 +122,6 @@ label {
 
 #main-form-div {
     width: 90%;
-    min-height: 105vh;
 }
 
 .edit-save-div {
@@ -143,4 +141,7 @@ label {
 
 .location-inp {
     height: 160%;
+}
+.profile-form{
+    margin-bottom:10%;
 }
