@@ -342,9 +342,9 @@ namespace HalloDoc.Controllers
             }
         }
 
-        public IActionResult Page(int status, int pn, int item)
+        public IActionResult Page(int status, int pn, int item, string Keyword, int Reqtype, int RegionId)
         {
-            List<AdminDashboardVM> data = _service.GetDataPagination(status,pn,item);
+            List<AdminDashboardVM> data = _service.GetFilteredData(Keyword, RegionId, status, Reqtype, pn, item);
 
             switch (status)
             {
@@ -361,14 +361,42 @@ namespace HalloDoc.Controllers
         {
             return PartialView("_SendLinkModal");
         }
+        [HttpPost]
+        public IActionResult SendLink(SendMailVM vm)
+        {
+            if (vm.Email != null)
+            {
+                var receiver = vm.Email;
+                var subject = "Create Request";
+                var message = $"Tap on link for Creating Request: [1] https://localhost:5093/Login/PatientSubmitRequest";
+
+
+
+
+                var mail = "tatva.dotnet.dhruvrajsinhvaghela@outlook.com";
+                var password = "Vagheladhruv@123";
+
+                var client = new SmtpClient("smtp.office365.com")
+                {
+                    Port = 587,
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential(mail, password)
+                };
+
+                client.SendMailAsync(new MailMessage(from: mail, to: receiver, subject, message));
+                return RedirectToAction(nameof(AdminDashboard));
+            }
+            return NotFound();
+        }
+
 
         [HttpPost]
-        public IActionResult SortByFilter([FromBody] Filter filter) 
+        public IActionResult SortByFilter(string keywrd, int RegId, int status, int reqType, int pn, int item)
         {
-            List<AdminDashboardVM> data = _service.GetFilteredData(filter.keywrd, filter.RegId, filter.status, filter.reqType);
-            switch (filter.status)
+            List<AdminDashboardVM> data = _service.GetFilteredData(keywrd, RegId, status, reqType, pn, item);
+            switch (status)
             {
-                case 1: return PartialView("_AdminNewStateData", data);/*,data*/
+                case 1: return PartialView("_AdminNewStateData", data);
                 case 2: return PartialView("_AdminPendingstateData", data);
                 case 3: return PartialView("_AdminActiveStateData", data);
                 case 4: return PartialView("_AdminConcludeStateData", data);
@@ -378,6 +406,109 @@ namespace HalloDoc.Controllers
             }
         }
 
+        public IActionResult Export(int status, int Regionid, string Keyword, int ReqType)
+        {
+            try
+            {
+                List<AdminDashboardVM> data = _service.GetFilteredData(Keyword, Regionid, status, ReqType, 0, 0);
+                var workbook = new XLWorkbook();
+                var worksheet = workbook.Worksheets.Add("Data");
+
+
+                worksheet.Cell(1, 1).Value = "Name";
+                worksheet.Cell(1, 2).Value = "Date Of Birth";
+                worksheet.Cell(1, 3).Value = "Requestor";
+                worksheet.Cell(1, 4).Value = "Physician Name";
+                worksheet.Cell(1, 5).Value = "Date of Service";
+                worksheet.Cell(1, 6).Value = "Requested Date";
+                worksheet.Cell(1, 7).Value = "Phone Number";
+                worksheet.Cell(1, 8).Value = "Address";
+                worksheet.Cell(1, 9).Value = "Notes";
+                worksheet.Cell(1, 10).Value = "Request Type";
+                worksheet.Cell(1, 11).Value = "Status";
+
+                int row = 2;
+                foreach (var item in data)
+                {
+                    var statusClass = "";
+                    var dos = "";
+                    var notes = "";
+                    if (item.RequestType == 1)
+                    {
+                        statusClass = "Business";
+                    }
+                    else if (item.RequestType == 4)
+                    {
+                        statusClass = "Concierge";
+                    }
+                    else if (item.RequestType == 2)
+                    {
+                        statusClass = "Patient";
+                    }
+                    else
+                    {
+                        statusClass = "Family/Friend";
+                    }
+                    var s = "";
+                    if (item.Status == 1)
+                    {
+                        s = "New";
+                    }
+                    else if (item.Status == 2)
+                    {
+                        s = "Pending";
+                    }
+                    else if (item.Status == 4 || item.Status == 5)
+                    {
+                        s = "Active";
+                    }
+                    else if (item.Status == 6)
+                    {
+                        s = "Conclude";
+                    }
+                    else if (item.Status == 7 || item.Status == 3 || item.Status == 8)
+                    {
+                        s = "To Close";
+                    }
+                    else
+                    {
+                        s = "Unpaid";
+                    }
+                    worksheet.Cell(row, 1).Value = item.PatientName;
+                    worksheet.Cell(row, 2).Value = DateTime.Parse(item.BirthDate.ToString());
+                    worksheet.Cell(row, 3).Value = item.RequestorName;
+                    worksheet.Cell(row, 4).Value = item.ProviderName;
+                    worksheet.Cell(row, 5).Value = item.RequestDate.ToString();
+                    worksheet.Cell(row, 6).Value = item.RequestDate.ToString();
+
+                    if (item.Phonenumber != "")
+                    {
+                        worksheet.Cell(row, 7).Value = item.Phonenumber;
+                    }
+                    if (item.RequestType != 2 && item.RequestorPhoneNumber != "")
+                    {
+                        worksheet.Cell(row, 7).Value = item.Phonenumber + ' ' + item.RequestorPhoneNumber;
+                    }
+                    worksheet.Cell(row, 8).Value = item.Address;
+                    worksheet.Cell(row, 9).Value = item.Notes?.ToString();
+                    worksheet.Cell(row, 10).Value = statusClass;
+                    worksheet.Cell(row, 11).Value = s;
+                    row++;
+                }
+                worksheet.Columns().AdjustToContents();
+
+                var memoryStream = new MemoryStream();
+                workbook.SaveAs(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "usersData.xlsx");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw;
+            }
+        }
         public IActionResult ExportAll()
         {
 
@@ -483,6 +614,23 @@ namespace HalloDoc.Controllers
             }
 
         }
+
+        [HttpPost]
+        public IActionResult EditAdminProfile(AdminProfileVM model, List<int> reg)
+        {
+            var admin = HttpContext.Session.GetInt32("userId");
+            //ViewBag.Username = _service.Adminname(admin);
+            _service.editadminprofile(model, admin, reg);
+            return RedirectToAction("AdminDashboard");
+        }
+
+        /*   [HttpPost]
+           public IActionResult EditAdminp(Profile model)
+           {
+               int admin = (int)HttpContext.Session.GetInt32("Id");
+               _service.editadminp(model, admin);
+               return RedirectToAction("Admin_profile");
+           }*/
 
     }
 }

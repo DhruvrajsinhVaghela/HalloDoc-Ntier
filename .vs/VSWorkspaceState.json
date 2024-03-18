@@ -5,9 +5,10 @@
     "\\HalloDoc\\Controllers",
     "\\HalloDoc\\Views",
     "\\HalloDoc\\Views\\Admin",
+    "\\HalloDoc\\Views\\Shared",
     "\\HalloDoc\\wwwroot",
     "\\HalloDoc\\wwwroot\\js"
   ],
-  "SelectedNode": "\\HalloDoc\\Controllers\\PatientController.cs",
+  "SelectedNode": "\\HalloDoc\\Views\\Shared\\_AdminHome.cshtml",
   "PreviewInSolutionExplorer": false
 }

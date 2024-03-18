@@ -40,8 +40,8 @@ namespace HalloDoc.services.Interface
         public object AdminProfileData(int? adminId);
         public AspNetUser AspUserData(string email);
         public List<AdminDashboardVM> GetDataPagination(int status,int pn,int item);
-        public List<AdminDashboardVM> GetFilteredData(string keywrd, int regId, int status, int reqType);
-
+        public List<AdminDashboardVM> GetFilteredData(string keywrd, int regId, int status, int reqType, int pn, int item);
+        public void editadminprofile(AdminProfileVM model, int? admin, List<int> reg);
         //public StatusWiseCount PatientCount(StatusWiseCount swc);
     }
 }

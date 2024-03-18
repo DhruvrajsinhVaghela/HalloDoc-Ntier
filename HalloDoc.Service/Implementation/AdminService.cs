@@ -68,6 +68,7 @@ namespace HalloDoc.services.Implementation
             };
 
             var x = _repo.GetAdminDashboardData().Where(x => dictonary[x.Status] == status).ToList();
+            
             if (id != 0)
             {
                 x = x.Where(x => x.RequestType == id).ToList();
@@ -639,10 +640,13 @@ namespace HalloDoc.services.Implementation
         {
             Admin data = _repo.GetAdminData(adminId);
             AspNetUser aspData = _repo.GetAspNetUserData(adminId);
+            List<string> role = _repo.GetRole(aspData.Id);
             AdminProfileVM vm = new AdminProfileVM()
             {
                 UserName = aspData.UserName,
-                FirstName=data.FirstName,
+                Roll = role[0],
+                status = data.Status,
+                FirstName =data.FirstName,
                 LastName=data.LastName,
                 Email=data.Email,
                 Address1=data.Address1,
@@ -726,11 +730,11 @@ namespace HalloDoc.services.Implementation
             return adminDashboardVMs;
         }
 
-        public List<AdminDashboardVM> GetFilteredData(string keywrd, int regId, int status, int reqType)
+        public List<AdminDashboardVM> GetFilteredData(string keywrd, int regId, int status, int reqType, int item, int pn)
         {
             var joinedquery = _repo.GetAdminDashboardData();
             joinedquery = joinedquery.Where(x => x.Status == status).ToList();
-            if (keywrd != null)
+            if (keywrd != "undefined" && keywrd != null)
             {
                 joinedquery = joinedquery.Where(x => x.RequestClients.FirstOrDefault()!.FirstName.StartsWith(keywrd!, StringComparison.OrdinalIgnoreCase)).ToList();
             }
@@ -742,11 +746,15 @@ namespace HalloDoc.services.Implementation
             {
                 joinedquery = joinedquery.Where(x => x.RequestType == reqType).ToList();
             }
-
-            List<AdminDashboardVM> dashboard = new();
-            foreach (var item in joinedquery)
+            var pagecount = joinedquery.Count();
+            if (item != 0 && pn != 0)
             {
-                List<RequestStatusLog> reqlog = _repo.GetStatusLogs(item.RequestId);
+                joinedquery = joinedquery.Skip((pn - 1) * item).Take(item).ToList();
+            }
+            List<AdminDashboardVM> dashboard = new();
+            foreach (var item1 in joinedquery)
+            {
+                List<RequestStatusLog> reqlog = _repo.GetStatusLogs(item1.RequestId);
 
                 List<string> transfer = new();
                 foreach (var log in reqlog)
@@ -755,7 +763,7 @@ namespace HalloDoc.services.Implementation
                     Physician? phy = _repo.GetPhysicianDataByID(log.TransToPhysicianId);
                     if (phy == null)
                     {
-                        transfer.Add("Admin status changed to " + item.Status);
+                        transfer.Add("Admin status changed to " + item1.Status);
                     }
                     else
                     {
@@ -763,25 +771,25 @@ namespace HalloDoc.services.Implementation
                     }
 
                 }
-                DateOnly Dateofbirth = new DateOnly(item.RequestClients.FirstOrDefault()!.IntYear, DateOnly.ParseExact(item.RequestClients.FirstOrDefault()!.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, item.RequestClients.FirstOrDefault()!.IntDate!);
+                DateOnly Dateofbirth = new DateOnly(item1.RequestClients.FirstOrDefault()!.IntYear, DateOnly.ParseExact(item1.RequestClients.FirstOrDefault()!.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, item1.RequestClients.FirstOrDefault()!.IntDate!);
                 if (item != null)
                 {
                     dashboard.Add(new AdminDashboardVM()
                     {
 
-                        PatientName = item.RequestClients.FirstOrDefault()?.FirstName + ' ' ?? " " + item.RequestClients.FirstOrDefault()?.LastName ?? "",
+                        PatientName = item1.RequestClients.FirstOrDefault()?.FirstName + ' ' ?? " " + item1.RequestClients.FirstOrDefault()?.LastName ?? "",
                         BirthDate = Dateofbirth,
-                        RequestType = item.RequestType,
-                        RequestorName = item?.FirstName ?? "",
-                        RequestDate = DateOnly.FromDateTime(item!.CreatedDate),
-                        Phonenumber = item?.PhoneNumber ?? "",
-                        RequestorPhoneNumber = item?.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
-                        Address = item?.RequestClients.FirstOrDefault()?.Street ?? "" + ' ' + item!.RequestClients.FirstOrDefault()?.City ?? "" + ' ' + item.RequestClients.FirstOrDefault()?.State ?? "",
+                        RequestType = item1.RequestType,
+                        RequestorName = item1?.FirstName ?? "",
+                        RequestDate = DateOnly.FromDateTime(item1!.CreatedDate),
+                        Phonenumber = item1?.PhoneNumber ?? "",
+                        RequestorPhoneNumber = item1?.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
+                        Address = item1?.RequestClients.FirstOrDefault()?.Street ?? "" + ' ' + item1!.RequestClients.FirstOrDefault()?.City ?? "" + ' ' + item1.RequestClients.FirstOrDefault()?.State ?? "",
                         Notes = transfer,
-                        region = item.RequestClients.FirstOrDefault()?.RegionId ?? 0,
-                        Email = item.RequestClients.FirstOrDefault()?.Email ?? "",
-                        ProviderName = item.Physician?.FirstName ?? "",
-                        ReqID = item.RequestId
+                        region = item1.RequestClients.FirstOrDefault()?.RegionId ?? 0,
+                        Email = item1.RequestClients.FirstOrDefault()?.Email ?? "",
+                        ProviderName = item1.Physician?.FirstName ?? "",
+                        ReqID = item1.RequestId
                     });
                 }
 
@@ -789,7 +797,26 @@ namespace HalloDoc.services.Implementation
             return dashboard;
 
         }
-
+        public void editadminprofile(AdminProfileVM model, int? admin, List<int> reg)
+        {
+            Admin a = _repo.GetAdminData(admin);
+            if (model != null)
+            {
+                a.FirstName = model.FirstName;
+                a.LastName = model.LastName;
+                a.Email = model.Email;
+                a.Mobile = model.PhoneNO;
+                _repo.updateadmintbl(a);
+            }
+            /*if (r.Count > 0)
+            {
+                _Repository.deletereg(admin);
+                foreach (var ritem in r)
+                {
+                    _Repository.AddRegionbyid(ritem, admin);
+                }
+            }*/
+        }
     }
 
       

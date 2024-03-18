@@ -255,5 +255,11 @@ namespace HalloDoc.Repositories.Implementation
         {
             return _logger.RequestStatusLogs.Where(x=>x.RequestId==id).ToList();
         }
+
+        public void updateadmintbl(Admin a)
+        {
+            _logger.Admins.Update(a);
+            _logger.SaveChanges();
+        }
     }
 }

@@ -1,2 +1,155 @@
-﻿@model HalloDoc.DbEntity.ViewModel.AdminProfileVM           <form method="post" asp-action="UpdateProfile">    <fieldset id="field" disabled>        <div class="border-white rounded-3 border form-div mt-3 shadow-lg p-2 container">            <h3>Account Information</h3>            <div class="row mt-5 ">                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3">                        <input type="text" asp-for=@Model.UserName class="form-control" id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">User Name</label>                        <span class="text-danger"></span>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3">                        <input type="text" class="form-control" id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">Password</label>                        <span class="text-danger"></span>                    </div>                </div>                <div class="col-lg-6 col-md-6 ">                    <div class="form-floating mb-3">                        <input type="text" class="form-control" id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">Status</label>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3 phone-code">                        <input type="text" class="form-control phone-input phone" id="phone">                        <label for="floatingInput">Roll</label>                    </div>                </div>            </div>            <div class="d-flex justify-content-end">                <a asp-action="SendResetPassword"> <button class="btn btn-outline-info py-1 py-2 rounded">Reset Password</button></a>            </div>            <div class="row mt-5 ">                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3">                        <input type="text" asp-for=@Model.FirstName class="form-control" id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">First Name</label>                        <span class="text-danger"></span>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3">                        <input type="text" asp-for=@Model.LastName class="form-control" id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">Last Name</label>                        <span class="text-danger"></span>                    </div>                </div>                <div class="col-lg-6 col-md-6 ">                    <div class="form-floating mb-3">                        <input class="form-control" asp-for=@Model.Email id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">Email</label>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3">                        <input  onblur="checkEmailExists()" type="email" class="form-control" id="Email" mailto:placeholder="name@example.com">                        <label for="floatingInput">Confirm Email</label>                        <span class="text-danger"></span>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3 phone-code">                        <input type="tel" asp-for=@Model.PhoneNO class="form-control phone-input phone" id="phone">                        <label for="floatingInput">Phone Number</label>                    </div>                </div>                <div class="col-lg-6 col-md-6">                 @*    @foreach (var reg in Model.regions)
-                    {                        <input type="checkbox" value="@reg.Regionid" style="accent-color:cyan; color:white" checked>                        <label>@reg.Name</label>                    } *@                </div>            </div>            <h3>Mailing Information</h3>            <div class="row mt-5 ">                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3">                        <input type="text" asp-for=@Model.Address1 class="form-control" id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">Address1</label>                        <span class="text-danger"></span>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3">                        <input type="text" asp-for=@Model.Address2 class="form-control" id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">Address2</label>                        <span class="text-danger"></span>                    </div>                </div>                <div class="col-lg-6 col-md-6 ">                    <div class="form-floating mb-3">                        <input type="text" asp-for=@Model.City class="form-control" id="floatingInput" mailto:placeholder="name@example.com">                        <label for="floatingInput">City</label>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3 phone-code">                        <input type="text" class="form-control phone-input phone" id="phone">                        <label for="floatingInput">Roll</label>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3 phone-code">                        <input type="text" asp-for=@Model.ZipCode class="form-control phone-input phone" id="phone">                        <label for="floatingInput">ZipCode</label>                    </div>                </div>                <div class="col-lg-6 col-md-6">                    <div class="form-floating mb-3 phone-code">                        <input type="tel" asp-for=@Model.AltPhone class="form-control phone-input phone" id="phone">                        <label for="floatingInput">Phone Number</label>                    </div>                </div>            </div>        </div>        </div>    </fieldset>    <div class="btns  d-flex justify-content-end my-3">        <button id="Edit" data-text="Save" class="btn" style="border:1px solid #00bde7; color:#00bde7">Edit</button>        <button type="submit" class="btn btn-primary mx-2" style="background:#00bde7">Save Changes</button>    </div></form><script>    document.getElementById("Edit").addEventListener('click', function (event) {        event.preventDefault();        const btntext = this.textContent;        if (btntext == "Edit") {            this.textContent = "Save";            document.getElementById("field").disabled = false;        }        else {            this.textContent = "Edit";            document.getElementById("field").disabled = true;        }    })</script>
+﻿@model HalloDoc.DbEntity.ViewModel.AdminProfileVM
+<div class="border-white rounded-3 border form-div mt-3 shadow-lg p-2 container">
+    <h3>Account Information</h3>
+    <div class="row mt-5 ">
+        <div class="col-lg-6 col-md-6">
+            <div class="form-floating mb-3">
+                <input type="text" asp-for=@Model.UserName class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
+                <label for="floatingInput">User Name</label>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
+                <label for="floatingInput">Password</label>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 ">
+            <div class="form-floating mb-3">
+                <input type="text" asp-for="@Model.status" class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
+                <label for="floatingInput">Status</label>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-floating mb-3 phone-code">
+                <input type="text" asp-for="@Model.Roll" class="form-control phone-input phone" id="phone">
+                <label for="floatingInput">Roll</label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <a asp-action="SendResetPassword">
+            <button class="btn btn-outline-info py-1 py-2 rounded">Reset Password</button>
+        </a>
+    </div>
+    <form class="form" asp-action="EditAdminProfile" method="post">
+        <fieldset id="field" disabled>
+            <div class="row mt-5 ">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for=@Model.FirstName class="form-control" id="floatingInput">
+                        <label for="floatingInput">First Name</label>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for=@Model.LastName class="form-control" id="floatingInput">
+                        <label for="floatingInput">Last Name</label>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 ">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" asp-for=@Model.Email id="Email1">
+                        <label for="floatingInput">Email</label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-floating mb-3">
+                        <input onblur="checkEmailExists()" type="email" class="form-control" id="Email2">
+                        <label for="floatingInput">Confirm Email</label>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-floating mb-3 phone-code">
+                        <input type="tel" asp-for=@Model.PhoneNO class="form-control phone-input phone" id="phone">
+                        <label for="floatingInput">Phone Number</label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    @*    @foreach (var reg in Model.regions)
+                    {                    <input type="checkbox" value="@reg.Regionid" style="accent-color:cyan; color:white" checked>
+                    <label>@reg.Name</label>                    }                    *@
+                </div>
+
+
+            </div>
+        </fieldset>
+        <div class="btns  d-flex justify-content-end my-3">
+            <button id="edit" type="button" data-text="edit" class="btn border-info rounded-2">Edit</button>
+            <button id="save" type="submit" class="btn border-info rounded-2 mx-2">Save Changes</button>
+        </div>
+    </form>
+    <h3>Mailing Information</h3>
+    <div class="row mt-5 ">
+        <div class="col-lg-6 col-md-6">
+            <div class="form-floating mb-3">
+                <input type="text" asp-for=@Model.Address1 class="form-control" id="floatingInput">
+                <label for="floatingInput">Address1</label>
+                <span class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-floating mb-3">
+                <input type="text" asp-for=@Model.Address2 class="form-control" id="floatingInput">
+                <label for="floatingInput">Address2</label>
+                <span class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 ">
+            <div class="form-floating mb-3">
+                <input type="text" asp-for=@Model.City class="form-control" id="floatingInput">
+                <label for="floatingInput">City</label>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-floating mb-3 phone-code">
+                <input type="text" class="form-control phone-input phone" id="phone">
+                <label for="floatingInput">Roll</label>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-floating mb-3 phone-code">
+                <input type="text" asp-for=@Model.ZipCode class="form-control phone-input phone" id="phone">
+                <label for="floatingInput">ZipCode</label>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-floating mb-3 phone-code">
+                <input type="tel" asp-for=@Model.AltPhone class="form-control phone-input phone" id="phone">
+                <label for="floatingInput">Phone Number</label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="btns  d-flex justify-content-end my-3">
+    <button class="btn border-info rounded-2">Edit</button>
+    <button type="submit" class="btn border-info rounded-2 mx-2">Save Changes</button>
+</div>
+<script>
+    document.getElementById("edit").addEventListener('click', function (event) {
+        debugger;
+        const btntext = this.getAttribute('data-text');
+        if (btntext == "edit") {
+            this.setAttribute('data-text', 'save');
+            document.getElementById("field").disabled = false;
+        } else {
+            this.setAttribute('data-text', 'edit');
+            document.getElementById("field").disabled = true;
+        }
+    })
+    function checkEmailExists() {
+        var email1 = document.getElementById('Email1').value;
+        var email2 = document.getElementById('Email2').value;
+        if (email1 !== email2) {
+            alert('Email and confirm Email is not same');
+        }
+    }
+</script>

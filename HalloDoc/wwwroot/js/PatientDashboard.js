@@ -37,7 +37,6 @@ function load() {
     }
 }
 function toggleFormFields() {
-    console.log("hi");
     // Replace with your actual class or selector
     document.getElementById("myForm").disabled = false;
     document.getElementById("edit-btn").style.display = "none";
@@ -92,13 +91,11 @@ const getFileData = (myFile) => {
     document.getElementById("form-label").innerHTML = `${master}`;
 }
 function hideaccordian() {
-    console.log("hide");
     document.getElementById("accordionExample").style.display = "none";
 
 
 }
 function showaccordian() {
-    console.log("show");
 
     document.getElementById("accordionExample").style.display = "block";
 }

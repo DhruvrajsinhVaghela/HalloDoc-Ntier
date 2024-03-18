@@ -52,5 +52,6 @@ namespace HalloDoc.Repositories.Interfaces
         public Admin GetAdminData(int? adminId);
         public AspNetUser GetAspNetUserData(int? adminId);
         /*public RequestWiseFile GetReqWiseFileById(int id);*/
+        public void updateadmintbl(Admin a);
     }
 }
