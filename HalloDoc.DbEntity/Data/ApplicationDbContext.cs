@@ -18,6 +18,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Admin> Admins { get; set; }
 
+    public virtual DbSet<AdminRegion> AdminRegions { get; set; }
+
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
     public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
@@ -123,6 +125,25 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.AdminModifiedByNavigations)
                 .HasForeignKey(d => d.ModifiedBy)
                 .HasConstraintName("admin_modified_by_fkey");
+        });
+
+        modelBuilder.Entity<AdminRegion>(entity =>
+        {
+            entity.HasKey(e => e.AdminRegionId).HasName("admin_region_pkey");
+
+            entity.ToTable("admin_region");
+
+            entity.Property(e => e.AdminRegionId).HasColumnName("admin_region_id");
+            entity.Property(e => e.AdminId).HasColumnName("admin_id");
+            entity.Property(e => e.RegionId).HasColumnName("region_id");
+
+            entity.HasOne(d => d.Admin).WithMany(p => p.AdminRegions)
+                .HasForeignKey(d => d.AdminId)
+                .HasConstraintName("admin_region_admin_id_fkey");
+
+            entity.HasOne(d => d.Region).WithMany(p => p.AdminRegions)
+                .HasForeignKey(d => d.RegionId)
+                .HasConstraintName("admin_region_region_id_fkey");
         });
 
         modelBuilder.Entity<AspNetRole>(entity =>

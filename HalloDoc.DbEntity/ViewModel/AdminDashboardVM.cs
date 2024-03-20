@@ -14,8 +14,8 @@ namespace HalloDoc.DbEntity.ViewModel
         public int? BirthYear { get; set; }//from request client
         public int? BirthDay { get; set; }//from request client
         public string? RequestorName { get; set; }//from request
-        public DateOnly RequestDate { get; set; }//from request
-        public string? Phonenumber { get; set; }//from request client
+        public DateOnly? RequestDate { get; set; }//from request
+        public string? PhoneNumber { get; set; }//from request client
         public string? RequestorPhoneNumber { get; set; }//from request table
         public string? State { get; set; }//from request client
         public string? City { get; set; }//from request client
@@ -27,7 +27,7 @@ namespace HalloDoc.DbEntity.ViewModel
         public DateOnly? BirthDate { get; set; }
         public string? Address { get; set; }
         public int RequestType { get; set; }
-        public int? region { get; set; }
+        public int? Region { get; set; }
         public int? PhysicianId { get; set; }
         public List<string>? AdminNotes { get; set; }
         public double? ItemCountPagination { get; set; }
@@ -43,7 +43,7 @@ namespace HalloDoc.DbEntity.ViewModel
 
         public int CountUnpaidState { get; set; }
 
-        public IEnumerable<Region>? regionn { get; set; }
+        public IEnumerable<Region>? RegionList { get; set; }
         //public string AdminNotes { get; set; }
 
     }

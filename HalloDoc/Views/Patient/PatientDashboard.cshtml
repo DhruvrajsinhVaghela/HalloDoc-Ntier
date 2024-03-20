@@ -42,7 +42,7 @@
                     <a class="btn logout-btn me-3" id="continueButton">
                         Continue
                     </a>
-                    <button type="button" class="btn" data-bs-dismiss="modal">
+                    <button type="button" class="btn logout-btn" data-bs-dismiss="modal">
                         Cancle
                     </button>
 
@@ -52,21 +52,54 @@
         </div>
     </div>
 
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <p class="mt-1 me-3">
+                welcome
+                @if (@Model.FirstOrDefault().user == null)
+                {
+                    <strong>@Model.FirstOrDefault().View.user.FirstName</strong>
+                }
+                else
+                {
+                    <strong>@Model.FirstOrDefault().user.FirstName</strong>
+                }
+            </p>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav nav-tabs d-flex flex-column" id="myTab" role="tablist">
+                <li class="nav-item " role="presentation">
+                    <button class="nav-link active text-info" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                            type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" onclick="showaccordian()">
+                        Dashboard
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-info" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                            type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false" onclick="hideaccordian()">
+                        Profile
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item " role="presentation">
-            <button class="nav-link active " id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
-                    type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" onclick="showaccordian()">
-                Dashboard
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                    type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false" onclick="hideaccordian()">
-                Profile
-            </button>
-        </li>
-    </ul>
+    <div class="d-none d-sm-block">
+        <ul class="nav nav-tabs d-flex" id="myTab" role="tablist">
+            <li class="nav-item " role="presentation">
+                <button class="nav-link active " id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                        type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" onclick="showaccordian()">
+                    Dashboard
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                        type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false" onclick="hideaccordian()">
+                    Profile
+                </button>
+            </li>
+        </ul>
+    </div>
     <div class="tab-content mt-5 m-auto dashboard-div" id="myTabContent">
 
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
@@ -96,70 +129,79 @@
                                 {
                             <tr>
                                 <td>
-                                            @item.CreatedDate.ToString("d MMMM yyyy")
+                                            @item.CreatedDate?.ToString("MMM dd yyyy")
                                 </td>
                                 <td>
                                             @{
                                                 if (item.Status == 1)
                                                 {
-                                                    <p>Unassigned</p>
+                                            <p>Unassigned</p>
                                                 }
-                                                else if(item.Status==2)
+                                                else if (item.Status == 2)
                                                 {
-                                                    <p>Accepted</p>
+                                            <p>Accepted</p>
                                                 }
                                                 else if (item.Status == 3)
                                                 {
-                                                    <p>Cancelled</p>
+                                            <p>Cancelled</p>
                                                 }
                                                 else if (item.Status == 4)
                                                 {
-                                                    <p>Reserving</p>
+                                            <p>Reserving</p>
                                                 }
                                                 else if (item.Status == 5)
                                                 {
-                                                    <p>MD0nRoute</p>
+                                            <p>MD0nRoute</p>
                                                 }
                                                 else if (item.Status == 6)
                                                 {
-                                                    <p>MD on Site</p>
-                                                }else if (item.Status == 7)
+                                            <p>MD on Site</p>
+                                                }
+                                                else if (item.Status == 7)
                                                 {
-                                                    <p>FollowUp</p>
-                                                }else if (item.Status == 8)
+                                            <p>FollowUp</p>
+                                                }
+                                                else if (item.Status == 8)
                                                 {
-                                                    <p>Closed</p>
-                                                }else if (item.Status == 9)
+                                            <p>Closed</p>
+                                                }
+                                                else if (item.Status == 9)
                                                 {
-                                                    <p>Locked</p>
-                                                }else if (item.Status == 10)
+                                            <p>Locked</p>
+                                                }
+                                                else if (item.Status == 10)
                                                 {
-                                                    <p>Declined</p>
-                                                }else if (item.Status == 11)
+                                            <p>Declined</p>
+                                                }
+                                                else if (item.Status == 11)
                                                 {
-                                                    <p>Consult</p>
-                                                }else if (item.Status == 12)
+                                            <p>Consult</p>
+                                                }
+                                                else if (item.Status == 12)
                                                 {
-                                                    <p>Clear</p>
-                                                }else if (item.Status == 13)
+                                            <p>Clear</p>
+                                                }
+                                                else if (item.Status == 13)
                                                 {
-                                                    <p>CancelledByProvider</p>
-                                                }else if (item.Status == 14)
+                                            <p>CancelledByProvider</p>
+                                                }
+                                                else if (item.Status == 14)
                                                 {
-                                                    <p>CCUploadedByClient</p>
-                                                }else if (item.Status == 15)
+                                            <p>CCUploadedByClient</p>
+                                                }
+                                                else if (item.Status == 15)
                                                 {
-                                                        <p>CCApprovedByAdmin</p>
+                                            <p>CCApprovedByAdmin</p>
                                                 }
                                             }
                                 </td>
                                 <td>
-                                            @if (item.count_file != 0)//42
+                                            @if (item.CountFile != 0)//42
                                             {
-                                        <a class="btn" asp-action="PatientViewDocuments" asp-route-id="@item.requestID">
+                                        <a class="btn" asp-action="PatientViewDocuments" asp-route-id="@item.RequestID">
                                             <button class="logout-btn btn">
                                                 Document
-                                                <span>&nbsp;(@item.count_file)</span>
+                                                <span>&nbsp;(@item.CountFile)</span>
                                             </button>
                                         </a>
                                             }
@@ -183,9 +225,9 @@
             <div class=" w-100" id="profile-div">
                 <div class="d-flex justify-content-between m-auto">
                     <h4>User Profile</h4>
-                    <button class="btn logout-btn mb-1">
+                    <a asp-action="PatientDashboard" asp-route-id="@Model.FirstOrDefault().user.AspNetUserId" class="btn logout-btn mb-1">
                         &lt; Back
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -345,7 +387,7 @@
         </div>
         @foreach (var item in Model)
         {
-            String id = 'a' + item.requestID.ToString();
+            String id = 'a' + item.RequestID.ToString();
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@id"
@@ -360,7 +402,7 @@
                             </span>
                             Created Date:
                             <span>
-                                @item.CreatedDate
+                                @item.CreatedDate?.ToString("mmm dd yyyy")
                             </span>
                         </p>
                     </button>
@@ -387,11 +429,81 @@
                                 </svg>
                             </span>
                             Current Status : <span>
-                                @if (item.Status == 1)
-                                {
-                                    <span>Unassigned</span>
+
+                                @{
+                                    if (item.Status == 1)
+                                    {
+                                        <span>Unassigned</span>
+                                    }
+                                    else if (item.Status == 2)
+                                    {
+                                        <span>Accepted</span>
+                                    }
+                                    else if (item.Status == 3)
+                                    {
+                                        <span>Cancelled</span>
+                                    }
+                                    else if (item.Status == 4)
+                                    {
+                                        <span>Reserving</span>
+                                    }
+                                    else if (item.Status == 5)
+                                    {
+                                        <span>MD0nRoute</span>
+                                    }
+                                    else if (item.Status == 6)
+                                    {
+                                        <span>MD on Site</span>
+                                    }
+                                    else if (item.Status == 7)
+                                    {
+                                        <span>FollowUp</span>
+                                    }
+                                    else if (item.Status == 8)
+                                    {
+                                        <span>Closed</span>
+                                    }
+                                    else if (item.Status == 9)
+                                    {
+                                        <span>Locked</span>
+                                    }
+                                    else if (item.Status == 10)
+                                    {
+                                        <span>Declined</span>
+                                    }
+                                    else if (item.Status == 11)
+                                    {
+                                        <span>Consult</span>
+                                    }
+                                    else if (item.Status == 12)
+                                    {
+                                        <span>Clear</span>
+                                    }
+                                    else if (item.Status == 13)
+                                    {
+                                        <span>CancelledByProvider</span>
+                                    }
+                                    else if (item.Status == 14)
+                                    {
+                                        <span>CCUploadedByClient</span>
+                                    }
+                                    else if (item.Status == 15)
+                                    {
+                                        <span>CCApprovedByAdmin</span>
+                                    }
                                 }
                             </span>
+                        </p>
+                        <p class="d-flex justify-content-center">
+
+                            @if (item.CountFile != 0)//42
+                            {
+                                <a class="btn border-info rounded-3 btn-outline-info w-100" asp-action="PatientViewDocuments" asp-route-id="@item.RequestID">
+
+                                    Document
+                                    <span>&nbsp;(@item.CountFile)</span>
+                                </a>
+                            }
                         </p>
                     </div>
                 </div>
@@ -407,19 +519,19 @@
             var continueButton = document.getElementById('continueButton');
             // Event listener for "ME" button
             meButton.addEventListener('click', function () {
-                meButton.classList.add('btn-success');
-                someoneElseButton.classList.remove('btn-success');
+                meButton.classList.add('btn-info');
+                someoneElseButton.classList.remove('btn-info');
             });
 
             // Event listener for "SOMEONE ELSE" button
             someoneElseButton.addEventListener('click', function () {
-                meButton.classList.remove('btn-success');
-                someoneElseButton.classList.add('btn-success');
+                meButton.classList.remove('btn-info');
+                someoneElseButton.classList.add('btn-info');
             });
 
             // Event listener for "Continue" button
             continueButton.addEventListener('click', function () {
-                var userType = meButton.classList.contains('btn-success') ? 'me' : 'someoneElse';
+                var userType = meButton.classList.contains('btn-info') ? 'me' : 'someoneElse';
                 if (userType === 'me') {
                     document.location.href = '/Patient/PatientMeRequest?id=' + @Model.FirstOrDefault().user.UserId;
                 } else {

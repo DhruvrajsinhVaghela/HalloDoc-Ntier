@@ -1,16 +1,18 @@
-﻿@{
-    ViewData["Title"] = "Patient Reset Password Page";
-    ViewBag.cssLink = "PatientResetPw.css";
-    ViewBag.jsLink = "PatientInfoForm.js";
+﻿
+@{
+    ViewData["Title"] = "Patient Login Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.CssLink = "~/css/PatientSite.css";
+    ViewBag.jsLink = "PatientInfoForm.js";
 }
 @model HalloDoc.DbEntity.Models.AspNetUser
 
 <body onload="load()">
+
     <div class="container-fluid p-0">
-        <div class="main-container">
+        <div class="P-Login-main-container">
             <div class="row  d-flex justify-content-center vh-100">
-                <div class="col-xl-4  main-column ">
+                <div class="col-xl-4  P-Login-main-column ">
                     <div class="darkmode-div">
                         <button id="darkmode-btn" onclick="myFunction()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -20,20 +22,23 @@
                         </button>
                     </div>
 
-                    <img class="logo-img" src="\images\Fig56._Patient_site_1.png" alt="">
-                    <div class="back-div"><a asp-action="PatientLogin" class="forgot-pw "> &lt; Back</a></div>
-                    <h3 id="heading">Reset Your Password</h3>
-                    <form method="post" asp-action="P_Forgetpass" >
-                        <div class="form-floating ">
-                            <input asp-for="Email" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput" id="username-input">Username</label>
-                            <button class="input-icon">
-                                <img src="\images\person-circle.svg" alt="">
-                            </button>
+                    <img class="P-Login-logo-img d-none d-sm-block" src="\images\Fig56._Patient_site_1.png" alt="">
+                    <div class="P-Login-back-div"><a asp-controller="Login" asp-action="PatientLogin" class="P-Login-forgot-pw "> &lt; Back</a></div>
+
+
+                    <h3 id="P-Login-heading">Reset Your Password</h3>
+                    <form method="post" asp-action="P_Forgetpass" class="container-fluid d-flex flex-column align-items-center">
+                        <div class="form-floating">
+                            <input type="email" asp-for="Email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+                            <label asp-for="Email" for="floatingInput" id="username-input">Email</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
-                        <a ><button type="submit" class="btn btn-primary login-btn ">Reset Password</button></a>
+                        
+                        <button type="submit" class="btn btn-primary P-Login-login-btn ">Reset Password</button>
                     </form>
-                    <a asp-action="PatientLogin" class="forgot-pw">&lt; Back To Login</a>
+                    <a asp-action="PatientLogin" asp-controller="Login" class="P-Login-forgot-pw">&lt; Back To Login</a>
+
+
                     <div class="terms-div">
                         <p>
                             <a href="" class="text-decoration-none" id="terms1"> Terms of Conditions </a>
@@ -43,7 +48,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
 </body>

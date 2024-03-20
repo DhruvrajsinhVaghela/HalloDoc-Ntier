@@ -3,9 +3,9 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<div class="bg-body-tertiary vh-100 d-flex flex-column p-3 tab-content">
+<div class="bg-body-tertiary d-flex flex-column p-3 tab-content">
 
-    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+    <div class="tab-pane fade show active h-100" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
          tabindex="0">
         <div class="container-fluid">
 
@@ -144,7 +144,7 @@
                     <span class="d-md-block d-none px-2 ">Export</span>
                 </button>
                 <a type="button" asp-action="ExportAll" asp-controller="Admin"
-                        class="btn btn-info d-flex ms-1 ms-sm-2 p-1 p-sm-2 align-items-center text-light">
+                   class="btn btn-info d-flex ms-1 ms-sm-2 p-1 p-sm-2 align-items-center text-light">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right me-md-1" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5" />
                         <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z" />
@@ -180,7 +180,7 @@
 
                     <select class="form-select mb-2" aria-label="All Regions" onchange="FilterData()" id="Dropdown">
                         <option selected>All Regions</option>
-                        @foreach (var item in Model.regionn)
+                        @foreach (var item in Model.RegionList)
                         {
                             <option value="@item.RegionId">@item.Name</option>
                         }
@@ -188,7 +188,7 @@
                 </div>
 
                 <div class="d-flex gap-2 align-items-center mb-2">
-                    <button class="btn btn-outline-secondary d-none d-md-block" value="0">All</button>
+                    <button class="btn btn-outline-secondary d-none d-md-block" value="0" onclick="FilterData(0)">All</button>
                     <div class="d-md-flex gap-1 mx-auto text-center align-items-center" value="1" onclick="FilterData(1)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill text-success" viewBox="0 0 16 16">
                             <circle cx="8" cy="8" r="8" />
@@ -216,12 +216,6 @@
                         </svg>
                         <div class="point">Concierge</div>
                     </div>
-                    <div class="d-md-flex gap-1 mx-auto text-center align-items-center Person">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill text-primary" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg>
-                        <div class="point">Vip</div>
-                    </div>
                 </div>
 
             </div>
@@ -233,44 +227,7 @@
         </div>
     </div>
 
-@* <div class="tab-pane fade" id="provider-location-tab-pane" role="tabpanel"
-     aria-labelledby="provider-location-tab" tabindex="0">
-    <div class="container-fluid">
-        <h3 class="mb-3 p-3 p-md-2 ">Provider Location</h3>
-    </div>
-</div>
 
-<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-    <div class="container-fluid">
-        <h3 class="mb-3 p-3 p-md-2 ">My Profile</h3>
-    </div>
-</div>
-
-<div class="tab-pane fade" id="Providers-tab-pane" role="tabpanel" aria-labelledby="Providers-tab"
-     tabindex="0">
-    <div class="container-fluid">
-        <h3 class="mb-3 p-3 p-md-2 ">Providers</h3>
-    </div>
-</div>
-
-<div class="tab-pane fade" id="Partners-tab-pane" role="tabpanel" aria-labelledby="Partners-tab"
-     tabindex="0">
-    <div class="container-fluid">
-        <h3 class="mb-3 p-3 p-md-2 ">Partners</h3>
-    </div>
-</div>
-
-<div class="tab-pane fade" id="Access-tab-pane" role="tabpanel" aria-labelledby="Access-tab" tabindex="0">
-    <div class="container-fluid">
-        <h3 class="mb-3 p-3 p-md-2 ">Access</h3>
-    </div>
-</div>
-
-<div class="tab-pane fade" id="Records-tab-pane" role="tabpanel" aria-labelledby="Records-tab" tabindex="0">
-    <div class="container-fluid">
-        <h3 class="mb-3 p-3 p-md-2 ">Records</h3>
-    </div>
-</div> *@
     <div id="showmodal">
     </div>
 </div>
@@ -291,9 +248,11 @@
             ({
                 url: '/Admin/CardsView',
                 method: 'POST',
-                data: { status: Action,
-                pn:1,
-                item:2},
+                data: {
+                    status: Action,
+                    pn: 1,
+                    item: 2
+                },
                 success: function (response) {
                     $('#Content').html(response);
                     $('#PageName').html('<h4>Patients</h4><strong class="tabname mb-1">(New)</strong>');
@@ -318,9 +277,11 @@
                 ({
                     url: '/Admin/CardsView',
                     method: 'POST',
-                    data: { status: Action,
-                    pn:1,
-                    item:2},
+                    data: {
+                        status: Action,
+                        pn: 1,
+                        item: 2
+                    },
                     success: function (response) {
                         $('#Content').html(response);
                         $('#PageName').html('<h4>Patients</h4><strong class="tabname mb-1">(' + box + ')</strong>');
@@ -362,8 +323,8 @@
 
     });
 
-    
-    
+
+    NewTab()
 </script>
 
 

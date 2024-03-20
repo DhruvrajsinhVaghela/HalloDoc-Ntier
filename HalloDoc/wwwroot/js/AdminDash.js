@@ -94,7 +94,37 @@ function DarkMode() {
         }
     }
 }*/
+/*function load() {
+    var light = localStorage.getItem("light");
+    if (light == 0) {
+        document.body.setAttribute('data-bs-theme', 'dark');
+
+    }
+    else {
+        document.body.setAttribute('data-bs-theme', 'light');
+
+    }
+
+}*/
+
 function load() {
+
+
+    $.ajax({
+        url: '/Admin/NavTabs',
+        method: 'GET',
+        data: { nav: 1 },
+
+        success: function (response) {
+            $('#main-div').html(response);
+        },
+        error: function (error) {
+            console.log(error);
+            console.error('Error in AJAX', error);
+        }
+    });
+
+
     var light = localStorage.getItem("light");
     if (light == 0) {
         document.body.setAttribute('data-bs-theme', 'dark');
@@ -106,3 +136,21 @@ function load() {
     }
 
 }
+
+function tab(val) {
+    $.ajax({
+        url: '/Admin/NavTabs',
+        method: 'GET',
+        data: { nav: val },
+
+        success: function (response) {
+            $('#main-div').html(response);
+        },
+        error: function (error) {
+            console.log(error);
+            console.error('Error in AJAX', error);
+        }
+    });
+};
+
+

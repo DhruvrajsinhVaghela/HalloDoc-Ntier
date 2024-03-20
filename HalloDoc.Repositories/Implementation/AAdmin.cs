@@ -261,5 +261,37 @@ namespace HalloDoc.Repositories.Implementation
             _logger.Admins.Update(a);
             _logger.SaveChanges();
         }
+        public List<AdminRegion> GetAdminRegion(int? adminId)
+        {
+            return _logger.AdminRegions.Where(x=>x.AdminId==adminId).ToList();
+        }
+        public Region GetRegionById(int? regionId)
+        {
+            return _logger.Regions.FirstOrDefault(x => x.RegionId == regionId)??new Region();
+        }
+
+        public Admin GetAdminDataById(int id)
+        {
+            return _logger.Admins.FirstOrDefault(x => x.AspNetUserId == id)??new Admin();
+        }
+
+        public void AddAdminRegion(AdminRegion adds)
+        {
+            _logger.AdminRegions.Add(adds);
+            _logger.SaveChanges();
+        }
+
+        public void RemoveAdminRegion(AdminRegion removes)
+        {
+            var data=_logger.AdminRegions.FirstOrDefault(x=>x.AdminId == removes.AdminId && x.RegionId==removes.RegionId);
+            _logger.AdminRegions.Remove(data);
+            _logger.SaveChanges();
+        }
+
+        public void UpAdmin(Admin adminData)
+        {
+            _logger.Admins.Add(adminData);
+            _logger.SaveChanges();
+        }
     }
 }

@@ -69,10 +69,10 @@
                         </div>
                     </td>
                     <td class="text-white">@obj.BirthDate</td>
-                    <td class="text-white">@obj.region</td>
+                    <td class="text-white">@obj.Region</td>
                     <td class="text-white">@obj.ProviderName</td>
                     <td></td>
-                    <td class="text-white">@obj.RequestDate.ToString("MMM-dd-yyyy",CultureInfo.InvariantCulture)</td> 
+                    <td class="text-white">@obj.RequestDate?.ToString("MMM-dd-yyyy",CultureInfo.InvariantCulture)</td> 
                     <td class="text-white">@obj.Address</td>
                     <td class="text-white">
                         Admin Status Changed to @obj.Status
@@ -331,7 +331,7 @@
                                         <path d="M5.793 1a1 1 0 0 1 1.414 0l.647.646a.5.5 0 1 1-.708.708L6.5 1.707 2 6.207V12.5a.5.5 0 0 0 .5.5.5.5 0 0 1 0 1A1.5 1.5 0 0 1 1 12.5V7.207l-.146.147a.5.5 0 0 1-.708-.708zm3 1a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708zm.707.707L5 7.207V13.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5V7.207z" />
                                     </svg>
                                 </div>
-                                <span class="ms-2">Region:@obj.region</span>
+                                <span class="ms-2">Region:@obj.Region</span>
                             </div>
                         </p>
                     </div>

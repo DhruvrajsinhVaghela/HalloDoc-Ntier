@@ -3,7 +3,7 @@
 <div class="modal fade" id=Assign tabindex="-1" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form asp-action="UpdateAssignCase" asp-route-id="@Model.reqId" method="post">
+            <form asp-action="UpdateAssignCase" asp-route-id="@Model.ReqId" method="post">
                 <div class="modal-header bg-info">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Assign Request</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -13,7 +13,7 @@
                   
                     <select class="form-select mt-4 text-secondary" aria-label="Narrow search by region" id="regionoption" onchange="getphy()">
                         <option selected>Narrow search by region</option>
-                        @foreach (var item in Model.region)
+                        @foreach (var item in Model.Region)
                         {
                             <option value="@item.RegionId">@item.Name</option>
                         }

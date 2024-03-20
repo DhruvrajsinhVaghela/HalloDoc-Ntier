@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Net;
 using Microsoft.PowerBI.Api.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Reflection.Metadata;
 
 namespace HalloDoc.Controllers
 {
@@ -41,12 +43,16 @@ namespace HalloDoc.Controllers
 
             if (data.Id > 0)
             {
-                HttpContext.Session.SetInt32("userId", data.Id);
+                HttpContext.Session.SetInt32("userId", data.Id);//asp net user id in session
                 HttpContext.Session.SetString("User'sName", data.UserName??"");
+
+                //---for admin id
+                Admin admin = _Aservice.GetAdminDataById(data.Id);
+                HttpContext.Session.SetInt32("adminId", admin.AdminId);
+                //----------
                 var token = _token.GenerateJwtToken(data);
                 Response.Cookies.Append("jwt", token);
-                //HttpContext.Session.SetString("userName", userIdObj.FirstName);
-                return RedirectToAction(nameof(AdminDashboard), "Admin", new { id = data });
+                return RedirectToAction(nameof(AdminDashboard), "Admin", new { id = data}) ;
             }
             return View();
 
@@ -102,12 +108,14 @@ namespace HalloDoc.Controllers
         public IActionResult P_Forgetpass(AspNetUser preq)
         {
             bool isRegistered = _Pservice.ValidateUserByEmail(preq.Email);
+            AspNetUser aspdata = _Aservice.AspUserData(preq.Email);
             if (isRegistered)
             {
                 var receiver = preq.Email ?? "";
-
+                var token = _token.GenerateJwtToken(aspdata);
+                var id=aspdata.Id;
                 var subject = "Create Account";
-                var message = "Tap on link for Create Account: https://localhost:44308/Patient/PatientResetPw";
+                var message = "Tap on link for Create Account: http://localhost:5093/Login/PatientResetPw?token=" + token+"&id="+id;
 
 
                 var mail = "tatva.dotnet.dhruvrajsinhvaghela@outlook.com";
@@ -121,12 +129,55 @@ namespace HalloDoc.Controllers
                 };
 
                 client.SendMailAsync(new MailMessage(from: mail, to: receiver, subject, message));
-                return RedirectToAction(nameof(PatientSubmitRequest));
+                return RedirectToAction(nameof(PatientLogin));
             }
 
             return View();
 
         }
+
+        [HttpPost]
+        public IActionResult ResetPassword(string token, int id)
+        {
+            //var data = _Pservice.GetRequest(id);
+            //return View(data);
+            ResetPwVM RP=new ResetPwVM();
+            RP.AspId = id;
+            bool x = _token.
+                ValidateJwtToken(token, out JwtSecurityToken jwtSecurityToken);
+            if (x)
+            {
+                return View(RP);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPwVM RP,int id)
+        {
+            bool data = _Pservice.UpdateAspUser(RP,id);
+            if(data==true)
+            {
+                return RedirectToAction(nameof(PatientLogin));
+            }
+            return NotFound();
+        }
+
+        public IActionResult PatientCreateAccount()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateAccount(ResetPwVM RP)
+        {
+            bool data = _Pservice.CreateUser(RP);
+            if( data==true)
+            {
+                return RedirectToAction(nameof(PatientLogin));
+            }
+            return NotFound();
+        }
+
         //------------------Patient Submit Request
 
         public IActionResult PatientSubmitRequest()
@@ -151,7 +202,7 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        public IActionResult PatientInfoForm([FromForm] PatientInfo model)
+        public IActionResult PatientInfoForm([FromForm] PatientInfoVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -173,7 +224,7 @@ namespace HalloDoc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PatientFamilyFriendForm(PatientFamilyFriendInfo model)
+        public IActionResult PatientFamilyFriendForm(PatientFamilyFriendInfoVM model)
         {
 
 
@@ -197,7 +248,7 @@ namespace HalloDoc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PatientConciergeInfo([FromForm] PatientConciergeInfo model)
+        public IActionResult PatientConciergeInfo([FromForm] PatientConciergeInfoVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -223,7 +274,7 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        public IActionResult PatientBusinessInfo([FromForm] PatientBusinessInfo model)
+        public IActionResult PatientBusinessInfo([FromForm] PatientBusinessInfoVM model)
         {
             if (!ModelState.IsValid)
             {

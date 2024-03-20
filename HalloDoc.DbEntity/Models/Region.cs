@@ -11,6 +11,8 @@ public partial class Region
 
     public string? Abbreviation { get; set; }
 
+    public virtual ICollection<AdminRegion> AdminRegions { get; set; } = new List<AdminRegion>();
+
     public virtual ICollection<Business> Businesses { get; set; } = new List<Business>();
 
     public virtual ICollection<Concierge> Concierges { get; set; } = new List<Concierge>();

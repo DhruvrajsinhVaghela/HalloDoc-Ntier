@@ -4,7 +4,7 @@ namespace HalloDoc.DbEntity.ViewModel
 {
     public class CloseCaseVM
     {
-        public int reqId { get; set; }
+        public int ReqId { get; set; }
         public string? ConfNo { get; set; }
         public List<RequestWiseFile>? FileList { get; set; }
         public DateOnly UploadDate { get; set; }

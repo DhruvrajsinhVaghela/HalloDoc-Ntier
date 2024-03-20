@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace HalloDoc.DbEntity.Models;
@@ -11,10 +10,8 @@ public partial class AspNetUser
 
     public string? UserName { get; set; }
 
-    [Required(ErrorMessage = "Password is required")]
     public string? PasswordHash { get; set; }
 
-    [Required(ErrorMessage = "Email is required")]
     public string? Email { get; set; }
 
     public string? PhoneNumber { get; set; }

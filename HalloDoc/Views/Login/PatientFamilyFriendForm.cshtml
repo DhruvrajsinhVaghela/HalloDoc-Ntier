@@ -4,7 +4,7 @@
     ViewBag.jsLink = "PatientInfoForm.js";
     Layout = "~/Views/Shared/_layoutWithHeaderFooter.cshtml";
 }
-@model HalloDoc.DbEntity.ViewModel.PatientFamilyFriendInfo
+@model HalloDoc.DbEntity.ViewModel.PatientFamilyFriendInfoVM
 <body onload="load()">
 
     <form asp-action="PatientFamilyFriendForm" class="form" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
                                     <span asp-validation-for="FFPhoneNumber" class="text-danger"></span>
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
-                                    <input asp-for="FFEmail" type="email" class="form-control" id="floatingInput" placeholder="Email">
+                                    <input asp-for="FFEmail" type="email" class="form-control" id="floatingInput" placeholder="Email" required>
                                     <label asp-for="FFEmail" class="ms-2 " for="floatingInput" id="username-input">Your Email</label>
                                     <span asp-validation-for="FFEmail" class="text-danger"></span>
                                 </div>
@@ -88,7 +88,7 @@
 
 
                                 <div class="form-floating col-lg-6 mb-3 ">
-                                    <input asp-for="Email" type="email" class="form-control" id="floatingInput" placeholder="Email">
+                                    <input asp-for="Email" type="email" class="form-control" id="floatingInput" placeholder="Email" required>
                                     <label asp-for="Email" class="ms-2 " for="floatingInput" id="username-input">Email</label>
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
@@ -120,7 +120,7 @@
 
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
-                                    <input asp-for="ZipCode" type="text" class="form-control" id="floatingInput" placeholder="zip code">
+                                    <input asp-for="ZipCode" type="text" class="form-control" id="floatingInput" placeholder="zip code" pattern="[1-9]{1}[0-9]{5}">
                                     <label asp-for="ZipCode" class="ms-2 " for="floatingInput" id="username-input">zip code</label>
                                     <span asp-validation-for="ZipCode" class="text-danger"></span>
 

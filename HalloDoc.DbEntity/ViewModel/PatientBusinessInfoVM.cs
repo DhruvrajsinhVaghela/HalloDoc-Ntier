@@ -2,32 +2,35 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 
 namespace HalloDoc.DbEntity.ViewModel
 {
-    public class PatientFamilyFriendInfo
+    public class PatientBusinessInfoVM
     {
         [Required(ErrorMessage = "Notes is required")]
         public required string Notes { get; set; }
-        /*for family friend*/
+        /*for Business*/
         [Required(ErrorMessage = "FirstName is required")]
-        public required string FFFirstName { get; set; }
+        public required string BFirstName { get; set; }
 
         [Required(ErrorMessage = "LastName is required")]
-        public required string FFLastName { get; set; }
+        public required string BLastName { get; set; }
 
         [Required(ErrorMessage = "PhoneNumber is required")]
-        public required string FFPhoneNumber { get; set; }
+        public required string BPhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
-        public required string FFEmail { get; set; }
+        public required string BEmail { get; set; }
 
         [Required(ErrorMessage = "Relation with patient is required")]
-        public required string FFRelation { get; set; }
+        public required string BBusinessName { get; set; }
+
+        public required string BCaseNo { get; set; }
 
         /*for patient*/
-        [Required(ErrorMessage = "UserName is required")]
+
+
+        [Required(ErrorMessage = "Email is required")]
         public required string Email { get; set; }
 
         [Required(ErrorMessage = "FirstName is required")]
@@ -39,7 +42,7 @@ namespace HalloDoc.DbEntity.ViewModel
         [Required(ErrorMessage = "PhoneNumber is required")]
         public required string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Zip Code is required")]
+        [Required(ErrorMessage = "ZipCode is required")]
         public required string ZipCode { get; set; }
 
         public required string State { get; set; }
@@ -51,12 +54,7 @@ namespace HalloDoc.DbEntity.ViewModel
 
         public required string Room { get; set; }
 
-
         [Required(ErrorMessage = "BirthDate is required")]
         public required DateTime BirthDate { get; set; }
-
-        public List<IFormFile>? Files { get; set; }
     }
-
-
 }

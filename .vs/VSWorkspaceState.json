@@ -2,13 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\HalloDoc",
-    "\\HalloDoc\\Controllers",
+    "\\HalloDoc.Repositories",
+    "\\HalloDoc.Repositories\\Implementation",
     "\\HalloDoc\\Views",
     "\\HalloDoc\\Views\\Admin",
+    "\\HalloDoc\\Views\\Patient",
     "\\HalloDoc\\Views\\Shared",
     "\\HalloDoc\\wwwroot",
     "\\HalloDoc\\wwwroot\\js"
   ],
-  "SelectedNode": "\\HalloDoc\\Views\\Shared\\_AdminHome.cshtml",
+  "SelectedNode": "\\HalloDoc.Repositories\\Implementation\\AAdmin.cs",
   "PreviewInSolutionExplorer": false
 }

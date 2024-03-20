@@ -98,8 +98,8 @@
 
                                 </div>
                                 <div class="form-floating col-lg-6  phone-code mb-3 ">
-                                    <input type="tel" asp-for="@Model.Phonenumber" class="form-control phone-input phone" id="phone">
-                                    <span asp-validation-for="Phonenumber" class="text-danger"></span>
+                                    <input type="tel" asp-for="@Model.PhoneNumber" class="form-control phone-input phone" id="phone">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
                                     <input type="email" asp-for="@Model.Email" onblur="fetch_email()" class="form-control" id="email" placeholder="Email">
@@ -116,14 +116,14 @@
 
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" asp-for="@Model.address" class="form-control" id="floatingInput" placeholder="address">
-                                    <label asp-for="address" class="ms-2 " for="floatingInput" id="username-input">address</label>
+                                    <input type="text" asp-for="@Model.Address" class="form-control" id="floatingInput" placeholder="address">
+                                    <label asp-for="Address" class="ms-2 " for="floatingInput" id="username-input">address</label>
 
                                 </div>
                                
                                 <div class="form-floating col-lg-6 ">
-                                    <input type="text" asp-for="@Model.room" class="form-control" id="floatingInput" placeholder="Room#/ suite (Optional)">
-                                    <label class="ms-2" asp-for="@Model.room" for="floatingInput" id="username-input">
+                                    <input type="text" asp-for="@Model.Room" class="form-control" id="floatingInput" placeholder="Room#/ suite (Optional)">
+                                    <label class="ms-2" asp-for="@Model.Room" for="floatingInput" id="username-input">
                                         Room # /
                                         Suite(Optional)
                                     </label>

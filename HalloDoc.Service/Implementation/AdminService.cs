@@ -48,7 +48,7 @@ namespace HalloDoc.services.Implementation
             swc.CountConcludeState = CountCon;
             swc.CountCloseState = CountClo;
             swc.CountUnpaidState = CountUnp;
-            swc.regionn = reg;
+            swc.RegionList = reg;
             return swc;
         }
         public List<AdminDashboardVM> GetNewStateData(int status, int id)
@@ -100,8 +100,8 @@ namespace HalloDoc.services.Implementation
                     Email = a.RequestClients.FirstOrDefault()?.Email ?? "",
                     RequestorName = a.FirstName,
                     RequestDate = DateOnly.FromDateTime(a.CreatedDate),
-                    Phonenumber = a.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
-                    region = a.RequestClients.FirstOrDefault()?.RegionId,
+                    PhoneNumber = a.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
+                    Region = a.RequestClients.FirstOrDefault()?.RegionId,
                     RequestorPhoneNumber = a.PhoneNumber ?? "",
                     Status = a.Status,
                     ProviderName = a.Physician?.FirstName ?? "",
@@ -130,11 +130,11 @@ namespace HalloDoc.services.Implementation
                 DateOfBirth = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.IntDate + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.StrMonth + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.IntYear,
                 Email = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.Email ?? " ",
                 Notes = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.Notes ?? " ",
-                Phonenumber = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.PhoneNumber ?? " ",
+                PhoneNumber = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.PhoneNumber ?? " ",
                 Region = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.State ?? " ",
-                address = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.Street + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.City + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.ZipCode,
+                Address = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.Street + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.City + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.ZipCode,
                 ConfNO = PatientData.FirstOrDefault()?.ConfirmationNumber ?? " ",
-                room = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.Location ?? "",
+                Room = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.Location ?? "",
                 RequestType = PatientData.FirstOrDefault()?.RequestType ?? 0
 
             };
@@ -185,7 +185,7 @@ namespace HalloDoc.services.Implementation
                 viewNotesVM.AdminNotes = data.FirstOrDefault()?.RequestNotes.FirstOrDefault()?.AdminNotes;
                 viewNotesVM.PhysicianName = data.FirstOrDefault().Physician?.FirstName;
                 viewNotesVM.StatusLogNotes = transfer;
-                viewNotesVM.reqId = id;
+                viewNotesVM.ReqId = id;
             }
             else
             {
@@ -246,7 +246,7 @@ namespace HalloDoc.services.Implementation
             //vm.reqID = id;
             vm.PatientName = req.FirstName;
             vm.ReasonName = tags;
-            vm.reqID = id;
+            vm.ReqID = id;
             return vm;
 
         }
@@ -257,9 +257,9 @@ namespace HalloDoc.services.Implementation
             List<Physician> physi = _repo.GetPhysicianData();
             AssignCaseVM case1 = new AssignCaseVM();
             {
-                case1.reqId = id;
+                case1.ReqId = id;
                 case1.Physicians = physi;
-                case1.region = reg;
+                case1.Region = reg;
             }
             return case1;
         }
@@ -317,7 +317,7 @@ namespace HalloDoc.services.Implementation
             BlockCaseVM obj = new BlockCaseVM {
                 PateintFirstName = req.FirstName,
                 PatientLastName = req.LastName,
-                reqID = id
+                ReqId = id
             };
             return obj;
         }
@@ -503,7 +503,7 @@ namespace HalloDoc.services.Implementation
             SendMailVM vm = new SendMailVM()
             {
                 Email=ret.Email,
-                reqId=ret.RequestId,
+                ReqId=ret.RequestId,
                 PhoneNo=ret.PhoneNumber,
             };
             return vm;
@@ -513,8 +513,8 @@ namespace HalloDoc.services.Implementation
         public SendMailVM GetReqType(int id, SendMailVM vm)
         {
             var data = _repo.GetRequestStatus(id);
-            vm.reqType = data.RequestType;
-            vm.reqId = data.RequestId;
+            vm.ReqType = data.RequestType;
+            vm.ReqId = data.RequestId;
             return vm;
         }
 
@@ -523,8 +523,8 @@ namespace HalloDoc.services.Implementation
             List<HealthProfessionalType> proff = _repo.GetProfessionList(id);
             SendOrderVM model = new SendOrderVM
             {
-                professionTypes = proff,
-                reqId = id
+                ProfessionTypes = proff,
+                ReqId = id
             };
             return model;
         }
@@ -539,9 +539,9 @@ namespace HalloDoc.services.Implementation
             HealthProfessional data = _repo.GetVendor(vendorId);
 
             SendOrderVM vm = new SendOrderVM();
-            vm.email = data.Email;
-            vm.phone = data.PhoneNumber;
-            vm.fax = data.FaxNumber;
+            vm.Email = data.Email;
+            vm.Phone = data.PhoneNumber;
+            vm.Fax = data.FaxNumber;
 
             return vm;
         }
@@ -551,11 +551,11 @@ namespace HalloDoc.services.Implementation
             OrderDetail model = new OrderDetail()
             {
                 RequestId = id,
-                Email = vm.email,
-                BusinessContact = vm.phone,
-                FaxNumber = vm.fax,
+                Email = vm.Email,
+                BusinessContact = vm.Phone,
+                FaxNumber = vm.Fax,
                 Prescription = vm.Prescription,
-                NoOfRefill = vm.refill,
+                NoOfRefill = vm.ReFill,
                 CreatedDate = DateTime.Now
                 //CreatedBy=AdminID
             };
@@ -568,7 +568,7 @@ namespace HalloDoc.services.Implementation
             var data=_repo.GetRequestStatus(id);
             BlockCaseVM vm = new BlockCaseVM 
             {
-                reqID= id
+                ReqId= id
             };
             return vm;
         }
@@ -589,7 +589,7 @@ namespace HalloDoc.services.Implementation
             var reqWise = _repo.GetReqWiseFile(id);
             DateOnly date = new DateOnly(reqCl.IntYear, DateOnly.ParseExact(reqCl.StrMonth, "MMMM", CultureInfo.InvariantCulture).Month, reqCl.IntDate);
             CloseCaseVM vm = new CloseCaseVM() { };
-            vm.reqId = id;
+            vm.ReqId = id;
             vm.FirstName = reqCl.FirstName;
             vm.LastName = reqCl.LastName;
             vm.Email = reqCl.Email;
@@ -636,25 +636,40 @@ namespace HalloDoc.services.Implementation
             return true;
         }
 
-        public object AdminProfileData(int? adminId)
+        public object AdminProfileData(int? aspId,int? adminId)
         {
-            Admin data = _repo.GetAdminData(adminId);
-            AspNetUser aspData = _repo.GetAspNetUserData(adminId);
+            Admin data = _repo.GetAdminData(aspId);
+            AspNetUser aspData = _repo.GetAspNetUserData(aspId);
             List<string> role = _repo.GetRole(aspData.Id);
-            AdminProfileVM vm = new AdminProfileVM()
+            List<AdminRegion> adminRegion = _repo.GetAdminRegion(adminId);
+
+            List<Region> reg = new();
+            foreach(var item in adminRegion)
             {
+                Region region = _repo.GetRegionById(item.RegionId);
+                if(region != null)
+                {
+                    reg.Add(region);
+                }
+            }
+
+            AdminProfileVM vm = new()
+            {
+                AdminId=adminId,
                 UserName = aspData.UserName,
                 Roll = role[0],
-                status = data.Status,
+                Status = data.Status,
                 FirstName =data.FirstName,
                 LastName=data.LastName,
                 Email=data.Email,
                 Address1=data.Address1,
                 Address2=data.Address2,
                 City=data.City,
-                PhoneNO=data.Mobile,
+                PhoneNo=data.Mobile,
                 ZipCode=data.Zip,
                 AltPhone=data.AltPhone,
+                RegionList= _repo.GetAllRegions(),
+                AdminRegList=reg
             };
             return vm;
         }
@@ -714,8 +729,8 @@ namespace HalloDoc.services.Implementation
                     BirthDay = a.RequestClients.FirstOrDefault()?.IntDate ?? 31,
                     RequestorName = a.FirstName,
                     RequestDate = DateOnly.FromDateTime(a.CreatedDate),
-                    Phonenumber = a.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
-                    region = a.RequestClients.FirstOrDefault()?.RegionId,
+                    PhoneNumber = a.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
+                    Region = a.RequestClients.FirstOrDefault()?.RegionId,
                     RequestorPhoneNumber = a.PhoneNumber ?? "",
                     Status = a.Status,
                     ProviderName = a.Physician?.FirstName ?? "",
@@ -776,46 +791,77 @@ namespace HalloDoc.services.Implementation
                 {
                     dashboard.Add(new AdminDashboardVM()
                     {
-
+                        ItemCountPagination = pagecount,
                         PatientName = item1.RequestClients.FirstOrDefault()?.FirstName + ' ' ?? " " + item1.RequestClients.FirstOrDefault()?.LastName ?? "",
                         BirthDate = Dateofbirth,
                         RequestType = item1.RequestType,
                         RequestorName = item1?.FirstName ?? "",
                         RequestDate = DateOnly.FromDateTime(item1!.CreatedDate),
-                        Phonenumber = item1?.PhoneNumber ?? "",
+                        PhoneNumber = item1?.PhoneNumber ?? "",
                         RequestorPhoneNumber = item1?.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
                         Address = item1?.RequestClients.FirstOrDefault()?.Street ?? "" + ' ' + item1!.RequestClients.FirstOrDefault()?.City ?? "" + ' ' + item1.RequestClients.FirstOrDefault()?.State ?? "",
                         Notes = transfer,
-                        region = item1.RequestClients.FirstOrDefault()?.RegionId ?? 0,
+                        Region = item1.RequestClients.FirstOrDefault()?.RegionId ?? 0,
                         Email = item1.RequestClients.FirstOrDefault()?.Email ?? "",
                         ProviderName = item1.Physician?.FirstName ?? "",
                         ReqID = item1.RequestId
-                    });
+                    }) ;
                 }
 
             }
             return dashboard;
 
         }
-        public void editadminprofile(AdminProfileVM model, int? admin, List<int> reg)
+        public void EditAdminProfile(AdminProfileVM model, int id)
         {
-            Admin a = _repo.GetAdminData(admin);
-            if (model != null)
+            
+            Admin adminData = _repo.GetAdminDataById(id)
+;
+            AspNetUser aspnetuser = _repo.GetAspNetUserData(adminData.AspNetUserId);
+            List<AdminRegion> regions = _repo.GetAdminRegion(id)
+;
+
+            List<int> AddRegion = new();
+
+            foreach (var region in regions)
             {
-                a.FirstName = model.FirstName;
-                a.LastName = model.LastName;
-                a.Email = model.Email;
-                a.Mobile = model.PhoneNO;
-                _repo.updateadmintbl(a);
+                AddRegion.Add(region.RegionId);
             }
-            /*if (r.Count > 0)
+
+            List<int> AddAminRegion = model.SelectedRegions.Except(AddRegion).ToList();
+            List<int> RemoveAminRegion = AddRegion.Except(model.SelectedRegions).ToList();
+
+            foreach (var region in AddAminRegion)
             {
-                _Repository.deletereg(admin);
-                foreach (var ritem in r)
-                {
-                    _Repository.AddRegionbyid(ritem, admin);
-                }
-            }*/
+                AdminRegion adds = new() { AdminId = id, RegionId = region };
+                _repo.AddAdminRegion(adds);
+            }
+
+            foreach (var region in RemoveAminRegion)
+            {
+                AdminRegion removes = new() { AdminId = id, RegionId = region };
+                _repo.RemoveAdminRegion(removes);
+            }
+
+            adminData.FirstName = model.FirstName;
+            adminData.LastName = model.LastName;
+            adminData.Email = model.Email;
+            adminData.Mobile = model.PhoneNo;
+            adminData.ModifiedDate = DateTime.Now;
+            //admin.ModifiedBy = admin.AspNetUserId;
+            _repo.UpAdmin(adminData);
+
+            aspnetuser.Email = model.Email;
+            aspnetuser.PhoneNumber = model.PhoneNo;
+            aspnetuser.ModifiedDate = DateTime.Now;
+            _repo.GetUpAspUser(aspnetuser);
+
+        }
+
+        public Admin GetAdminDataById(int id)
+        {
+            Admin data=_repo.GetAdminDataById(id);
+            return data;
         }
     }
 

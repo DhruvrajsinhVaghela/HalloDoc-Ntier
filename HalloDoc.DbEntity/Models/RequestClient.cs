@@ -8,7 +8,7 @@ public partial class RequestClient
 {
     public int RequestClientId { get; set; }
 
-    public int? RequestId { get; set; }
+    public int RequestId { get; set; }
 
     public string FirstName { get; set; } = null!;
 

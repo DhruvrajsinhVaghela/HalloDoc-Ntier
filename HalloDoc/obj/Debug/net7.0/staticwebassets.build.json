@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qRZDwMGB1bmZAzfwyvCszrV342Z5WsJXyaQU95BEYjE=",
+  "Hash": "4m0GYP7/TtUNXQs8qxdOxyqIBb6lfTtfJn/F2UqbZ8g=",
   "Source": "HalloDoc",
   "BasePath": "_content/HalloDoc",
   "Mode": "Default",
@@ -4689,6 +4689,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\UploadFiles\\dhruvivaghela.pdf"
+    },
+    {
+      "Identity": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\dhurvsaldf.xlsx",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "UploadFiles/dhurvsaldf.xlsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadFiles\\dhurvsaldf.xlsx"
     },
     {
       "Identity": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\dishantsoni.pdf",

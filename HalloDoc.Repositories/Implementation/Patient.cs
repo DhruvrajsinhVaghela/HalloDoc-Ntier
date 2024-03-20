@@ -1,5 +1,6 @@
 ﻿using HalloDoc.DbEntity.Data;
 using HalloDoc.DbEntity.Models;
+using HalloDoc.DbEntity.ViewModel;
 using HalloDoc.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,9 +25,22 @@ namespace HalloDoc.Repositories.Implementation
             return default(RequestWiseFile);
         }
 
-        public List<RequestWiseFile> DownloadAll(int id)
+        public List<RequestWiseFile> DownloadAll(PatientDashboardVM vm, int id)
         {
-            return _logger.RequestWiseFiles.Where(x => x.RequestId == id).ToList();
+            List<RequestWiseFile> files = new List<RequestWiseFile>();
+            if (vm.FileId[0] != 0)
+            {
+                foreach (var i in vm.FileId)
+                {
+                    RequestWiseFile file = _logger.RequestWiseFiles.FirstOrDefault(x => x.RequestWiseFileId == i) ?? new RequestWiseFile();
+                    files.Add(file);
+                }
+            }
+            else
+            {
+                files = _logger.RequestWiseFiles.Where(x => x.RequestId == id).ToList();
+            }
+            return files;
         }
 
 
@@ -54,8 +68,8 @@ namespace HalloDoc.Repositories.Implementation
             return data;
         }
 
-       
-       
+
+
         public DbSet<User> GetUserData()
         {
             return _logger.Users;
@@ -64,7 +78,7 @@ namespace HalloDoc.Repositories.Implementation
         {
             return _logger.Requests;
         }
-        
+
         public DbSet<RequestWiseFile> GetReqWisFileData()
         {
             return _logger.RequestWiseFiles;
@@ -94,11 +108,6 @@ namespace HalloDoc.Repositories.Implementation
             return reg;
         }
 
-        public RequestClient GetRequestClientinfo(int id)
-        {
-            RequestClient x = _logger.RequestClients.FirstOrDefault(x => x.RequestId == id) ?? new RequestClient();
-            return x;
-        }
 
         public void AddReqStatusLog(RequestStatusLog x)
         {
@@ -114,7 +123,7 @@ namespace HalloDoc.Repositories.Implementation
 
         public AspNetUser GetAspNetUser(int? aspNetUserId)
         {
-            return _logger.AspNetUsers.FirstOrDefault(x => x.Id == aspNetUserId);
+            return _logger.AspNetUsers.FirstOrDefault(x => x.Id == aspNetUserId) ?? new AspNetUser();
         }
 
         public void UpdateAspNetUser(AspNetUser asp_net_u)
@@ -137,12 +146,12 @@ namespace HalloDoc.Repositories.Implementation
 
         public User GetUser(int patientAccountId)
         {
-            return _logger.Users.FirstOrDefault(x=>x.AspNetUserId==patientAccountId);
+            return _logger.Users.FirstOrDefault(x => x.AspNetUserId == patientAccountId) ?? new User();
         }
 
         public void UpdateUser(User use)
         {
-            _logger.Users.Update(use);  
+            _logger.Users.Update(use);
             _logger.SaveChanges();
         }
 
@@ -154,12 +163,12 @@ namespace HalloDoc.Repositories.Implementation
 
         public Request GetRequestByEmail(string email)
         {
-            return _logger.Requests.FirstOrDefault(x=>x.Email == email);
+            return _logger.Requests.FirstOrDefault(x => x.Email == email) ?? new Request();
         }
 
-        public Request GetRequestById(int id)
+        public Request GetRequestById(int? id)
         {
-            return _logger.Requests.FirstOrDefault(x => x.RequestId == id);
+            return _logger.Requests.FirstOrDefault(x => x.RequestId == id) ?? new Request();
         }
 
         public void UpdateRequest(Request req)
@@ -182,7 +191,7 @@ namespace HalloDoc.Repositories.Implementation
 
         public RequestClient GetReqClientById(int requestId)
         {
-            return _logger.RequestClients.FirstOrDefault(x=>x.RequestId == requestId);
+            return _logger.RequestClients.FirstOrDefault(x => x.RequestId == requestId) ?? new RequestClient();
         }
 
         public void AddReqWisFile(RequestWiseFile requestWiseFile)
@@ -214,5 +223,17 @@ namespace HalloDoc.Repositories.Implementation
             _logger.RequestBusinesses.Add(requestBusiness);
             _logger.SaveChanges();
         }
+
+        public ICollection<AspNetRole> GetPatientRole()
+        {
+            return _logger.AspNetRoles.Where(x => x.Id == 3).ToList();
+        }
+
+        public RequestClient GetReqClientByEmail(string email)
+        {
+            return _logger.RequestClients.FirstOrDefault(x => x.Email == email);
+        }
     }
+
+
 }

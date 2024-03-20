@@ -8,9 +8,8 @@ namespace HalloDoc.DbEntity.ViewModel
 {
     public class SendAgreementVM
     {
-        public int? reqId { get; set; }
+        public int? ReqId { get; set; }
         public string? PatientName { get; set; }
-
         public string? Note { get; set; }
     }
 }

@@ -9,7 +9,7 @@
             and we'll get started immediately,if you do not <br> agree simply click on "Cancel"
         </p>
         <div class="w-75 d-flex justify-content-between">
-        <form asp-action="PatientAgreed" method="post" asp-route-id="@Model.reqId">
+        <form asp-action="PatientAgreed" method="post" asp-route-id="@Model.ReqId">
             <button class="btn text-white bg-success border rounded-3" type="submit">I Agree</button>
         </form>
             <button class="btn text-white bg-danger border rounded-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Cancel</button>
@@ -25,7 +25,7 @@
                 <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Cancel Confirmation</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="PatientCanceled" asp-route-id="@Model.reqId" method="post">
+            <form asp-action="PatientCanceled" asp-route-id="@Model.ReqId" method="post">
                 <div class="modal-body">
                     <p>@Model.PatientName</p>
                     <div class="form-floating w-100">

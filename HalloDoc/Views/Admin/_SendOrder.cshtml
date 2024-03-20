@@ -19,14 +19,14 @@
                 </a>
             </div>
 
-            <form class="container-lg" asp-action="AddSendOrders" asp-route-id="@Model.reqId" method="Post">
+            <form class="container-lg" asp-action="AddSendOrders" asp-route-id="@Model.ReqId" method="Post">
             <div class="container border rounded d-flex justify-content-center shadow-lg w-75" id="main-div">
                 <div class="row">
 
                     <div class="col-lg-6 my-3">
                         <select class="form-select text-secondary p-3" aria-label="Select Profession" id="Profession" onchange="GetVendors()">
                             <option selected>Select Profession</option>
-                            @foreach (var item in Model.professionTypes)
+                            @foreach (var item in Model.ProfessionTypes)
                             {
                                 <option value="@item.HealthProfessionalId">@item.ProfessionName</option>
                             }
@@ -38,19 +38,19 @@
                         </select>
                    </div>
                     <div class="form-floating col-lg-6 mb-3">
-                        <input asp-for="phone" id="bphone" type="text" class="form-control " 
+                        <input asp-for="Phone" id="bphone" type="text" class="form-control " 
                                placeholder="Business Contact" readonly>
                             <label class="ms-2" for="floatingPassword">Business Contact</label>
                     </div>
 
                     <div class="form-floating col-lg-6 mb-3">
-                            <input asp-for="email" id="email" type="email" class="form-control "
+                            <input asp-for="Email" id="email" type="email" class="form-control "
                                placeholder="Email" readonly>
                             <label class="ms-2" for="floatingPassword">Email</label>
                     </div>
 
                     <div class="form-floating col-lg-6 mb-3">
-                            <input asp-for="fax" id="fax" type="number" class="form-control "
+                            <input asp-for="Fax" id="fax" type="number" class="form-control "
                                placeholder="Fax Number" readonly>
                         <label class="ms-2" for="floatingPassword">Fax Number</label>
                     </div>
@@ -63,7 +63,7 @@
                         </label>
                     </div>
                     <div class="form-floating col-lg-6 mb-3">
-                            <input asp-for="refill" type="number" class="form-control"
+                            <input asp-for="ReFill" type="number" class="form-control"
                                placeholder="Number Of Refill">
                         <label class="ms-2" for="floatingPassword">Number Of Refill</label>
                     </div>

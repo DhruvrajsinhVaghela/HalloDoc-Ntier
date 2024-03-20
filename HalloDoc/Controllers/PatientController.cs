@@ -59,9 +59,9 @@ namespace HalloDoc.Controllers
         }
 
         //-------------Document Download All
-        public IActionResult DownloadAll(int id)
+        public IActionResult DownloadAll(PatientDashboardVM vm,int id)
         {
-            var filesRow = _service.DownloadAll(id);
+            var filesRow = _service.DownloadAll(vm,id);
             MemoryStream ms = new MemoryStream();
             using (ZipArchive zip = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 filesRow.ForEach(file =>
@@ -101,7 +101,7 @@ namespace HalloDoc.Controllers
             return View();
         }
 
-        public IActionResult PatientMeRequest(int id, PatientInfo model)//int id, ViewDocumentVM model
+        public IActionResult PatientMeRequest(int id, PatientInfoVM model)//int id, ViewDocumentVM model
         {
             var data = _service.PatientMeRequest(id, model);
             if (data != null)
@@ -117,7 +117,7 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        public IActionResult PatientSomeOneElseRequest(int id, PatientInfo model)
+        public IActionResult PatientSomeOneElseRequest(int id, PatientInfoVM model)
         {
             var data = _service.PatientSomeOneElseRequest(id, model);
             if (data != null)

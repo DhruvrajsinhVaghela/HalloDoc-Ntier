@@ -12,11 +12,11 @@ namespace HalloDoc.DbEntity.ViewModel
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? DateOfBirth { get; set; }
-        public string? Phonenumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public string? Region { get; set; }
-        public string? address { get; set; }
+        public string? Address { get; set; }
         public string? Email { get; set; }
-        public string? room { get; set; }
+        public string? Room { get; set; }
         public  string? ConfNO { get; set; }
         public int RequestType { get; set; }
     }

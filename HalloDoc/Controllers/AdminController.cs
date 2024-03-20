@@ -219,13 +219,13 @@ namespace HalloDoc.Controllers
         {
             SendMailVM data = _service.SendAgreement(id);
             AspNetUser aspdata = _service.AspUserData(vm.Email);
-            if (data.reqId!=0)
+            if (data.ReqId!=0)
             {
                 var receiver = vm.Email;
-                var idd = data.reqId;
+                var idd = data.ReqId;
                 var token = _token.GenerateJwtToken(aspdata);
                 var subject = "Create Account";
-                var message = $"Tap on link for accept agreement: [1] https://localhost:5093/Patient/Agreement?token="+token+"&id="+idd;
+                var message = $"Tap on link for accept agreement: [1] http://localhost:5093/Patient/Agreement?token="+token+"&id="+idd;
 
 
 
@@ -333,8 +333,9 @@ namespace HalloDoc.Controllers
                
                 case 3:
                     {
-                        var adminId=HttpContext.Session.GetInt32("userId");
-                        var ProfileData = _service.AdminProfileData(adminId);
+                        var aspId=HttpContext.Session.GetInt32("userId");
+                        var adminId = HttpContext.Session.GetInt32("adminId");
+                        var ProfileData = _service.AdminProfileData(aspId,adminId);
                         return PartialView("_AdminProfile",ProfileData);
                     }
                
@@ -481,13 +482,13 @@ namespace HalloDoc.Controllers
                     worksheet.Cell(row, 5).Value = item.RequestDate.ToString();
                     worksheet.Cell(row, 6).Value = item.RequestDate.ToString();
 
-                    if (item.Phonenumber != "")
+                    if (item.PhoneNumber != "")
                     {
-                        worksheet.Cell(row, 7).Value = item.Phonenumber;
+                        worksheet.Cell(row, 7).Value = item.PhoneNumber;
                     }
                     if (item.RequestType != 2 && item.RequestorPhoneNumber != "")
                     {
-                        worksheet.Cell(row, 7).Value = item.Phonenumber + ' ' + item.RequestorPhoneNumber;
+                        worksheet.Cell(row, 7).Value = item.PhoneNumber + ' ' + item.RequestorPhoneNumber;
                     }
                     worksheet.Cell(row, 8).Value = item.Address;
                     worksheet.Cell(row, 9).Value = item.Notes?.ToString();
@@ -585,13 +586,13 @@ namespace HalloDoc.Controllers
                     worksheet.Cell(row, 5).Value = item.RequestDate.ToString();
                     worksheet.Cell(row, 6).Value = item.RequestDate.ToString();
 
-                    if (item.Phonenumber != "")
+                    if (item.PhoneNumber != "")
                     {
-                        worksheet.Cell(row, 7).Value = item.Phonenumber;
+                        worksheet.Cell(row, 7).Value = item.PhoneNumber;
                     }
                     if (item.RequestType != 2 && item.RequestorPhoneNumber != "")
                     {
-                        worksheet.Cell(row, 7).Value = item.Phonenumber + ' ' + item.RequestorPhoneNumber;
+                        worksheet.Cell(row, 7).Value = item.PhoneNumber + ' ' + item.RequestorPhoneNumber;
                     }
                     worksheet.Cell(row, 8).Value = item.Address;
                     worksheet.Cell(row, 9).Value = item.Notes?.ToString();
@@ -618,9 +619,10 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult EditAdminProfile(AdminProfileVM model, List<int> reg)
         {
-            var admin = HttpContext.Session.GetInt32("userId");
+            var aspId = HttpContext.Session.GetInt32("userId");
+            int adminId =(int) HttpContext.Session.GetInt32("adminId");
             //ViewBag.Username = _service.Adminname(admin);
-            _service.editadminprofile(model, admin, reg);
+            _service.EditAdminProfile(model, adminId);
             return RedirectToAction("AdminDashboard");
         }
 

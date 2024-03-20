@@ -9,7 +9,7 @@ namespace HalloDoc.DbEntity.ViewModel
 {
     public class CancelCaseVM
     {
-        public int reqID { get; set; }
+        public int ReqID { get; set; }
         public string? AdminNotes {  get; set; }
         public string? PatientName { get; set; }
         public int status { get; set; }

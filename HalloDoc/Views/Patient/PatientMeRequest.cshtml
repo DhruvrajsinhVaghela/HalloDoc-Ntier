@@ -4,7 +4,7 @@
     ViewBag.jsLink = "PatientInfoForm.js";
     Layout = "~/Views/Shared/_layoutWithHeaderFooter.cshtml";
 }
-@model HalloDoc.DbEntity.ViewModel.PatientInfo
+@model HalloDoc.DbEntity.ViewModel.PatientInfoVM
 
 <body onload=load()>
     <form asp-action="PatientInfoForm" class="form" enctype="multipart/form-data">
@@ -63,7 +63,7 @@
 
 
                                 <div class="form-floating col-lg-6 mb-3">
-                                    <input type="email" asp-for="@Model.Email" onblur="fetch_email()" class="form-control" id="email" placeholder="Email">
+                                    <input type="email" asp-for="@Model.Email" onblur="fetch_email()" class="form-control" id="email" placeholder="Email" required>
                                     <label class="ms-2" asp-for="Email" for="floatingInput" id="username-input">Email</label>
                                 </div>
 
@@ -93,7 +93,7 @@
 
                                 </div>
                                 <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" asp-for="ZipCode" class="form-control" id="floatingInput" placeholder="zip code">
+                                    <input type="text" asp-for="ZipCode" class="form-control" id="floatingInput" placeholder="zip code" pattern="[1-9]{1}[0-9]{5}">
                                     <label class="ms-2" asp-for="ZipCode" for="floatingInput" id="username-input">zip code</label>
 
                                 </div>

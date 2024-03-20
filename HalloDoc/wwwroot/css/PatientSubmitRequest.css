@@ -83,32 +83,33 @@
     margin-top: 20px;
     font-size: smaller;
     font-weight: bolder;
+    border-radius:10px;
 }
 
 
 
 .btn1 {
     color: #5c33c4;
-    background-color: #eb99ff;
+    background-color: #f1d3f9;
     border-color: #9789ba;
     height: 7vh;
 }
 
     .btn1:hover {
-        background-color: #b800e6;
+        background-color: #df80f7;
         color: white;
         border-color: white;
     }
 
 .btn2 {
     color: #08BCEB;
-    background-color: #99ebff;
+    background-color: #bce6f1;
     border-color: #7bcade;
     height: 7vh;
 }
 
     .btn2:hover {
-        background-color: #00ccff;
+        background-color: #4fdcff;
         color: white;
         border-color: white;
     }
@@ -134,7 +135,7 @@
 }
 
     .btn4:hover {
-        background-color: #ff33cc;
+        background-color: #ef59c9;
         color: white;
         border-color: white;
     }
@@ -148,6 +149,7 @@
     background-color: black;
     color: white;
     text-align: right;
+    z-index:10;
 }
 
 .terms {

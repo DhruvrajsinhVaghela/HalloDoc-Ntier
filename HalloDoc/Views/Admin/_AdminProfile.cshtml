@@ -16,7 +16,7 @@
         </div>
         <div class="col-lg-6 col-md-6 ">
             <div class="form-floating mb-3">
-                <input type="text" asp-for="@Model.status" class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
+                <input type="text" asp-for="@Model.Status" class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
                 <label for="floatingInput">Status</label>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <button class="btn btn-outline-info py-1 py-2 rounded">Reset Password</button>
         </a>
     </div>
-    <form class="form" asp-action="EditAdminProfile" method="post">
+    <form class="form" asp-action="EditAdminProfile" asp-route-id="@Model.AdminId" method="post">
         <fieldset id="field" disabled>
             <div class="row mt-5 ">
                 <div class="col-lg-6 col-md-6">
@@ -64,14 +64,32 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="form-floating mb-3 phone-code">
-                        <input type="tel" asp-for=@Model.PhoneNO class="form-control phone-input phone" id="phone">
+                        <input type="tel" asp-for=@Model.PhoneNo class="form-control phone-input phone" id="phone">
                         <label for="floatingInput">Phone Number</label>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                    @*    @foreach (var reg in Model.regions)
-                    {                    <input type="checkbox" value="@reg.Regionid" style="accent-color:cyan; color:white" checked>
-                    <label>@reg.Name</label>                    }                    *@
+                    @if (Model.RegionList!=null)
+                    {
+                        @foreach (var reg in Model.RegionList)
+                        {
+                            @if (Model.AdminRegList.Any(x => x.RegionId == reg.RegionId))
+                            {
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input checkbox" type="checkbox" name="SelectedReg" value="@reg.RegionId" checked >
+                                    <label class="form-check-label text6" for="inlineCheckbox1">@reg.Name</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input checkbox" type="checkbox" name="SelectedReg" value="@reg.RegionId">
+                                    <label class="form-check-label text6" for="inlineCheckbox1">@reg.Name</label>
+                                </div>
+                            }
+                        }                   
+                        
+                    }
                 </div>
 
 
@@ -79,7 +97,7 @@
         </fieldset>
         <div class="btns  d-flex justify-content-end my-3">
             <button id="edit" type="button" data-text="edit" class="btn border-info rounded-2">Edit</button>
-            <button id="save" type="submit" class="btn border-info rounded-2 mx-2">Save Changes</button>
+            <button id="Cancle" type="button" class="btn border-info rounded-2 d-none ms-3">Cancle</button>
         </div>
     </form>
     <h3>Mailing Information</h3>
@@ -135,16 +153,35 @@
 </div>
 <script>
     document.getElementById("edit").addEventListener('click', function (event) {
-        debugger;
+        var cancel = document.getElementById('Cancle');
         const btntext = this.getAttribute('data-text');
         if (btntext == "edit") {
             this.setAttribute('data-text', 'save');
+            this.innerText = 'Save';
+            cancel.classList.remove('d-none');
             document.getElementById("field").disabled = false;
         } else {
             this.setAttribute('data-text', 'edit');
+            this.innerText = 'Edit';
+            cancel.classList.add('d-none');
             document.getElementById("field").disabled = true;
         }
     })
+
+    document.getElementById("Cancle").addEventListener('click', function (event) 
+    {
+        const btntext = document.getElementById('edit');
+        if (btntext.getAttribute('data-text') == 'save') 
+        {
+            this.classList.add('d-none');
+            btntext.innerText = 'Edit';
+            document.getElementById("field").disabled = true;
+        }
+        else{
+            console.log("else");
+        }
+    })
+
     function checkEmailExists() {
         var email1 = document.getElementById('Email1').value;
         var email2 = document.getElementById('Email2').value;

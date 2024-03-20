@@ -12,7 +12,7 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item " role="presentation">
             <button class="nav-link active " id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
-                    role="tab" aria-controls="home-tab-pane" aria-selected="true" >
+                    role="tab" aria-controls="home-tab-pane" aria-selected="true">
                 Dashboard
             </button>
         </li>
@@ -29,17 +29,17 @@
 
             <div class="d-flex justify-content-between ">
                 <h4>Documents</h4>
-                <button asp-action="PatientDashboard" asp-route-id="@Model.FirstOrDefault().View.AspNetUserId" class="btn logout-btn mb-1 go-back-button" >
+                <a asp-action="PatientDashboard" asp-route-id="@Model.FirstOrDefault().View.AspNetUserId" class="btn logout-btn mb-1 go-back-button">
                     &lt; Back
-                </button>
+                </a>
             </div>
 
             <div class="border rounded d-flex justify-content-center profile-form" id="main-div">
-                <div class="document-div" >
+                <div class="document-div">
                     <p>Patient Name</p>
                     <p>
                         <span class="text-info fw-bold">@Model.First().View.PatientName</span>
-                         <span>(&nbsp; @Model.FirstOrDefault().View.ConfirmationNo)</span> 
+                        <span>(&nbsp; @Model.FirstOrDefault().View.ConfirmationNo)</span>
                     </p>
                     <p>
                         check here for any files that you or the doctors of your subsequents requestors have attached for you to
@@ -50,252 +50,301 @@
                             <label for="fileinput" class="selectfile rounded d-flex justify-content-between">
                                 <p class="m-2" id="form-label">Select File</p>
                                 <input type="file" asp-for="@Model.FirstOrDefault().View.UploadFile" onchange="getFileData(this)" multiple="multiple" id="fileinput" style="display: none;">
-                                <a>
-                                    <button type="submit" class="upload-btn p-2 border-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                             class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
-                                            <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
-                                        </svg>
-                                        <span class="d-none d-sm-inline">Upload</span>
-                                    </button>
-                                </a>
+
+                                <button type="submit" class="upload-btn p-2 border-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                        <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                    </svg>
+                                    <span class="d-none d-sm-inline">Upload</span>
+                                </button>
                             </label>
                         </div>
                     </form>
-                    <div class="d-flex justify-content-between my-3 ">
-                        <h4>Documents</h4>
-                        @*  @foreach(var item in Model)
-                        { *@
-                        <button class="btn rounded-2 border-info btn-outline-light mb-1">
-                            <a asp-action="DownloadAll" asp-route-id="@Model.First().View.RequestId" class="text-info text-decoration-none"><span class="d-none d-sm-block">Download All</span></a>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-cloud-arrow-down-fill d-sm-none text-info" viewBox="0 0 16 16">
-                                <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708" />
-                            </svg>
-                        </button>
+                    <form asp-action="DownloadAll" asp-route-id="@Model.First().View.RequestId">
+                        <div class="d-flex justify-content-between my-3 ">
+                            <h4>Documents</h4>
+                            @*  @foreach(var item in Model)
+                            { *@
+                            <button class="btn rounded-2 border-info btn-outline-light mb-1">
+                                <a asp-action="DownloadAll" asp-route-id="@Model.First().View.RequestId" class="text-info text-decoration-none"><span class="d-none d-sm-block">Download All</span></a>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-cloud-arrow-down-fill d-sm-none text-info" viewBox="0 0 16 16">
+                                    <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708" />
+                                </svg>
+                            </button>
 
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <div>
-                            <tr class="">
-                                <th scope="col">Document</th>
-                                <th scope="col">Uploader</th>
-                                <th scope="col">Upload Date<i>&uarr;</i></th>
-                                <th scope="col">Actions</th>
+                        </div>
+                        <div class="d-none d-sm-block">
+                            <table class="table">
+                                <thead>
 
-                            </tr>
-                </div>
-                </thead>
-                <tbody>
+                                    <tr class="">
+                                        <th></th>
+                                        <th scope="col">Document</th>
+                                        <th scope="col">Uploader</th>
+                                        <th scope="col">Upload Date<i>&uarr;</i></th>
+                                        <th scope="col">Actions</th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        @if (item.View.RequestId != 0)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="fileid" value="@item.View.FileId" />
+                                                </td>
+                                                <td>
+                                                    <span>
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill text-danger" viewBox="0 0 16 16">
+                                                            <path d="M5.523 12.424q.21-.124.459-.238a8 8 0 0 1-.45.606c-.28.337-.498.516-.635.572l-.035.012a.3.3 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548m2.455-1.647q-.178.037-.356.078a21 21 0 0 0 .5-1.05 12 12 0 0 0 .51.858q-.326.048-.654.114m2.525.939a4 4 0 0 1-.435-.41q.344.007.612.054c.317.057.466.147.518.209a.1.1 0 0 1 .026.064.44.44 0 0 1-.06.2.3.3 0 0 1-.094.124.1.1 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256M8.278 6.97c-.04.244-.108.524-.2.829a5 5 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.5.5 0 0 1 .145-.04c.013.03.028.092.032.198q.008.183-.038.465z" />
+                                                            <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05 11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227 7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103" />
+                                                        </svg>
+                                                    </span> @item.View.File
+                                                </td>
+                                                <td>
+                                                    @item.View.PatientName
+                                                </td>
+                                                <td>
+                                                    @item.View.UploadDate?.ToString("MMM dd, yyyy")
+                                                </td>
+                                                <td>
+                                                    <a asp-action="Download" asp-route-id="@item.View.FileId" class="btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-download text-info" viewBox="0 0 16 16">
+                                                            <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                                            <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                                                        </svg>
+                                                    </a>
+                                                </td>
+
+
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-sm-none">
                             @foreach (var item in Model)
                             {
                                 @if (item.View.RequestId != 0)
                                 {
-                            <tr>
-                                <td>
-                                    <span>
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill text-danger" viewBox="0 0 16 16">
-                                            <path d="M5.523 12.424q.21-.124.459-.238a8 8 0 0 1-.45.606c-.28.337-.498.516-.635.572l-.035.012a.3.3 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548m2.455-1.647q-.178.037-.356.078a21 21 0 0 0 .5-1.05 12 12 0 0 0 .51.858q-.326.048-.654.114m2.525.939a4 4 0 0 1-.435-.41q.344.007.612.054c.317.057.466.147.518.209a.1.1 0 0 1 .026.064.44.44 0 0 1-.06.2.3.3 0 0 1-.094.124.1.1 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256M8.278 6.97c-.04.244-.108.524-.2.829a5 5 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.5.5 0 0 1 .145-.04c.013.03.028.092.032.198q.008.183-.038.465z" />
-                                            <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05 11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227 7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103" />
-                                        </svg>
-                                    </span> @item.View.File
-                                </td>
-                                <td>
-                                            @item.View.PatientName
-                                </td>
-                                <td>
-                                            @item.View.UploadDate
-                                </td>
-                                <td>
-                                    <a asp-action="Download" asp-route-id="@item.View.FileId">
-                                        <button class="btn">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-download text-info" viewBox="0 0 16 16">
-                                                <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                                                <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
-                                            </svg>
-                                        </button>
-                                    </a>
-                                </td>
+                                    <hr>
+                                    <div>
+                                       <div class="d-flex">
+                                            <p>
+                                                <input type="checkbox" name="fileid" value="@item.View.FileId" />
+                                            </p>
+                                            <p class="ms-3">
+                                                <span>
 
-
-                            </tr>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill text-danger" viewBox="0 0 16 16">
+                                                        <path d="M5.523 12.424q.21-.124.459-.238a8 8 0 0 1-.45.606c-.28.337-.498.516-.635.572l-.035.012a.3.3 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548m2.455-1.647q-.178.037-.356.078a21 21 0 0 0 .5-1.05 12 12 0 0 0 .51.858q-.326.048-.654.114m2.525.939a4 4 0 0 1-.435-.41q.344.007.612.054c.317.057.466.147.518.209a.1.1 0 0 1 .026.064.44.44 0 0 1-.06.2.3.3 0 0 1-.094.124.1.1 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256M8.278 6.97c-.04.244-.108.524-.2.829a5 5 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.5.5 0 0 1 .145-.04c.013.03.028.092.032.198q.008.183-.038.465z" />
+                                                        <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05 11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227 7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103" />
+                                                    </svg>
+                                                </span> @item.View.File
+                                            </p>
+                                       </div>
+                                       <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p>
+                                                    @item.View.PatientName
+                                                </p>
+                                                <p>
+                                                    @item.View.UploadDate?.ToString("MMM dd, yyyy")
+                                                </p>
+                                            </div>
+                                            <p>
+                                                <a asp-action="Download" asp-route-id="@item.View.FileId" class="btn border-info rounded-3 btn-outline-info">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-download text-info" viewBox="0 0 16 16">
+                                                        <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                                        <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                                                    </svg>
+                                                </a>
+                                            </p>
+                                       </div>
+                                    </div>
                                 }
 
                             }
-                </tbody>
-                </table>
-            </div>
-        </div>
-
-
-    </div>
-    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-
-
-
-        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-             tabindex="0">
-
-            <div class=" w-100" id="profile-div">
-                <div class="d-flex justify-content-between m-auto">
-                    <h4>User Profile</h4>
-                    <button class="btn logout-btn mb-1">
-                        &lt; Back
-                    </button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
-            <div class=" m-auto border rounded-3 w-100" id="main-form-div">
-                <form class="form profile-form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().View.user.AspNetUserId">
-                    <fieldset id="myForm" disabled>
-                            @* disabled *@
-                        <div class="document-div">
 
-                            <div class="row">
-                                <p class="h4 mt-4">General Information</p>
+        </div>
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
 
 
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name"
-                                           asp-for="@Model.FirstOrDefault().View.user.FirstName">@*
-                                    value="@Model.First().FirstName" *@
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.FirstName">
-                                        Your First
-                                        Name
-                                    </label>
 
-                                </div>
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name"
-                                           asp-for="@Model.FirstOrDefault().View.user.LastName">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.LastName">
-                                        Your Last
-                                        Name
-                                    </label>
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                 tabindex="0">
 
-                                </div>
-                                <div class="form-floating col-lg-6">
-                                    <input type="date" class="form-control" id="floatingPassword"
-                                           placeholder="Last Name" asp-for="@Model.First().View.Date"
-                                           asp-format="{0:yyyy-MM-dd}">
-                                    <label class="ms-2 text-secondary" for="floatingPassword" asp-for="@Model.First().View.Date">
-                                        Date Of
-                                        Birth
-                                    </label>
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-
-                                <p class="h4 mt-4">Contact information</p>
-
-
-                                <div class="dropdown col-lg-2 mb-4">
-                                    <button class="btn btn-secondary dropdown-toggle drop-btn " type="button"
-                                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Mobile <!-- Default value -->
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <a class="dropdown-item" href="#"
-                                               onclick="updateDropdown('Mobile')">Mobile</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#"
-                                               onclick="updateDropdown('Telephone')">Telephone</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-floating col-lg-4 phone-code mb-3">
-                                    <input type="tel" class="form-control phone-input phone" id="phone"
-                                           asp-for="@Model.FirstOrDefault().View.user.Mobile">
-                                    <label class="ms-2 text-secondary" for="floatingInput" asp-for="@Model.FirstOrDefault().View.user.Mobile">Phone Number</label>
-                                </div>
-                                <div class="form-floating col-lg-6">
-                                    <input type="email" class="form-control" id="floatingPassword"
-                                           placeholder="Last Name" asp-for="@Model.FirstOrDefault().View.user.Email">
-                                    <label class="ms-2 text-secondary" for="floatingPassword" asp-for="@Model.FirstOrDefault().View.user.Email">Email</label>
-
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <p class="h4 mt-4">Location Information</p>
-
-
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.Street">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.Street">street</label>
-
-                                </div>
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.City">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.City">city</label>
-
-                                </div>
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.State">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.State">state</label>
-
-                                </div>
-                                <div class="form-floating col-lg-5 mb-3">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                           placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.ZipCode">
-                                    <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.ZipCode">
-                                        zip
-                                        code
-                                    </label>
-
-                                </div>
-                                <div class="form-floating col-lg-1 mb-3">
-                                    <a class="btn location-link logout-btn w-100" onclick="getLocation()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-alt text-info" viewBox="0 0 16 16">
-                                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                        </svg>
-                                    </a>
-                                </div>
-
-                                <div class="col-lg-6 mb-5">
-                                    <input type="text" class="form-control location-inp" id="latitudeInput" placeholder="latitude" readonly>
-                                </div>
-                                <div class="col-lg-6 mb-5">
-                                    <input type="text" class="form-control location-inp" id="longitudeInput" placeholder="longitude" readonly>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </fieldset>
-
-                    <div class="edit-save-div">
-                        <button class="btn logout-btn" type="submit" id="save-btn" onclick="" style="display:none;">
-                            Save
-                        </button>
-                    </div>
-                    <div class="edit-save-div">
-                        <a class="btn logout-btn" id="edit-btn" onclick="toggleFormFields()">
-                            Edit
+                <div class=" w-100" id="profile-div">
+                    <div class="d-flex justify-content-between m-auto">
+                        <h4>User Profile</h4>
+                        <a asp-action="PatientViewDocuments" asp-route-id="@Model.FirstOrDefault().View.RequestId" class="btn logout-btn mb-1">
+                            &lt; Back
                         </a>
                     </div>
-                </form>
+                </div>
+
+                <div class=" m-auto border rounded-3 w-100" id="main-form-div">
+                    <form class="form profile-form" asp-action="Update" asp-route-id="@Model.FirstOrDefault().View.user.AspNetUserId">
+                        <fieldset id="myForm" disabled>
+                            @* disabled *@
+                            <div class="document-div">
+
+                                <div class="row">
+                                    <p class="h4 mt-4">General Information</p>
+
+
+                                    <div class="form-floating col-lg-6 mb-3">
+                                        <input type="text" class="form-control" id="floatingInput"
+                                               placeholder="First Name"
+                                               asp-for="@Model.FirstOrDefault().View.user.FirstName">@*
+                                        value="@Model.First().FirstName" *@
+                                        <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.FirstName">
+                                            Your First
+                                            Name
+                                        </label>
+
+                                    </div>
+                                    <div class="form-floating col-lg-6 mb-3">
+                                        <input type="text" class="form-control" id="floatingInput"
+                                               placeholder="First Name"
+                                               asp-for="@Model.FirstOrDefault().View.user.LastName">
+                                        <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.LastName">
+                                            Your Last
+                                            Name
+                                        </label>
+
+                                    </div>
+                                    <div class="form-floating col-lg-6">
+                                        <input type="date" class="form-control" id="floatingPassword"
+                                               placeholder="Last Name" asp-for="@Model.First().View.Date"
+                                               asp-format="{0:yyyy-MM-dd}">
+                                        <label class="ms-2 text-secondary" for="floatingPassword" asp-for="@Model.First().View.Date">
+                                            Date Of
+                                            Birth
+                                        </label>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <p class="h4 mt-4">Contact information</p>
+
+
+                                    <div class="dropdown col-lg-2 mb-4">
+                                        <button class="btn btn-secondary dropdown-toggle drop-btn " type="button"
+                                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Mobile <!-- Default value -->
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <a class="dropdown-item" href="#"
+                                                   onclick="updateDropdown('Mobile')">Mobile</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#"
+                                                   onclick="updateDropdown('Telephone')">Telephone</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-floating col-lg-4 phone-code mb-3">
+                                        <input type="tel" class="form-control phone-input phone" id="phone"
+                                               asp-for="@Model.FirstOrDefault().View.user.Mobile">
+                                        <label class="ms-2 text-secondary" for="floatingInput" asp-for="@Model.FirstOrDefault().View.user.Mobile">Phone Number</label>
+                                    </div>
+                                    <div class="form-floating col-lg-6">
+                                        <input type="email" class="form-control" id="floatingPassword"
+                                               placeholder="Last Name" asp-for="@Model.FirstOrDefault().View.user.Email">
+                                        <label class="ms-2 text-secondary" for="floatingPassword" asp-for="@Model.FirstOrDefault().View.user.Email">Email</label>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <p class="h4 mt-4">Location Information</p>
+
+
+                                    <div class="form-floating col-lg-6 mb-3">
+                                        <input type="text" class="form-control" id="floatingInput"
+                                               placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.Street">
+                                        <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.Street">street</label>
+
+                                    </div>
+                                    <div class="form-floating col-lg-6 mb-3">
+                                        <input type="text" class="form-control" id="floatingInput"
+                                               placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.City">
+                                        <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.City">city</label>
+
+                                    </div>
+                                    <div class="form-floating col-lg-6 mb-3">
+                                        <input type="text" class="form-control" id="floatingInput"
+                                               placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.State">
+                                        <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.State">state</label>
+
+                                    </div>
+                                    <div class="form-floating col-lg-5 mb-3">
+                                        <input type="text" class="form-control" id="floatingInput"
+                                               placeholder="First Name" asp-for="@Model.FirstOrDefault().View.user.ZipCode">
+                                        <label class="ms-2 " for="floatingInput" id="username-input" asp-for="@Model.FirstOrDefault().View.user.ZipCode">
+                                            zip
+                                            code
+                                        </label>
+
+                                    </div>
+                                    <div class="form-floating col-lg-1 mb-3">
+                                        <a class="btn location-link logout-btn w-100" onclick="getLocation()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-alt text-info" viewBox="0 0 16 16">
+                                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                            </svg>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-5">
+                                        <input type="text" class="form-control location-inp" id="latitudeInput" placeholder="latitude" readonly>
+                                    </div>
+                                    <div class="col-lg-6 mb-5">
+                                        <input type="text" class="form-control location-inp" id="longitudeInput" placeholder="longitude" readonly>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </fieldset>
+
+                        <div class="edit-save-div">
+                            <button class="btn logout-btn" type="submit" id="save-btn" onclick="" style="display:none;">
+                                Save
+                            </button>
+                        </div>
+                        <div class="edit-save-div">
+                            <a class="btn logout-btn" id="edit-btn" onclick="toggleFormFields()">
+                                Edit
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
 
             </div>
 
         </div>
-
-    </div>
 
 
 </body>

@@ -3,7 +3,7 @@
 <div class="modal fade" id=Send tabindex="-1" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form asp-action="SendAgreementPost" asp-route-id="@Model.reqId" method="post">
+            <form asp-action="SendAgreementPost" asp-route-id="@Model.ReqId" method="post">
                 <div class="modal-header bg-info">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Send Agreement</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Block"></button>
@@ -11,7 +11,7 @@
                 <div class="modal-body">
                     <div>
                         
-                        @if(Model.reqType==1)
+                        @if(Model.ReqType==1)
                             {
                             <div>
                                 <span>
@@ -22,7 +22,7 @@
                                 Patient
                             </div>
                             }
-                            else if (Model.reqType == 2)
+                            else if (Model.ReqType == 2)
                             {
                             <div>
                                 <span>
@@ -33,7 +33,7 @@
                                 Family/Friend
                             </div>
                             }
-                            else if (Model.reqType == 3)
+                            else if (Model.ReqType == 3)
                             {
                             <div>
                                 <span>
@@ -44,7 +44,7 @@
                                 Concierge
                             </div>
                             }
-                            else if (Model.reqType == 4)
+                            else if (Model.ReqType == 4)
                             {
                             <div>
                                 <span>

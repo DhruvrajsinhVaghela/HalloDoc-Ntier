@@ -8,7 +8,7 @@ namespace HalloDoc.DbEntity.ViewModel
 {
     public class BlockCaseVM
     {
-        public int reqID {  get; set; }
+        public int ReqId {  get; set; }
         public string? PateintFirstName {  get; set; }
         public string? PatientLastName { get; set; }
         public string? ReasonForBlock {  get; set; }

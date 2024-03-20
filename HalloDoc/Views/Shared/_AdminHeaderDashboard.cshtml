@@ -1,15 +1,16 @@
 ﻿@inject IHttpContextAccessor Accessor
-@using Microsoft.AspNetCore.Http; 
+@using Microsoft.AspNetCore.Http;
 @* @ @model Data_Access.Custom_Models.PatientDashboardCm; @ *@
 
 <nav class="navbar bg-body-tertiary shadow px-2 py-0">
     <div class="container-fluid">
         <div>
-            <button class="navbar-toggler d-inline-block  d-sm-none " type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                    aria-expanded="true" aria-label="Toggle navigation">
+
+
+            <button type="button" class="border-1 rounded-2 bg-transparent border-info  d-inline-block d-sm-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <a class="navbar-brand" asp-controller="Admin" asp-action="AdminDashboard">
                 <img src="\images\Fig56._Patient_site_1.png" alt="logo" height="60px">
             </a>
@@ -41,9 +42,70 @@
         </div>
     </div>
     <div class="collapse show d-sm-block w-100" id="navbarToggleExternalContent">
-        <div>
+        <div class="d-sm-block d-none">
             <hr class="w-100 m-0">
             <ul class="nav nav-underline" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation" onclick="tab(1)">
+                    <button class="nav-link active text-muted" id="home-tab" data-bs-toggle="tab"
+                            data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                            aria-selected="true">
+                        Dashboard
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation" onclick="tab(2)">
+                    <button class="nav-link text-muted" id="provider-location-tab" data-bs-toggle="tab"
+                            data-bs-target="#provider-location-tab-pane" type="button" role="tab"
+                            aria-controls="provider-location-tab-pane" aria-selected="false">
+                        Provider Location
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation" onclick="tab(3)">
+                    <button class="nav-link text-muted" id="profile-tab" data-bs-toggle="tab"
+                            data-bs-target="#profile-tab-pane" type="button" role="tab"
+                            aria-controls="profile-tab-pane" aria-selected="false">
+                        My Profile
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="Providers-tab" data-bs-toggle="tab"
+                            data-bs-target="#Providers-tab-pane" type="button" role="tab"
+                            aria-controls="Providers-tab-pane" aria-selected="false">
+                        Providers
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="partners-tab" data-bs-toggle="tab"
+                            data-bs-target="#partners-tab-pane" type="button" role="tab"
+                            aria-controls="partners-tab-pane" aria-selected="false">
+                        Partners
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="access-tab" data-bs-toggle="tab"
+                            data-bs-target="#access-tab-pane" type="button" role="tab"
+                            aria-controls="access-tab-pane" aria-selected="false">
+                        Access
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-muted" id="records-tab" data-bs-toggle="tab"
+                            data-bs-target="#records-tab-pane" type="button" role="tab"
+                            aria-controls="records-tab-pane" aria-selected="false">
+                        Records
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <p class="mt-1 me-3">
+                welcome
+                <strong>@Accessor.HttpContext.Session.GetString("User'sName")</strong>
+            </p>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav nav-underline d-flex flex-column" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation" onclick="tab(1)">
                     <button class="nav-link active text-muted" id="home-tab" data-bs-toggle="tab"
                             data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"

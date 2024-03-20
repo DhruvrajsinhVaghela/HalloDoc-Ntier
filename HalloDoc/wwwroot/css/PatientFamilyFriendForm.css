@@ -50,7 +50,7 @@
     background-color: black;
     color: white;
     text-align: right;
-
+    z-index:10;
 }
 
 #terms1,#terms2{

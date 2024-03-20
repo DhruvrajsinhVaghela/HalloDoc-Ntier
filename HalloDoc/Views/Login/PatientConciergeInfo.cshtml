@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_layoutWithHeaderFooter.cshtml";
 }
 
-@model HalloDoc.DbEntity.ViewModel.PatientConciergeInfo
+@model HalloDoc.DbEntity.ViewModel.PatientConciergeInfoVM
 
 <body onload="load()">
 
@@ -46,7 +46,7 @@
                                 <span asp-validation-for="CPhoneNumber" class="text-danger"></span>
                             </div>
                             <div class="form-floating col-lg-6">
-                                <input asp-for="CEmail" type="email" class="form-control" id="floatingInput" placeholder="Your Email">
+                                <input asp-for="CEmail" type="email" class="form-control" id="floatingInput" placeholder="Your Email" required>
                                 <label asp-for="CEmail" class="ms-2 " for="floatingInput" id="username-input">Your Email</label>
                                 <span asp-validation-for="CEmail" class="text-danger"></span>
                             </div>
@@ -76,7 +76,7 @@
 
                             </div>
                             <div class="form-floating col-lg-6">
-                                <input asp-for="CZipCode" type="text" class="form-control" id="floatingInput" placeholder="zip code">
+                                <input asp-for="CZipCode" type="text" class="form-control" id="floatingInput" placeholder="zip code" pattern="[1-9]{1}[0-9]{5}">
                                 <label asp-for="CZipCode" class="ms-2 " for="floatingInput" id="username-input">zip code</label>
                                 <span asp-validation-for="CZipCode" class="text-danger"></span>
                             </div>
@@ -119,7 +119,7 @@
 
 
                             <div class="form-floating col-lg-6 ">
-                                <input asp-for="Email" type="email" class="form-control" id="floatingInput" placeholder="Email">
+                                <input asp-for="Email" type="email" class="form-control" id="floatingInput" placeholder="Email" required>
                                 <label asp-for="Email" class="ms-2 " for="floatingInput" id="username-input">Email</label>
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>

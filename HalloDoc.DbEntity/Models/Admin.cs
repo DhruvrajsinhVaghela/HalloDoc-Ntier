@@ -43,6 +43,8 @@ public partial class Admin
 
     public int? RoleId { get; set; }
 
+    public virtual ICollection<AdminRegion> AdminRegions { get; set; } = new List<AdminRegion>();
+
     public virtual AspNetUser AspNetUser { get; set; } = null!;
 
     public virtual AspNetUser CreatedByNavigation { get; set; } = null!;

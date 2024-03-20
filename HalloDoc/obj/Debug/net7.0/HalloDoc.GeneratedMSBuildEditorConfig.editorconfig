@@ -122,8 +122,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUGF0aWVudEJ1c2luZXNzSW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/project/HalloDoc-Ntier/HalloDoc/Views/Login/PatientChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUGF0aWVudENoYW5nZVBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/project/HalloDoc-Ntier/HalloDoc/Views/Login/PatientConciergeInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUGF0aWVudENvbmNpZXJnZUluZm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/HalloDoc-Ntier/HalloDoc/Views/Login/PatientCreateAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUGF0aWVudENyZWF0ZUFjY291bnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/project/HalloDoc-Ntier/HalloDoc/Views/Login/PatientFamilyFriendForm.cshtml]

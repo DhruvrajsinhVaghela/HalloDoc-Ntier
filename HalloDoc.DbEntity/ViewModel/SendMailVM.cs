@@ -9,8 +9,8 @@ namespace HalloDoc.DbEntity.ViewModel
 {
     public class SendMailVM
     {
-        public int reqId {  get; set; }
-        public int reqType { get; set; }
+        public int ReqId {  get; set; }
+        public int ReqType { get; set; }
         public string? FirstName { get; set; }
         public string? LastName{ get; set; }
         [Required(ErrorMessage = "Phone Number is required")]

@@ -65,7 +65,7 @@
                                             </span> @item.FileName
                                         </td>
                                         <td>
-                                                    @item.CreatedDate.ToString("MMM dd,yyyy", CultureInfo.InvariantCulture)
+                                                    @item.CreatedDate.?ToString("MMM dd,yyyy", CultureInfo.InvariantCulture)
                                         </td>
                                         <td>
                                             <a asp-action="Download" asp-route-id="@item.RequestWiseFileId">
@@ -86,7 +86,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <form asp-action="UpCloseCaseUser" asp-controller="Admin" asp-route-id="@Model.reqId" method="post">
+                            <form asp-action="UpCloseCaseUser" asp-controller="Admin" asp-route-id="@Model.ReqId" method="post">
                             <div class="row">
 
                                 <p class="h4 mt-4">patient information</p>

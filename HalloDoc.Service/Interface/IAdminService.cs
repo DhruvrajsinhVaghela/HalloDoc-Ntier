@@ -5,43 +5,44 @@ namespace HalloDoc.services.Interface
 {
     public interface IAdminService
     {
-        public AdminDashboardVM PatientStatus(AdminDashboardVM swc);
+        AdminDashboardVM PatientStatus(AdminDashboardVM swc);
 
-        public List<AdminDashboardVM> GetNewStateData(int status,int id);
-        public ViewCaseVM ViewPatientData(int id);
-        public RequestNote ViewNotes(int id, RequestNote vm);
-        public ViewNotesVM ViewNotes2(int id);
+        List<AdminDashboardVM> GetNewStateData(int status,int id);
+        ViewCaseVM ViewPatientData(int id);
+        RequestNote ViewNotes(int id, RequestNote vm);
+        ViewNotesVM ViewNotes2(int id);
        /* public void UpNotes(int id,ViewNotesVM vm);*/
-        public void UpStatus(int id,CancelCaseVM vm);
-        public CancelCaseVM CancelCaseData(int id);
-        public AssignCaseVM GetPhysician(int id, AssignCaseVM vm);
-        public object GetPhysiciansByRegionId(int id);
-        public void UpAssignStatus(int id, AssignCaseVM vm);
-        public BlockCaseVM BlockCaseData(int id,BlockCaseVM vm);
-        public void UpBlockCase(int id, BlockCaseVM vm);
-        public ViewUploadVM PatientViewDocuments(int id);
-        public string PatientFileSave(int id, PatientDashboardVM model);
-        public List<RequestWiseFile> DownloadAll(int id);
-        public RequestWiseFile Download(int id);
-        public RequestWiseFile Delete(int id);
-        public object DeleteAll(int id);
-        public string SMail(int id);
-        public AspNetUser AdmintLogin(AspNetUser aspNetUser);
-        public SendMailVM SendAgreement(int id);
-        public SendMailVM GetReqType(int id,SendMailVM vm);
-        public SendOrderVM GetProfessions(int id, SendOrderVM vm);
-        public List<HealthProfessional> GetVendorNames(int id);
-        public object GetVendorData(int vendorId);
-        public bool AddOrderData(int id, SendOrderVM vm);
-        public object GetClearCase(int id);
-        public bool UpStatusClear(int id);
-        public object GetCloseCase(int id);
-        public bool UpCloseCase(int id, CloseCaseVM vm);
-        public object AdminProfileData(int? adminId);
-        public AspNetUser AspUserData(string email);
-        public List<AdminDashboardVM> GetDataPagination(int status,int pn,int item);
-        public List<AdminDashboardVM> GetFilteredData(string keywrd, int regId, int status, int reqType, int pn, int item);
-        public void editadminprofile(AdminProfileVM model, int? admin, List<int> reg);
+        void UpStatus(int id,CancelCaseVM vm);
+        CancelCaseVM CancelCaseData(int id);
+        AssignCaseVM GetPhysician(int id, AssignCaseVM vm);
+        object GetPhysiciansByRegionId(int id);
+        void UpAssignStatus(int id, AssignCaseVM vm);
+        BlockCaseVM BlockCaseData(int id,BlockCaseVM vm);
+        void UpBlockCase(int id, BlockCaseVM vm);
+        ViewUploadVM PatientViewDocuments(int id);
+        string PatientFileSave(int id, PatientDashboardVM model);
+        List<RequestWiseFile> DownloadAll(int id);
+        RequestWiseFile Download(int id);
+        RequestWiseFile Delete(int id);
+        object DeleteAll(int id);
+        string SMail(int id);
+        AspNetUser AdmintLogin(AspNetUser aspNetUser);
+        SendMailVM SendAgreement(int id);
+        SendMailVM GetReqType(int id,SendMailVM vm);
+        SendOrderVM GetProfessions(int id, SendOrderVM vm);
+        List<HealthProfessional> GetVendorNames(int id);
+        object GetVendorData(int vendorId);
+        bool AddOrderData(int id, SendOrderVM vm);
+        object GetClearCase(int id);
+        bool UpStatusClear(int id);
+        object GetCloseCase(int id);
+        bool UpCloseCase(int id, CloseCaseVM vm);
+        object AdminProfileData(int? aspId,int? adminId);
+        AspNetUser AspUserData(string email);
+        List<AdminDashboardVM> GetDataPagination(int status,int pn,int item);
+        List<AdminDashboardVM> GetFilteredData(string keywrd, int regId, int status, int reqType, int pn, int item);
+        void EditAdminProfile(AdminProfileVM model, int id);
+        Admin GetAdminDataById(int id);
         //public StatusWiseCount PatientCount(StatusWiseCount swc);
     }
 }

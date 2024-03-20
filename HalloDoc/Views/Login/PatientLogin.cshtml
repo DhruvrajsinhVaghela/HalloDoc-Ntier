@@ -8,9 +8,9 @@
 
 <body onload="load()">
 
-    <div class="container-fluid p-0">
-        <div class="P-Login-main-container">
-            <div class="row  d-flex justify-content-center vh-100">
+    <div class="P-Login-main-container">
+        <div class="container-fluid p-0">
+            <div class="row  d-flex justify-content-center align-items-center vh-100">
                 <div class="col-xl-4  P-Login-main-column ">
                     <div class="darkmode-div">
                         <button id="darkmode-btn" onclick="myFunction()">
@@ -21,34 +21,36 @@
                         </button>
                     </div>
 
-                    <img class="P-Login-logo-img" src="\images\Fig56._Patient_site_1.png" alt="">
-                    <div class="P-Login-back-div"><a asp-controller="Patient" asp-action="PatientSite" class="P-Login-forgot-pw "> &lt; Back</a></div>
+                    <img class="P-Login-logo-img d-none d-sm-block" src="\images\Fig56._Patient_site_1.png" alt="">
+                    <div style="min-height:calc(100vh - 200px)" class="d-flex flex-column align-items-center justify-content-center">
+                        <div class="P-Login-back-div"><a asp-controller="Login" asp-action="PatientSite" class="P-Login-forgot-pw "> &lt; Back</a></div>
 
 
-                    <h3 id="P-Login-heading">Login To Your Account</h3>
-                    <form asp-action="PatientLogin" class="container-fluid d-flex flex-column align-items-center">
-                        <div class="form-floating">
-                            <input type="email" asp-for="Email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label asp-for="Email" for="floatingInput" id="username-input">Email</label>
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                            <span class="P-Login-input-icon ">
-                                <img class="ms-1" src="\images\person-circle.svg" alt="">
-                            </span>
+                        <h3 id="P-Login-heading">Login To Your Account</h3>
+                        <form asp-action="PatientLogin" class="container">
+                            <div class="form-floating w-100">
+                                <input type="email" asp-for="Email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label asp-for="Email" for="floatingInput" id="username-input">Email</label>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                                <span class="P-Login-input-icon ">
+                                    <img class="ms-1" src="\images\person-circle.svg" alt="">
+                                </span>
 
-                        </div>
-                        <div class="form-floating ">
-                            <input asp-for="PasswordHash" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label asp-for="PasswordHash" for="floatingPassword">Password</label>
-                            <span asp-validation-for="PasswordHash" class="text-danger"></span>
-                            <button class="P-Login-input-icon me-1" onclick="showhide()">
-                                <img src="\images\eye.svg" id="eye"
-                                     alt="">
-                            </button>
-                        </div>
-                        <button type="submit" class="btn btn-primary P-Login-login-btn ">Login</button>
-                    </form>
-                    <a asp-action="PatientResetPw" class="P-Login-forgot-pw">Forgot Password?</a>
-
+                            </div>
+                            <div class="form-floating w-100">
+                                <input asp-for="PasswordHash" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                <label asp-for="PasswordHash" for="floatingPassword">Password</label>
+                                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                                <button type="button" class="P-Login-input-icon me-1" onclick="showhide()">
+                                    <img src="\images\eye.svg" id="eye"
+                                         alt="">
+                                </button>
+                            </div>
+                            <button type="submit" class="btn btn-primary P-Login-login-btn w-100 ">Login</button>
+                        </form>
+                        <a asp-action="PatientResetPw" class="P-Login-forgot-pw">Forgot Password?</a>
+                    </div>
+                    
 
                     <div class="terms-div">
                         <p>
@@ -57,6 +59,7 @@
                             <a href="" class="text-decoration-none" id="terms2">Privacy Policy</a>
                         </p>
                     </div>
+
                 </div>
             </div>
         </div>
