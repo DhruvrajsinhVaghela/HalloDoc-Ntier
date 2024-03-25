@@ -11,6 +11,8 @@ namespace HalloDoc.DbEntity.ViewModel
     public class AssignCaseVM
     {
         public int ReqId {  get; set; }
+        public int? AdminAspId { get; set; }
+
         public IEnumerable<Region>? Region { get; set; }
         public int SelectedPhysicianName { get; set; }
         public string? AdminNotes { get; set; }

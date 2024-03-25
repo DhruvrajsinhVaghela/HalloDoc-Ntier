@@ -37,22 +37,18 @@
 <script>
     function getphy() {
         var id = $('#regionoption').val();
-        console.log(id)
         $.ajax({
 
             url: '/Admin/AssignCase1',
             data: { id: id },
             success: function (data) {
-                debugger;
                 if (data) {
                     var content = "";
                     if (data.length == 0) {
-                        console.log("break");
                         content += `<option selected>Select Physician</option>`;
                     }
                     else {
                         for (const item of data) {
-                            debugger
                             content += `<option value="${item.physicianId}">${item.firstName}</option>`;
                         }
                     } 

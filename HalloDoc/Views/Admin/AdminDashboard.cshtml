@@ -11,3 +11,72 @@
     </div>
 </div>
 
+<script>
+    function load() {
+
+        
+        $.ajax({
+            url: '/Admin/NavTabs',
+            method: 'GET',
+            data: { nav: 1 },
+
+            success: function (response) {
+                $('#main-div').html(response);
+            },
+            error: function (error) {
+                console.log(error);
+                console.error('Error in AJAX', error);
+            }
+
+        });
+
+
+
+        var light = localStorage.getItem("light");
+        if (light == 0) {
+            document.body.setAttribute('data-bs-theme', 'dark');
+
+        }
+        else {
+            document.body.setAttribute('data-bs-theme', 'light');
+
+        }
+
+
+        const phoneInputField = document.getElementsByClassName("phone");
+        for (let i = 0; i < phoneInputField.length; ++i) {
+            const phoneInput = window.intlTelInput(phoneInputField[i], {
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
+        }
+
+    }
+
+    function tab(val) {
+        if (val == 4) {
+            document.getElementById('Providers-tab').classList.add('active');
+            const element = document.getElementsByClassName('text-muted');
+            for (var i = 0; i < element.length; i++) {
+                element[i].classList.remove('active');
+            }
+        }
+        else {
+            document.getElementById('Providers-tab').classList.remove('active');
+
+        }
+        $.ajax({
+            url: '/Admin/NavTabs',
+            method: 'GET',
+            data: { nav: val },
+
+            success: function (response) {
+                $('#main-div').html(response);
+            },
+            error: function (error) {
+                console.log(error);
+                console.error('Error in AJAX', error);
+            }
+        });
+    };
+</script>

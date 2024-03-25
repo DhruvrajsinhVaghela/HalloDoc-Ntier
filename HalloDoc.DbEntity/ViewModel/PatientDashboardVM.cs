@@ -6,7 +6,7 @@ namespace HalloDoc.DbEntity.ViewModel
     {
         public int RequestID { get; set; }
         public string? FirstName { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public short Status { get; set; }
         public int CountFile { get; set; }
         public string? FileName { get; set; }

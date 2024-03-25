@@ -25,20 +25,20 @@ namespace HalloDoc.Services
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, aspNetUser.Email),
-                new Claim("Id", aspNetUser.Id.ToString()),
+                new(ClaimTypes.Email, aspNetUser.Email),
+                new("Id", aspNetUser.Id.ToString()),
                
             };
             roles.ForEach(x => claims.Add(new Claim(ClaimTypes.Role, x)));
 
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("asldkfjasdlfkjas;dlkfjas;dlkfjasdl;fkjasdlfk;j"));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);//HmacSha256 is a cryptographic hashing algorithm
             var expires = DateTime.UtcNow.AddMinutes(30);
 
             var token = new JwtSecurityToken(
-                "Issuer",
-                "Audience",
+                "Issuer",//issuer identifies the entity that issued the token
+                "Audience",//the audience specifies who the token is intended for
                 claims,
                 expires: expires,
                 signingCredentials: creds

@@ -15,14 +15,14 @@ namespace HalloDoc.Service.Implementation
     public class PatientService : IPatientService
     {
         private readonly IPatient _repo;
-        private readonly IJwtToken _token;
+        //private readonly IJwtToken _token;
 
-        public PatientService(IPatient repo,IJwtToken token)
+        public PatientService(IPatient repo, IJwtToken token)
         {
             _repo = repo;
-            _token = token;
+            //_token = token;
         }
-        Dictionary<string, string> stateAbbreviations = new Dictionary<string, string>()
+        readonly Dictionary<string, string> stateAbbreviations = new()
             {
             {"ANDHRA PRADESH", "AP"},
             {"ARUNACHAL PRADESH", "AR"},
@@ -61,7 +61,7 @@ namespace HalloDoc.Service.Implementation
             };
         public AspNetUser PatientLogin(AspNetUser aspNetUser)
         {
-            AspNetUser user = _repo.GetAspUserData(aspNetUser.Email??"");
+            AspNetUser user = _repo.GetAspUserData(aspNetUser.Email ?? "");
             if (user.Id != 0 && Crypto.VerifyHashedPassword(user.PasswordHash, aspNetUser.PasswordHash))//in crypto. method (hash password,plain text)
             {
                 return user;
@@ -87,10 +87,10 @@ namespace HalloDoc.Service.Implementation
             if (aspnetuser.Id == 0)
             {
 
-                AspNetUser aspnetuser1 = new AspNetUser
+                AspNetUser aspnetuser1 = new()
                 {
 
-                    UserName = model.FirstName + "_" + model.LastName,
+                    UserName = model.FirstName + " " + model.LastName,
                     Email = model.Email,
                     PasswordHash = model.FirstName,
                     PhoneNumber = model.PhoneNumber,
@@ -103,10 +103,10 @@ namespace HalloDoc.Service.Implementation
                     aspnetuser.PasswordHash = Crypto.HashPassword(model.Password);
                 }
                 _repo.AddAspNetUser(aspnetuser1);
-                
+
             }
 
-           
+
             var reg = _repo.GetUniqueRegion(model.State);
             if (reg.RegionId == 0)
             {
@@ -128,7 +128,7 @@ namespace HalloDoc.Service.Implementation
                     AspNetUserId = aspnetuser.Id,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Email = model.Email,
+                    Email = model.Email??"",
                     Mobile = model.PhoneNumber,
                     ZipCode = model.ZipCode,
                     State = model.State,
@@ -145,7 +145,7 @@ namespace HalloDoc.Service.Implementation
                 };
                 user1 = user;
                 _repo.AddUser(user1);
-                
+
             }
 
 
@@ -155,16 +155,16 @@ namespace HalloDoc.Service.Implementation
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                Email = model.Email,
+                Email = model.Email??"",
                 CreatedDate = DateTime.Now,
                 Status = 1,
                 PatientAccountId = aspnetuser.Id,
                 UserId = user1.UserId,
 
-                ConfirmationNumber = reg.Abbreviation ?? ""[..2] + DateTime.Now.ToString("ddMMyyyy")[..4]
+                ConfirmationNumber = reg.Abbreviation?.Substring(0, 2) + DateTime.Now.ToString("ddMMyyyy").Substring(0, 4)
                                     + model.LastName[..2] + model.FirstName[..2]
                                     + _repo.GetConfirmationNo(),
-                //case number is here------
+                //case number is here------ 
                 //physician is here------
             };
             _repo.AddRequest(request);
@@ -179,7 +179,7 @@ namespace HalloDoc.Service.Implementation
                 Location = model.Room,
                 Address = model.State,
                 RegionId = reg.RegionId,
-                Email = model.Email,
+                Email = model.Email??"",
                 Notes = model.Notes,
                 State = model.State,
                 City = model.City,
@@ -202,11 +202,13 @@ namespace HalloDoc.Service.Implementation
                         files.CopyToAsync(stream).Wait();
                     }
 
-                    RequestWiseFile requestWiseFile = new();
-                    requestWiseFile.FileName = filename;
-                    requestWiseFile.RequestId = request.RequestId;
-                    requestWiseFile.DocType = 1;
-                    requestWiseFile.CreatedDate = DateTime.Now;
+                    RequestWiseFile requestWiseFile = new()
+                    {
+                        FileName = filename,
+                        RequestId = request.RequestId,
+                        DocType = 1,
+                        CreatedDate = DateTime.Now
+                    };
                     _repo.AddReqWisFile(requestWiseFile);
                 }
             }
@@ -217,7 +219,7 @@ namespace HalloDoc.Service.Implementation
         public string PatientFamilyFriendForm(PatientFamilyFriendInfoVM model)
         {
             AspNetUser aspnetuser = _repo.GetAspUserData(model.Email);
-            if (aspnetuser.Id == 0) 
+            if (aspnetuser.Id == 0)
             {
                 bool isRegistered = _repo.GetEmail(model.Email);
                 if (!isRegistered)
@@ -225,7 +227,6 @@ namespace HalloDoc.Service.Implementation
                     var receiver = model.Email ?? "";
                     var subject = "Create Account";
                     var message = "Tap on link for Create Account: http://localhost:5093/Login/PatientCreateAccount";
-
 
                     var mail = "tatva.dotnet.dhruvrajsinhvaghela@outlook.com";
                     var password = "Vagheladhruv@123";
@@ -242,7 +243,7 @@ namespace HalloDoc.Service.Implementation
 
 
             }
-            User user = _repo.GetUserUserData(model.Email);
+            User user = _repo.GetUserUserData(model.Email??"");
 
             var reg = _repo.GetUniqueRegion(model.State);
             if (reg.RegionId == 0)
@@ -266,10 +267,10 @@ namespace HalloDoc.Service.Implementation
                 RelationName = model.FFRelation,
                 CreatedDate = DateTime.Now,
                 Status = 1,
-                ConfirmationNumber = reg.Abbreviation ?? ""[..2] + DateTime.Now.ToString()[..4]//range operator
+                ConfirmationNumber = reg.Abbreviation?.Substring(0, 2) + DateTime.Now.ToString("ddMMyyyy").Substring(0, 4)
                                     + model.LastName[..2] + model.FirstName[..2]
                                     + _repo.GetConfirmationNo(),
-                PatientAccountId=aspnetuser.Id,
+                PatientAccountId = aspnetuser.Id,
             };
             if (user.UserId != 0)
             {
@@ -287,7 +288,7 @@ namespace HalloDoc.Service.Implementation
                 Location = model.Room,
                 Address = model.State,
                 RegionId = reg.RegionId,
-                Email = model.Email,
+                Email = model.Email??"",
                 IntDate = model.BirthDate.Day,
                 IntYear = model.BirthDate.Year,
                 StrMonth = model.BirthDate.ToString("MMMM"),
@@ -352,7 +353,7 @@ namespace HalloDoc.Service.Implementation
 
 
             }
-            User user = _repo.GetUserUserData(model.Email);
+            User user = _repo.GetUserUserData(model.Email??"");
 
             var reg = _repo.GetUniqueRegion(model.CState);
             if (reg == null)
@@ -376,10 +377,10 @@ namespace HalloDoc.Service.Implementation
                 RelationName = model.CHotelName,
                 CreatedDate = DateTime.Now,
                 Status = 1,
-                ConfirmationNumber = reg.Abbreviation??""[..2] + DateTime.Now.ToString()[..4]
+                ConfirmationNumber = reg.Abbreviation?.Substring(0, 2) + DateTime.Now.ToString("ddMMyyyy").Substring(0, 4)
                                     + model.LastName[..2] + model.FirstName[..2]
                                     + _repo.GetConfirmationNo(),
-                PatientAccountId=aspnetuser.Id,
+                PatientAccountId = aspnetuser.Id,
 
             };
             if (user.UserId != 0)
@@ -398,7 +399,7 @@ namespace HalloDoc.Service.Implementation
                 Location = model.Room,
                 Address = model.CState,
                 RegionId = reg.RegionId,
-                Email = model.Email,
+                Email = model.Email??"",
                 IntDate = model.BirthDate.Day,
                 IntYear = model.BirthDate.Year,
                 StrMonth = model.BirthDate.ToString("MMMM"),
@@ -443,6 +444,7 @@ namespace HalloDoc.Service.Implementation
                 {
                     var receiver = model.Email ?? "";
                     var subject = "Create Account";
+                    //var token = _token.GenerateJwtToken;
                     var message = "Tap on link for Create Account: http://localhost:5093/Login/PatientCreateAccount";
 
 
@@ -464,9 +466,9 @@ namespace HalloDoc.Service.Implementation
             User user = _repo.GetUserAspIdData(aspnetuser.Id);
 
             var reg = _repo.GetUniqueRegion(model.State);
-            if (reg == null)
+            if (reg.RegionId == 0)
             {
-                
+
                 Region region = new()
                 {
                     Name = model.State.ToUpper(),
@@ -486,10 +488,10 @@ namespace HalloDoc.Service.Implementation
                 RelationName = model.BBusinessName,
                 CreatedDate = DateTime.Now,
                 Status = 1,
-                ConfirmationNumber = reg.Abbreviation ?? ""[..2] + DateTime.Now.ToString("ddmm")[..4]
-                    + model.LastName[..2] + model.FirstName[..2]
-                    + _repo.GetConfirmationNo(),
-                PatientAccountId=aspnetuser.Id,
+                ConfirmationNumber = reg.Abbreviation?.Substring(0, 2) + DateTime.Now.ToString("ddMMyyyy").Substring(0, 4)
+                                    + model.LastName[..2] + model.FirstName[..2]
+                                    + _repo.GetConfirmationNo(),
+                PatientAccountId = aspnetuser.Id,
             };
             if (user.UserId != 0)
             {
@@ -507,7 +509,7 @@ namespace HalloDoc.Service.Implementation
                 Location = model.Room,
                 Address = model.State,
                 RegionId = reg.RegionId,
-                Email = model.Email,
+                Email = model.Email??"",
                 IntDate = model.BirthDate.Day,
                 IntYear = model.BirthDate.Year,
                 StrMonth = model.BirthDate.ToString("MMMM"),
@@ -525,7 +527,6 @@ namespace HalloDoc.Service.Implementation
                 RegionId = reg.RegionId,
                 PhoneNumber = model.BPhoneNumber,
                 CreatedDate = DateTime.Now,
-                CreatedBy=request.RequestId
             };
             _repo.AddBusiness(business);
 
@@ -578,8 +579,11 @@ namespace HalloDoc.Service.Implementation
                            }).ToList();
 
             var user2 = _repo.GetUserAspIdData(id);
-
-            DateOnly? date = new DateOnly(user2.IntYear!.Value, DateOnly.ParseExact(user2.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, user2.IntDate!.Value);
+            DateOnly? date=DateOnly.FromDateTime(DateTime.Now);
+            if(user2.UserId!=0)
+            {
+                date = new DateOnly(user2.IntYear!.Value, DateOnly.ParseExact(user2.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, user2.IntDate!.Value);
+            }
 
 
             List<PatientDashboardVM> dashboard = new();
@@ -697,7 +701,7 @@ namespace HalloDoc.Service.Implementation
                     Date = date,
                     user = user2,
                     ConfirmationNo = d.reqtbl.ConfirmationNumber
-                    
+
 
                 });
             }
@@ -708,9 +712,9 @@ namespace HalloDoc.Service.Implementation
             return _repo.Download(id) ?? new RequestWiseFile();
         }
 
-        public List<RequestWiseFile> DownloadAll(PatientDashboardVM vm,int id)
+        public List<RequestWiseFile> DownloadAll(PatientDashboardVM vm, int id)
         {
-            return _repo.DownloadAll(vm,id);
+            return _repo.DownloadAll(vm, id);
         }
 
         public string Update(int id, ViewDocumentVM vm)
@@ -733,7 +737,7 @@ namespace HalloDoc.Service.Implementation
 
             _repo.UpdateUser(use);
 
-           if(asp_net_u.Id != 0)
+            if (asp_net_u.Id != 0)
             {
                 asp_net_u.UserName = vm.user.FirstName + vm.user.LastName;
                 asp_net_u.Email = vm.user.Email;
@@ -773,7 +777,7 @@ namespace HalloDoc.Service.Implementation
         {
             Request user1 = _repo.GetRequestById(id);
             //Request request = new Request { };
-            if (model.View!.UploadFile != null && user1.RequestId!=0)
+            if (model.View!.UploadFile != null && user1.RequestId != 0)
             {
                 foreach (IFormFile files in model.View.UploadFile)
                 {
@@ -843,7 +847,7 @@ namespace HalloDoc.Service.Implementation
                 CreatedUserId = id,
                 FirstName = userobj.FirstName,
                 LastName = userobj.LastName,
-                Email = userobj.Email,
+                Email = userobj.Email??"",
                 PhoneNumber = userobj.Mobile,
                 Status = 1,
                 CreatedDate = DateTime.Now,
@@ -859,7 +863,7 @@ namespace HalloDoc.Service.Implementation
 
             _repo.AddRequest(req);
 
-            if(model.Files != null) 
+            if (model.Files != null)
             {
                 foreach (IFormFile files in model.Files)
                 {
@@ -879,7 +883,7 @@ namespace HalloDoc.Service.Implementation
                     _repo.AddReqWisFile(requestWiseFile);
                 }
             }
-            
+
 
             Region reg = new()
             {
@@ -897,7 +901,7 @@ namespace HalloDoc.Service.Implementation
                 Location = model.Room,
                 Address = model.Street + " , " + model.City + " , " + model.State,
                 RegionId = reg.RegionId,
-                Email = model.Email,
+                Email = model.Email??"",
                 Notes = model.Notes,
                 Street = model.Street,
                 City = model.City,
@@ -936,7 +940,7 @@ namespace HalloDoc.Service.Implementation
             //RequestClient reqCli = _repo.GetRequestClientinfo(id);
 
             var req = _repo.GetRequestById(id);
-          
+
             if (req.Status != 4 && req.RequestId != 0)
             {
                 req.Status = 4;
@@ -967,11 +971,13 @@ namespace HalloDoc.Service.Implementation
             if (req.Status != 7 && req.RequestId != 0)
             {
                 req.Status = 7;
-                RequestStatusLog reqlog = new();
-                //reqlog.AdminId = adminid;
-                reqlog.CreatedDate = DateTime.Now;
-                reqlog.Notes = VM.Note;
-                reqlog.RequestId = id;
+                RequestStatusLog reqlog = new()
+                {
+                    //reqlog.AdminId = adminid;
+                    CreatedDate = DateTime.Now,
+                    Notes = VM.Note,
+                    RequestId = id
+                };
                 _repo.UpdateRequest(req);
                 _repo.AddReqStatusLog(reqlog);
 
@@ -985,9 +991,10 @@ namespace HalloDoc.Service.Implementation
 
         public bool UpdateAspUser(ResetPwVM RP, int id)
         {
-            AspNetUser user=_repo.GetAspNetUser(id);
-            if (user.Id != 0) { 
-                user.PasswordHash=Crypto.HashPassword(RP.Password);
+            AspNetUser user = _repo.GetAspNetUser(id);
+            if (user.Id != 0)
+            {
+                user.PasswordHash = Crypto.HashPassword(RP.Password);
                 user.ModifiedDate = DateTime.Now;
                 user.ModifiedBy = id.ToString();
                 _repo.UpdateAspNetUser(user);
@@ -997,25 +1004,26 @@ namespace HalloDoc.Service.Implementation
 
         public bool CreateUser(ResetPwVM rP)
         {
-            bool user = _repo.GetEmail(rP.Email);
-            RequestClient requestClient = _repo.GetReqClientByEmail(rP.Email);
-            AspNetUser aspUser = _repo.GetAspUserData(rP.Email);
-            User user1 = _repo.GetUserUserData(rP.Email);
-            Request req=_repo.GetRequestById(requestClient.RequestId);
-            if (!user) 
+            bool user = _repo.GetEmail(rP.Email??"");
+            RequestClient requestClient = _repo.GetReqClientByEmail(rP.Email??"");
+            AspNetUser aspUser = _repo.GetAspUserData(rP.Email??"");
+            User user1 = _repo.GetUserUserData(rP.Email??"");
+            Request req = _repo.GetRequestById(requestClient.RequestId);
+            if (!user)
             {
                 AspNetUser asp = new()
                 {
-                    Email = rP.Email,
+                    UserName = requestClient.FirstName + " " + requestClient.LastName,
+                    Email = rP.Email??"",
                     PasswordHash = Crypto.HashPassword(rP.Password),
                     CreatedDate = DateTime.Now,
-                    PhoneNumber=requestClient.PhoneNumber,
-                    Roles=_repo.GetPatientRole()
+                    PhoneNumber = requestClient.PhoneNumber,
+                    Roles = _repo.GetPatientRole()
                 };
                 _repo.AddAspNetUser(asp);
                 if (user1.UserId == 0)
                 {
-                    AspNetUser aspUser1 = _repo.GetAspUserData(rP.Email);
+                    AspNetUser aspUser1 = _repo.GetAspUserData(rP.Email??"");
                     User use = new()
                     {
                         AspNetUserId = aspUser1.Id,
@@ -1039,8 +1047,8 @@ namespace HalloDoc.Service.Implementation
                     user1 = use;
                     _repo.AddUser(user1);
 
-                    User userData=_repo.GetUserAspIdData(aspUser1.Id);
-                    if(req.RequestId!=0)
+                    User userData = _repo.GetUserAspIdData(aspUser1.Id);
+                    if (req.RequestId != 0)
                     {
                         req.UserId = userData.UserId;
                         req.User = userData;

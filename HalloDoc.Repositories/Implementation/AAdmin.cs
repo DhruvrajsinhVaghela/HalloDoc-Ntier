@@ -79,7 +79,7 @@ namespace HalloDoc.Repositories.Implementation
             _logger.SaveChanges();
         }
 
-        public RequestNote checkNotes(int id, RequestNote vm)
+        public RequestNote checkNotes(int id)
         {
             RequestNote ReqNote=_logger.RequestNotes.FirstOrDefault(x=>x.RequestId==id)??new RequestNote();
             return ReqNote;
@@ -119,15 +119,15 @@ namespace HalloDoc.Repositories.Implementation
 
         public List<Physician> GetPhysicianData()
         {
-            return _logger.Physicians.ToList();          
+            return _logger.Physicians.Include(x=>x.PhysicianNotifications).ToList();          
         }
         public List<Region> GetAllRegions()
         {
-            return _logger.Regions.ToList();
+            return _logger.Regions.ToList()??new List<Region>();
         }
         public List<Physician> GetPhysicianByReg(int id)
         {
-            return _logger.Physicians.Where(x => x.RegionId == id).ToList();
+            return _logger.Physicians.Where(x => x.RegionId == id).ToList()??new List<Physician>();
         }
 
         public RequestStatusLog GetStatusLogs(int id) {
@@ -233,9 +233,9 @@ namespace HalloDoc.Repositories.Implementation
             _logger.Users.Update(use);
             _logger.SaveChanges();
         }
-        public List<string> GetRole(int id)
+        public List<string> GetRole(int? id)
         {
-            List<string> str= _logger.AspNetUsers.Include(x => x.Roles).FirstOrDefault(x => x.Id == id).Roles.Select(x => x.Name).ToList()?? new List<string>();
+            List<string> str= _logger.AspNetUsers.Include(x => x.Roles).FirstOrDefault(x => x.Id == id)?.Roles.Select(x => x.Name).ToList()?? new List<string>();
             return str;
         }
 
@@ -292,6 +292,32 @@ namespace HalloDoc.Repositories.Implementation
         {
             _logger.Admins.Add(adminData);
             _logger.SaveChanges();
+        }
+
+        public List<Physician> GetPhysicianDataByRegion(int regionId)
+        {
+            try
+            {
+                // Assuming _logger.Physicians is a valid data source
+                var physicians = _logger.Physicians
+                    .Where(x => x.RegionId == regionId)
+                    .Include(x => x.PhysicianNotifications)
+                    .ToList();
+
+                return physicians;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                Console.WriteLine($"Error retrieving physician data: {ex.Message}");
+                return new List<Physician>(); // Return an empty list or handle the error case
+            }
+        }
+
+        public List<string> GetRoleEmail(string value)
+        {
+            List<string> str = _logger.AspNetUsers.Include(x => x.Roles).FirstOrDefault(x => x.Email == value)?.Roles.Select(x => x.Name).ToList() ?? new List<string>();
+            return str;
         }
     }
 }

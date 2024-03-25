@@ -1,6 +1,6 @@
 ﻿@using System.Globalization;
 @model IEnumerable<HalloDoc.DbEntity.ViewModel.AdminDashboardVM>;
-<div class="table-responsive d-none d-md-block vh-100">
+<div class="table-responsive d-none d-md-block">
     <table class="table" id="myTable">
         <thead>
             <tr>
@@ -37,22 +37,22 @@
                 string cls = "bg-warning";
                 string name = "";
                 {
-                    if (obj.RequestType == 1)
+                    if (obj.RequestType == 2)
                     {
                         cls = "bg-success";
-
+                        name = "Patient";
                     }
-                    else if (obj.RequestType == 2)
+                    else if (obj.RequestType == 3)
                     {
                         cls = "bg-warning";
                         name = "Family/Friend";
                     }
-                    else if (obj.RequestType == 3)
+                    else if (obj.RequestType == 4)
                     {
                         cls = "bg-info";
                         name = "Concierge";
                     }
-                    else if (obj.RequestType == 4)
+                    else if (obj.RequestType == 1)
                     {
                         cls = "bg-danger";
                         name = "Business";
@@ -60,10 +60,30 @@
                 }
 
                 {
+                    DateOnly dateNew = new();
+                    if (obj.BirthDate != null)
+                    {
+                        dateNew = obj.BirthDate ?? new DateOnly();
+                    }
+                    DateTime birthDate = new DateTime(dateNew.Year, dateNew.Month, dateNew.Day);
+                    int Age = ((DateTime.Now - birthDate).Days) / 365;
+
+
+                    DateOnly dateNew1 = new();
+                    if (obj.RequestDate != null)
+                    {
+                        dateNew1 = obj.RequestDate ?? new DateOnly();
+                    }
+                    DateTime ReqDate = new DateTime(dateNew1.Year, dateNew1.Month, dateNew1.Day);
+                    TimeSpan myDateResult = DateTime.Now - ReqDate;
+                    int hours = (int)myDateResult.TotalHours;
+                    int minutes = myDateResult.Minutes;
+
+
                     <tr class="align-middle @cls">
-                        <td class="text-white">
+                        <td class="text-white small-txt">
                             <div class="d-flex justify-content-between">
-                                <span>@obj.PatientName</span>
+                                <span>@obj.PatientLastName,@obj.PatientName</span>
                                 <div class="border border-white rounded-2 justify-content-center d-flex ms-3 p-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope text-white" viewBox="0 0 16 16">
                                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
@@ -71,19 +91,43 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-white">@obj.BirthDate</td>
-                        <td class="text-white">@obj.RequestorName</td>
-                        <td class="text-white">@obj.ProviderName</td>
-                        <td class="text-white">@obj.RequestDate?.ToString("MMM-dd-yyyy",CultureInfo.InvariantCulture)</td>
+                        <td class="text-white text-nowrap small-txt">@obj.BirthDate?.ToString("MMM dd, yyyy") (@Age)</td>
+                        <td class="text-white small-txt">@name,@obj.RequestorName @obj.RequestorLastName</td>
+                        <td class="text-white small-txt">@obj.ProviderName</td>
+                        <td class="text-white text-nowrap small-txt">@obj.RequestDate?.ToString("MMM dd, yyyy",CultureInfo.InvariantCulture)</td>
 
-                        <td class="text-white">
-                            @if (obj.RequestorPhoneNumber == obj.PhoneNumber)
+                        <td class="text-white small-txt">
+                            @if (obj.RequestorPhoneNumber != obj.PhoneNumber)
                             {
-                                obj.RequestorPhoneNumber = "";
+
+                                @if (obj.PhoneNumber != "")
+                                {
+                                    <button class="btn px-1 btn-outline-light text-nowrap">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                            </svg>
+                                        </span>
+                                        @obj.PhoneNumber
+                                    </button>
+                                    <div>Patient</div>
+                                }
+                                @if (obj.RequestorPhoneNumber != "")
+                                {
+                                    <button class="btn px-1 btn-outline-light">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                            </svg>
+                                        </span>
+                                        @obj.RequestorPhoneNumber
+                                    </button>
+                                    <div>@name</div>
+                                }
                             }
-                            @if (obj.PhoneNumber != "")
+                            else
                             {
-                                <button class="btn px-1 btn-outline-light">
+                                <button class="btn px-1 btn-outline-light text-nowrap">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
                                             <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
@@ -91,47 +135,37 @@
                                     </span>
                                     @obj.PhoneNumber
                                 </button>
-                                <div class="w-100">Patient</div>
+                                <div>Patient</div>
                             }
-                            @if (obj.RequestorPhoneNumber != "")
-                            {
-                                <button class="btn px-1 btn-outline-light text-nowrap">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
-                                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-                                        </svg>
-                                        @obj.RequestorPhoneNumber
-                                    </span>
-
-                                </button>
-                                <div>@name</div>
-                            }
-
                         </td>
-                        <td class="text-white">@obj.Address</td>
-                        <td class="text-white">
+                        <td class="text-white small-txt">@obj.Address</td>
+                        <td class="text-white small-txt">
                             @foreach (var data in obj.AdminNotes)
                             {
                                 <div>@data</div>
                             }
                         </td>
-                        <td>
+                        <td class=" small-txt">
                             @*  @if (@obj.ChatWith != null)
                     {
                     <button class="btn btn-outline-secondary d-none d-md-block">Provider</button>
                     } *@
                             <div class="d-flex justify-content-between align-items-center">
                                 <button class="btn btn-outline-light d-flex align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person text-dark" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                                     </svg>Patient
                                 </button>
-                                <button class="btn btn-outline-light d-flex align-items-center">
-                                    <span><img src="~/images/icons8-medical-doctor-50.png" width="16" height="16"></span>Provider
+                                <button class="btn btn-outline-light d-flex align-items-center ms-1">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                        </svg>
+                                    </span>Provider
                                 </button>
                             </div>
                         </td>
-                        <td class="text-white">
+                        <td class="text-white small-txt">
                             <div class="dropdown">
                                 <a class="btn btn-secondary bg-transparent border-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Action
@@ -139,52 +173,63 @@
 
                                 <ul class="dropdown-menu">
                                     <li class="d-flex align-items-center ms-2">
+                                        <button class="btn border-0 d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                            </svg>
+                                            <div class="ms-1"><a asp-action="ViewReservation" asp-controller="Admin" asp-route-id="@obj.ReqID" class="text-decoration-none text-white">View Case</a></div>
+                                        </button>
+                                    </li>
+                                    <li class="d-flex align-items-center ms-2">
+                                        <button class="btn border-0 d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-arrow-up" viewBox="0 0 16 16">
+                                                <path d="M8 11a.5.5 0 0 0 .5-.5V6.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 6.707V10.5a.5.5 0 0 0 .5.5" />
+                                                <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1" />
+                                            </svg>
+                                            <div class="ms-1"><a asp-action="ViewUploads" asp-controller="Admin" asp-route-id="@obj.ReqID" class="text-decoration-none text-white">View Uploads</a></div>
+                                        </button>
+                                    </li>
+                                    <li class="d-flex align-items-center ms-2">
+                                        <button class="btn border-0 d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                            </svg>
+                                            <div class="ms-1"><a asp-action="ViewNotes" asp-controller="Admin" asp-route-id="@obj.ReqID" class="text-decoration-none text-white">View Notes</a></div>
+                                        </button>
+                                    </li>
+                                    <li class="d-flex align-items-center ms-2">
+                                        <button class="btn border-0 d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
+                                                <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
+                                                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                                            </svg>
+                                            <div onclick="Transfer(@obj.ReqID)" class="ms-1">Transfer</div>
+                                        </button>
+                                    </li>
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                                        </svg>
-                                        <a asp-action="ViewReservation" asp-controller="Admin" asp-route-id="@obj.ReqID" onclick="Assign(@obj.ReqID)">View Case</a>
-                                    </li>
-                                    <li class="d-flex align-items-center ms-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-arrow-up" viewBox="0 0 16 16">
-                                            <path d="M8 11a.5.5 0 0 0 .5-.5V6.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 6.707V10.5a.5.5 0 0 0 .5.5" />
-                                            <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1" />
-                                        </svg>
-                                        <a asp-action="ViewUploads" asp-controller="Admin" asp-route-id="@obj.ReqID">View Uploads</a>
-                                    </li>
-                                    <li class="d-flex align-items-center ms-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
-                                            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                                        </svg>
-                                        <a asp-action="ViewNotes" asp-controller="Admin" asp-route-id="@obj.ReqID">View Notes</a>
-                                    </li>
-                                    <li class="d-flex align-items-center ms-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
-                                            <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
-                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                                        </svg>
-                                        <a onclick="Transfer(@obj.ReqID)">Transfer</a>
-                                    </li>
-
 
                                     <li class="d-flex align-items-center ms-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                                        </svg>
-                                        <a onclick="Clear(@obj.ReqID)">Clear Case</a>
+                                        <button class="btn border-0 d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                            </svg>
+                                            <div onclick="Clear(@obj.ReqID)" class="ms-1">Clear Case</div>
+                                        </button>
                                     </li>
                                     <li class="d-flex align-items-center ms-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-ruled" viewBox="0 0 16 16">
-                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5zM3 12v-2h2v2zm0 1h2v2H4a1 1 0 0 1-1-1zm3 2v-2h7v1a1 1 0 0 1-1 1zm7-3H6v-2h7z" />
-                                        </svg>
-                                        <a onclick="SendAgreement(@obj.ReqID)" class="fs-sm">
+                                        <button class="btn border-0 d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-ruled" viewBox="0 0 16 16">
+                                                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5zM3 12v-2h2v2zm0 1h2v2H4a1 1 0 0 1-1-1zm3 2v-2h7v1a1 1 0 0 1-1 1zm7-3H6v-2h7z" />
+                                            </svg>
+                                            <div onclick="SendAgreement(@obj.ReqID)" class="ms-1">
                                                 <div class="d-flex">
                                                     <span class="me-1">Send</span> <span>Agreement</span>
                                                 </div>
-                                        </a>
+                                            </div>
+                                        </button>
                                     </li>
                                 </ul>
                             </div>
@@ -194,64 +239,35 @@
             }
         </tbody>
     </table>
-    <div class="w-100 d-flex justify-content-center mb-5">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                @{
-                    double? ItemOnPage = 2;
-                    var i = 1;
-                    double? pagecount = 0;
-                    if (Model.FirstOrDefault()?.ItemCountPagination != null)
-                    {
-                        pagecount = Model.FirstOrDefault()!.ItemCountPagination;
-                    }
 
-                    double? totalPages = 0;
-                    if (pagecount % ItemOnPage == 0)
-                    {
-                        totalPages = pagecount / ItemOnPage;
-                    }
-                    else
-                    {
-                        totalPages = (pagecount / ItemOnPage) + 0.5;
-                    }
-                    <li class="page-item" id="previous"><a class="page-link" onclick="Previous()">Previous</a></li>
-                    <li class="page-item"><a class="page-link" id="CurrentTab">@i</a></li>
-                    <li class="page-item" id="next"><a class="page-link" onclick="Next(@totalPages,@i)">Next</a></li>
-
-                }
-            </ul>
-        </nav>
-    </div>
 </div>
 @foreach (var obj in Model)
 {
     string cls = "text-warning";
     string name = "";
     {
-        if (obj.RequestType == 1)
+        if (obj.RequestType == 2)
         {
             cls = "text-success";
 
         }
-        else if (obj.RequestType == 2)
+        else if (obj.RequestType == 3)
         {
             cls = "text-warning";
             name = "Family/Friend";
         }
-        else if (obj.RequestType == 3)
+        else if (obj.RequestType == 4)
         {
             cls = "text-info";
             name = "Concierge";
         }
-        else if (obj.RequestType == 4)
+        else if (obj.RequestType == 1)
         {
             cls = "text-danger";
             name = "Business";
         }
     }
-    @*  TimeSpan myDateResult = DateTime.Now - obj.RequestDate.ToDateTime(TimeOnly.Parse(""));
-        int hours = (int)myDateResult.TotalHours; *@
+
     string ID = "a" + obj.ReqID.ToString();
 
     <div class="accordion d-md-none" id="accordionExample">
@@ -302,9 +318,8 @@
                 </button>
             </h2>
             <div id="@ID" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body vh-100">
+                <div class="accordion-body">
                     <div>
-                        <hr>
                         <div class="w-100 d-flex justify-content-end">
 
                             <button class="btn border rounded-pill border-info position-absolute ViewCaseBtn">
@@ -400,14 +415,14 @@
                         </p>
                     </div>
 
-                    <div class="container">
+                    <div class="container ">
                         <div class="row">
                             <div class="col-6 text-nowrap">
                                 <button class="btn rounded-pill bg-warning  py-1 d-flex justify-content-center w-100 text-black" onclick="SendAgreement(@obj.ReqID)">Send Agreement</button>
                             </div>
                             <div class="col-6 text-nowrap">
 
-                                <button class="btn rounded-pill bg-success  py-1 d-flex justify-content-center w-100 text-black"><a asp-action="ViewNotes" asp-controller="Admin" asp-route-id="@obj.ReqID" class="text-decoration-none"> View Notes</a> </button>
+                                <button class="btn rounded-pill bg-success  py-1 d-flex justify-content-center w-100 text-black"><a asp-action="ViewNotes" asp-controller="Admin" asp-route-id="@obj.ReqID" class="text-decoration-none text-black"> View Notes</a> </button>
                             </div>
                         </div>
                         <div class="row my-2">
@@ -415,7 +430,7 @@
                                 <button class="btn rounded-pill bg-info  py-1 d-flex justify-content-center w-100 text-black" onclick="Transfer(@obj.ReqID)">Transfer</button>
                             </div>
                             <div class="col-6 text-nowrap">
-                                <button class="btn rounded-pill bg-success  py-1 d-flex justify-content-center w-100 text-black"><a asp-action="ViewUploads" asp-controller="Admin" asp-route-id="@obj.ReqID" class="text-decoration-none"> View Uploads</a></button>
+                                <button class="btn rounded-pill bg-success  py-1 d-flex justify-content-center w-100 text-black"><a asp-action="ViewUploads" asp-controller="Admin" asp-route-id="@obj.ReqID" class="text-decoration-none text-black"> View Uploads</a></button>
                             </div>
                         </div>
                         <div class="row my-2">
@@ -437,51 +452,68 @@
     <div id="showmodal">
     </div>
 }
+<div class="w-100 d-flex justify-content-center mb-5 mt-2">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @{
+                double? ItemOnPage = 2;
+                var i = 1;
+                double? pagecount = 0;
+                if (Model.FirstOrDefault()?.ItemCountPagination != null)
+                {
+                    pagecount = Model.FirstOrDefault()!.ItemCountPagination;
+                }
 
-<script>
-    function Next(totalpages) {
-
-        var a = $('#CurrentTab').text();
-        var b = parseInt(a);
-        b = b + 1;
-
-        if (b <= totalpages) {
-
-            pagination(b, @ItemOnPage);
-        }
-
-    }
-    function Previous() {
-        var a = $('#CurrentTab').text();
-        var b = parseInt(a);
-        b = b - 1;
-
-        if (b > 0) {
-            pagination(b, @ItemOnPage);
-        }
-    }
-    function pagination(number, itemsperpage) {
-
-
-        $.ajax({
-            url: '/Admin/Page',
-            method: 'POST',
-            data: {
-                status: 2,
-                pn: number,
-                item: itemsperpage,
-            },
-            success: function (response) {
-
-                $('#Content').html(response);
-                $('#CurrentTab').html(number);
-            },
-            error: function (error) {
-                console.error('Error in AJAX', error);
+                double? totalPages = 0;
+                if (pagecount % ItemOnPage == 0)
+                {
+                    totalPages = pagecount / ItemOnPage;
+                }
+                else
+                {
+                    totalPages = (pagecount / ItemOnPage) + 0.5;
+                }
+                <li class="page-item" id="previous"><a class="page-link" onclick="Previous()">Previous</a></li>
+                <li class="page-item"><a class="page-link" id="CurrentTab">@i</a></li>
+                <li class="page-item" id="next"><a class="page-link" onclick="Next(@totalPages,@i)">Next</a></li>
+                <li class="ms-3">page <span id="num">@i</span> of @totalPages</li>
             }
-        })
+        </ul>
+    </nav>
+</div>
+<script>
+  
+    var Id;
+    var Status = 2;
+    var RegId;
+    var k;
+    var pn;
+    var item;
+    function FilterData(id) {
+        k = document.getElementById("search").value.toUpperCase();
+        var select = document.getElementById("Dropdown");
+        RegId = select.value;
+        if (id !== undefined) {
+            Id = id;
+        }
+        $.ajax({
+            url: '/Admin/SortByFilter',
+            type: 'POST',
+            data: { keywrd: k, RegId: RegId, status: 2, reqType: Id, pn: @ItemOnPage, item: @i},
+            success: function (response) {
+                document.getElementById("Content").innerHTML = response;
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', status, error);
+            }
+        });
 
     }
+    function Export() {
+
+        window.location.href = '/Admin/Export?status=' + Status + '&Regionid=' + RegId + '&Keyword=' + k + '&Reqtype=' + Id;
+    }
+   
 </script>
 
 

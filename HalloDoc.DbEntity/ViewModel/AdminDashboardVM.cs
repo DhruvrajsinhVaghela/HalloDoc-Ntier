@@ -14,6 +14,7 @@ namespace HalloDoc.DbEntity.ViewModel
         public int? BirthYear { get; set; }//from request client
         public int? BirthDay { get; set; }//from request client
         public string? RequestorName { get; set; }//from request
+        public string? RequestorLastName { get; set; }
         public DateOnly? RequestDate { get; set; }//from request
         public string? PhoneNumber { get; set; }//from request client
         public string? RequestorPhoneNumber { get; set; }//from request table

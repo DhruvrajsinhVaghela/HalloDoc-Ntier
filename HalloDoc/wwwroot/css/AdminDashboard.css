@@ -251,6 +251,7 @@ input[type=password]::-ms-clear {
 .iti__country-list {
     z-index: 3 !important;
 }
+
 .triangle-down {
     width: 0;
     height: 0;
@@ -268,3 +269,13 @@ input[type=password]::-ms-clear {
     z-index:10;
 }
 
+.HighLight {
+    border:solid;
+    padding:5px;
+    border-radius:10px;
+}
+
+.small-txt{
+    font-size:13px;
+    font-weight:bold;
+}

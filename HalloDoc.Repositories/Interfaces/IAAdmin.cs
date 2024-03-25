@@ -16,7 +16,7 @@ namespace HalloDoc.Repositories.Interfaces
         void DbUpdatedNotes(RequestNote x);
         Request GetRequestStatus(int id);
         void DbReqStatusUpdate(Request x);
-        RequestNote checkNotes(int id, RequestNote vm);
+        RequestNote checkNotes(int id);
         List<Request> GetNotes2(int id);
         void GetReqNotesData(RequestNote x);
         void DbAddReqClient(Blockrequest x);
@@ -48,7 +48,7 @@ namespace HalloDoc.Repositories.Interfaces
         void GetUpAspUser(AspNetUser asp);
         void UpReqClient(RequestClient reqcl);
         void GetUpUser(User use);
-        List<string> GetRole(int id);
+        List<string> GetRole(int? id);
         Admin GetAdminData(int? adminId);
         AspNetUser GetAspNetUserData(int? adminId);
         /*public RequestWiseFile GetReqWiseFileById(int id);*/
@@ -59,5 +59,7 @@ namespace HalloDoc.Repositories.Interfaces
         void AddAdminRegion(AdminRegion adds);
         void RemoveAdminRegion(AdminRegion removes);
         void UpAdmin(Admin adminData);
+        List<Physician> GetPhysicianDataByRegion(int regionId);
+        List<string> GetRoleEmail(string value);
     }
 }

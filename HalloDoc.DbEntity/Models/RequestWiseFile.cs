@@ -12,7 +12,7 @@ public partial class RequestWiseFile
 
     public string FileName { get; set; } = null!;
 
-    public DateTime? CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public int? PhysicianId { get; set; }
 

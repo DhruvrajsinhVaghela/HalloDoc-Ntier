@@ -1,0 +1,70 @@
+﻿@model IEnumerable<HalloDoc.DbEntity.ViewModel.ProviderInformation>
+
+<div class="container-fluid my-3">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-8 shadow-lg">
+            <h4>
+                Provider Information
+            </h4>
+            <div class="d-flex justify-content-between">
+                <select class="w-25 m-3 border border-info" id="Dropdown" onchange="filter()">
+                    <option value="0">All</option>
+                    @if (Model.FirstOrDefault().RegionList != null)
+                    {
+                        @foreach (var reg in Model.FirstOrDefault().RegionList ?? new())
+                        {
+                            <option value="@reg.RegionId">@reg.Name</option>
+                        }
+                    }
+
+                </select>
+                <button class="btn border rounded-2 btn-outline-info border-info">
+                    Create Provider Account
+                </button>
+            </div>
+            <div id="providerContent"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Admin/ProviderByRegion',
+            method: 'GET',
+            data: {
+                regionId: 0
+            },
+            success: function (response) {
+
+                $('#providerContent').html(response);
+
+            },
+            error: function (error) {
+                console.error('Error in AJAX', error);
+            }
+        });
+
+    });
+    function filter() {
+        var dropdown = document.getElementById("Dropdown");
+        var regid = dropdown.value;
+
+        $.ajax({
+                url: '/Admin/ProviderByRegion',
+            method: 'GET',
+            data: {
+                regionId: regid
+            },
+            success: function (response) {
+
+                document.getElementById("data").innerHTML = response;
+
+            },
+            error: function (error) {
+                console.error('Error in AJAX', error);
+            }
+        });
+    }
+</script>

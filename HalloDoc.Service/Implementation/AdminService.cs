@@ -7,12 +7,17 @@ using System.Globalization;
 using System.Net.Mail;
 using System.Net;
 using System.Web.Helpers;
+using System.Dynamic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Xml.Linq;
 
 namespace HalloDoc.services.Implementation
 {
     public class AdminService : IAdminService
     {
         private readonly IAAdmin _repo;
+
+
 
         public AdminService(IAAdmin repo)
         {
@@ -53,7 +58,7 @@ namespace HalloDoc.services.Implementation
         }
         public List<AdminDashboardVM> GetNewStateData(int status, int id)
         {
-            Dictionary<int, int> dictonary = new Dictionary<int, int>()
+            Dictionary<int, int> dictonary = new()
             {
                 {1,1 },
                 {2,2 },
@@ -68,18 +73,18 @@ namespace HalloDoc.services.Implementation
             };
 
             var x = _repo.GetAdminDashboardData().Where(x => dictonary[x.Status] == status).ToList();
-            
+
             if (id != 0)
             {
                 x = x.Where(x => x.RequestType == id).ToList();
             }
 
 
-            List<AdminDashboardVM> adminDashboardVMs = new List<AdminDashboardVM>();
+            List<AdminDashboardVM> adminDashboardVMs = new();
             x.ForEach(a =>
             {
                 var y = _repo.GetStatusLogs1(a.RequestId);
-                List<string>? transfer = new List<string>();
+                List<string>? transfer = new();
                 foreach (var data in y)
                 {
                     Physician phy = _repo.GetPhysicianDataByID(data.TransToPhysicianId);
@@ -89,7 +94,11 @@ namespace HalloDoc.services.Implementation
                     }
 
                 }
-                DateOnly Dateofbirth = new DateOnly(a.RequestClients.FirstOrDefault()!.IntYear, DateOnly.ParseExact(a.RequestClients.FirstOrDefault()!.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, a.RequestClients.FirstOrDefault()!.IntDate!);
+                DateOnly Dateofbirth = DateOnly.FromDateTime(DateTime.Now);
+                if (a.RequestClients.FirstOrDefault()?.IntDate != null)
+                {
+                    Dateofbirth = new(a.RequestClients.FirstOrDefault()!.IntYear!.Value, DateOnly.ParseExact(a.RequestClients.FirstOrDefault()!.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, a.RequestClients.FirstOrDefault()!.IntDate!.Value);
+                }
                 //count++;
                 adminDashboardVMs.Add(new AdminDashboardVM
                 {
@@ -99,20 +108,21 @@ namespace HalloDoc.services.Implementation
                     ReqID = a.RequestId,
                     Email = a.RequestClients.FirstOrDefault()?.Email ?? "",
                     RequestorName = a.FirstName,
+                    RequestorLastName = a.LastName,
                     RequestDate = DateOnly.FromDateTime(a.CreatedDate),
                     PhoneNumber = a.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
                     Region = a.RequestClients.FirstOrDefault()?.RegionId,
                     RequestorPhoneNumber = a.PhoneNumber ?? "",
                     Status = a.Status,
                     ProviderName = a.Physician?.FirstName ?? "",
-                    BirthDate =Dateofbirth, 
+                    BirthDate = Dateofbirth,
                     Address = a.RequestClients.FirstOrDefault()?.Street + " " + a.RequestClients.FirstOrDefault()?.City + " " + a.RequestClients.FirstOrDefault()?.State + " " + a.RequestClients.FirstOrDefault()?.ZipCode,
                     AdminNotes = transfer,
                     RequestType = a.RequestType,
-                    
-                    
+
+
                 });
-                
+
 
 
 
@@ -122,12 +132,18 @@ namespace HalloDoc.services.Implementation
         public ViewCaseVM ViewPatientData(int id)
         {
             var PatientData = _repo.GetPatientData(id);
-
+            var day = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.IntDate ?? 1;
+            var monthNum = GetMonthNumber(PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.StrMonth ?? "");
+            var year = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.IntYear ?? 1111;
             ViewCaseVM PatientCase = new()
             {
+                ReqId = PatientData.FirstOrDefault()?.RequestId ?? 0,
+                Status = PatientData.FirstOrDefault()?.Status,
                 FirstName = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.FirstName ?? " ",
                 LastName = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.LastName ?? " ",
-                DateOfBirth = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.IntDate + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.StrMonth + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.IntYear,
+                /*                DateOfBirth = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.IntDate + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.StrMonth + " " + PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.IntYear,
+                */
+                DateOfBirth = new DateOnly(year, monthNum, day),
                 Email = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.Email ?? " ",
                 Notes = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.Notes ?? " ",
                 PhoneNumber = PatientData.FirstOrDefault()?.RequestClients.FirstOrDefault()?.PhoneNumber ?? " ",
@@ -142,17 +158,32 @@ namespace HalloDoc.services.Implementation
 
             return PatientCase;
         }
-        public RequestNote ViewNotes(int id, RequestNote vm)
+
+        public static int GetMonthNumber(string monthName)
+        {
+            DateTimeFormatInfo dtfi = DateTimeFormatInfo.CurrentInfo;
+            for (int i = 1; i <= 12; i++)
+            {
+                if (dtfi.GetMonthName(i).Equals(monthName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return i;
+                }
+            }
+            return -1; // Invalid month name
+        }
+        public RequestNote ViewNotes(int id, ViewNotesVM vm)
         {
 
-            RequestNote isEntry = _repo.checkNotes(id, vm);
-            if (isEntry == null)
+            RequestNote isEntry = _repo.checkNotes(id);
+            if (isEntry.RequestId == 0)
             {
-                RequestNote x = new RequestNote();
-                x.RequestId = id;
-                x.CreatedBy = 46;//Admin ID
-                x.CreatedDate = DateTime.Now;
-                x.AdminNotes = vm.AdminNotes;
+                RequestNote x = new()
+                {
+                    RequestId = id,
+                    CreatedBy = vm.AdminAspId,//Admin ID
+                    CreatedDate = DateTime.Now,
+                    AdminNotes = vm.AdminNotes
+                };
                 _repo.GetReqNotesData(x);
             }
             else
@@ -161,29 +192,29 @@ namespace HalloDoc.services.Implementation
                 _repo.DbUpdatedNotes(isEntry);
 
             }
-            return isEntry??new RequestNote();
+            return isEntry ?? new RequestNote();
         }
 
         public ViewNotesVM ViewNotes2(int id)
         {
             var y = _repo.GetStatusLogs1(id);
-            List<string>? transfer = new List<string>();
+            List<string>? transfer = new();
             foreach (var item in y)
             {
                 Physician phy = _repo.GetPhysicianDataByID(item.TransToPhysicianId);
                 if (phy != null)
                 {
-                    transfer.Add("Admin Transfered to Dr. " + phy.FirstName + " on " + item.CreatedDate.ToString("dd/MM/YYYY") + " at " + item.CreatedDate.ToString("hh:mm:ss") + " : " + item.Notes);
+                    transfer.Add("Admin Transfered to Dr. " + phy.FirstName + " on " + item.CreatedDate.ToString("dd MMM,yyyy") + " at " + item.CreatedDate.ToString("hh:mm:ss") + " : " + item.Notes);
                 }
 
             }
             List<Request> data = _repo.GetNotes2(id);
-            ViewNotesVM viewNotesVM = new ViewNotesVM();
+            ViewNotesVM viewNotesVM = new();
             //RequestStatusLog y=_repo.GetStatusLogs(id);
-            if (data!=null && y != null)
+            if (data != null && y != null)
             {
                 viewNotesVM.AdminNotes = data.FirstOrDefault()?.RequestNotes.FirstOrDefault()?.AdminNotes;
-                viewNotesVM.PhysicianName = data.FirstOrDefault().Physician?.FirstName;
+                viewNotesVM.PhysicianName = data.FirstOrDefault()?.Physician?.FirstName;
                 viewNotesVM.StatusLogNotes = transfer;
                 viewNotesVM.ReqId = id;
             }
@@ -215,16 +246,18 @@ namespace HalloDoc.services.Implementation
             }
             else
             {
-                RequestNote requestNote = new RequestNote();
-                requestNote.RequestId = id;
-                /*y.PhysicianNotes*/
-                requestNote.AdminNotes = vm.AdminNotes;
-                //requestNote.CreatedBy=aspnetuserid
-                requestNote.ModifiedDate = DateTime.Now;
+                RequestNote requestNote = new()
+                {
+                    RequestId = id,
+                    /*y.PhysicianNotes*/
+                    AdminNotes = vm.AdminNotes,
+                    //requestNote.CreatedBy=aspnetuserid
+                    ModifiedDate = DateTime.Now
+                };
                 _repo.GetReqNotesData(requestNote);
             }
 
-            RequestStatusLog statusLog = new RequestStatusLog
+            RequestStatusLog statusLog = new()
             {
                 RequestId = id,
                 Status = 3,
@@ -242,11 +275,13 @@ namespace HalloDoc.services.Implementation
         {
             RequestClient req = _repo.GetDataReqClient(id);
             List<CaseTag> tags = _repo.GetCaseTags();
-            CancelCaseVM vm = new CancelCaseVM();
-            //vm.reqID = id;
-            vm.PatientName = req.FirstName;
-            vm.ReasonName = tags;
-            vm.ReqID = id;
+            CancelCaseVM vm = new()
+            {
+                //vm.reqID = id;
+                PatientName = req.FirstName,
+                ReasonName = tags,
+                ReqID = id
+            };
             return vm;
 
         }
@@ -255,7 +290,7 @@ namespace HalloDoc.services.Implementation
         {
             List<Region> reg = _repo.GetAllRegions();
             List<Physician> physi = _repo.GetPhysicianData();
-            AssignCaseVM case1 = new AssignCaseVM();
+            AssignCaseVM case1 = new();
             {
                 case1.ReqId = id;
                 case1.Physicians = physi;
@@ -264,7 +299,7 @@ namespace HalloDoc.services.Implementation
             return case1;
         }
 
-        public object GetPhysiciansByRegionId(int id)
+        public List<Physician> GetPhysiciansByRegionId(int id)
         {
             return _repo.GetPhysicianByReg(id);
         }
@@ -284,11 +319,13 @@ namespace HalloDoc.services.Implementation
                 reqNote.RequestId = id;
                 reqNote.AdminNotes = vm.AdminNotes;
                 reqNote.ModifiedDate = DateTime.Now;
+                reqNote.CreatedBy = vm.AdminAspId;
                 _repo.GetUpDateReqNote(reqNote);
             }
             else
             {
-                RequestNote Note = new RequestNote {
+                RequestNote Note = new()
+                {
 
                     RequestId = id,
                     AdminNotes = vm.AdminNotes,
@@ -298,7 +335,7 @@ namespace HalloDoc.services.Implementation
                 _repo.GetReqNotesData(Note);
             }
 
-            RequestStatusLog StatusLog = new RequestStatusLog
+            RequestStatusLog StatusLog = new()
             {
                 RequestId = id,
                 Status = 2,
@@ -314,7 +351,8 @@ namespace HalloDoc.services.Implementation
         {
             RequestClient req = _repo.GetDataReqClient(id);
 
-            BlockCaseVM obj = new BlockCaseVM {
+            BlockCaseVM obj = new()
+            {
                 PateintFirstName = req.FirstName,
                 PatientLastName = req.LastName,
                 ReqId = id
@@ -330,13 +368,13 @@ namespace HalloDoc.services.Implementation
 
             _repo.DbReqStatusUpdate(req);
 
-            RequestStatusLog statusLog = new RequestStatusLog
+            RequestStatusLog statusLog = new()
             {
                 RequestId = id,
                 Status = 10,
                 // PhysicianId = vm.AdminDashboardVM.PhysicianId,
                 Notes = vm.ReasonForBlock,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
                 //AdminId=adminid
             };
             _repo.GetAddStatusLog(statusLog);
@@ -348,7 +386,8 @@ namespace HalloDoc.services.Implementation
                 Phonenumber = rc.PhoneNumber,
                 Email = rc.Email,
                 Reason = vm.ReasonForBlock,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                RequestId = id,
 
             };
 
@@ -361,12 +400,18 @@ namespace HalloDoc.services.Implementation
         {
             RequestClient reqclient = _repo.GetDataReqClient(id);
             Request request = _repo.GetRequestStatus(id);
-            User user2 = _repo.GetUserData().FirstOrDefault(u => u.AspNetUserId ==request.PatientAccountId);
+            User user2 = _repo.GetUserData().FirstOrDefault(u => u.AspNetUserId == request.PatientAccountId) ?? new();
 
-            DateOnly date = new DateOnly(user2.IntYear.Value, DateOnly.ParseExact(user2.StrMonth, "MMMM", CultureInfo.InvariantCulture).Month, user2.IntDate.Value);
+            DateOnly date = DateOnly.FromDateTime(DateTime.Now);
+            if (user2.UserId != 0)
+            {
+                date = new DateOnly(user2.IntYear!.Value, DateOnly.ParseExact(user2.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, user2.IntDate!.Value);
 
-            ViewUploadVM document = new ViewUploadVM();
-            document.PatientName = reqclient.FirstName + ' ' + reqclient.LastName;
+            }
+            ViewUploadVM document = new()
+            {
+                PatientName = reqclient.FirstName + ' ' + reqclient.LastName
+            };
             Request req = _repo.GetRequestStatus(id)
     ;
             document.ConfNumber = req.ConfirmationNumber;
@@ -388,24 +433,26 @@ namespace HalloDoc.services.Implementation
         }
         public string PatientFileSave(int id, PatientDashboardVM model)
         {
-            Request user1 = _repo.GetRequestData().FirstOrDefault(u => u.RequestId == id);
-            Request request = new Request { };
-            if (model.View.UploadFile != null)
+            Request user1 = _repo.GetRequestData().FirstOrDefault(u => u.RequestId == id) ?? new();
+            Request request = new() { };
+            if (model.View?.UploadFile != null && user1.RequestId != 0)
             {
                 foreach (IFormFile files in model.View.UploadFile)
                 {
                     string filename = user1.FirstName + user1.LastName + Path.GetExtension(files.FileName);
                     string path = Path.Combine("D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\", filename);
-                    using (FileStream stream = new FileStream(path, FileMode.Create))
+                    using (FileStream stream = new(path, FileMode.Create))
                     {
                         files.CopyToAsync(stream).Wait();
                     }
 
-                    RequestWiseFile requestWiseFile = new RequestWiseFile();
-                    requestWiseFile.FileName = filename;
-                    requestWiseFile.RequestId = user1.RequestId;
-                    requestWiseFile.DocType = 1;
-                    requestWiseFile.CreatedDate = model.CreatedDate;
+                    RequestWiseFile requestWiseFile = new()
+                    {
+                        FileName = filename,
+                        RequestId = user1.RequestId,
+                        DocType = 1,
+                        CreatedDate = DateTime.Now
+                    };
                     _repo.GetReqWisFileData(requestWiseFile);
 
                 }
@@ -449,7 +496,7 @@ namespace HalloDoc.services.Implementation
         {
             Request request = _repo.GetRequestStatus(id);
             List<RequestWiseFile> requestWiseFile = _repo.GetReqWiseFile(id);
-            var receiver = "xyz32322@gmail.com";
+            var receiver = request.Email;
             var subject = "Documents of Request " + request.ConfirmationNumber?.ToUpper();
             var message = "Find the Files uploaded for your request in below:";
             var mailMessage = new MailMessage(from: "tatva.dotnet.dhruvrajsinhvaghela@outlook.com", to: receiver, subject, message);
@@ -500,11 +547,11 @@ namespace HalloDoc.services.Implementation
         public SendMailVM SendAgreement(int id)
         {
             Request ret = _repo.GetEmail(id);
-            SendMailVM vm = new SendMailVM()
+            SendMailVM vm = new()
             {
-                Email=ret.Email,
-                ReqId=ret.RequestId,
-                PhoneNo=ret.PhoneNumber,
+                Email = ret.Email,
+                ReqId = ret.RequestId,
+                PhoneNo = ret.PhoneNumber,
             };
             return vm;
         }
@@ -512,16 +559,19 @@ namespace HalloDoc.services.Implementation
 
         public SendMailVM GetReqType(int id, SendMailVM vm)
         {
-            var data = _repo.GetRequestStatus(id);
-            vm.ReqType = data.RequestType;
-            vm.ReqId = data.RequestId;
+            var reqData = _repo.GetRequestStatus(id);
+            var reqClient = _repo.GetDataReqClient(id);
+            vm.ReqType = reqData.RequestType;
+            vm.ReqId = reqData.RequestId;
+            vm.Email = reqClient.Email;
+            vm.PhoneNo = reqClient.PhoneNumber;
             return vm;
         }
 
         public SendOrderVM GetProfessions(int id, SendOrderVM vm)
         {
             List<HealthProfessionalType> proff = _repo.GetProfessionList(id);
-            SendOrderVM model = new SendOrderVM
+            SendOrderVM model = new()
             {
                 ProfessionTypes = proff,
                 ReqId = id
@@ -538,17 +588,19 @@ namespace HalloDoc.services.Implementation
         {
             HealthProfessional data = _repo.GetVendor(vendorId);
 
-            SendOrderVM vm = new SendOrderVM();
-            vm.Email = data.Email;
-            vm.Phone = data.PhoneNumber;
-            vm.Fax = data.FaxNumber;
+            SendOrderVM vm = new()
+            {
+                Email = data.Email,
+                Phone = data.PhoneNumber,
+                Fax = data.FaxNumber
+            };
 
             return vm;
         }
 
         public bool AddOrderData(int id, SendOrderVM vm)
         {
-            OrderDetail model = new OrderDetail()
+            OrderDetail model = new()
             {
                 RequestId = id,
                 Email = vm.Email,
@@ -559,23 +611,22 @@ namespace HalloDoc.services.Implementation
                 CreatedDate = DateTime.Now
                 //CreatedBy=AdminID
             };
-                _repo.UpdateOrders(model);
-            return true; 
+            _repo.UpdateOrders(model);
+            return true;
         }
 
         public object GetClearCase(int id)
         {
-            var data=_repo.GetRequestStatus(id);
-            BlockCaseVM vm = new BlockCaseVM 
+            BlockCaseVM vm = new()
             {
-                ReqId= id
+                ReqId = id
             };
             return vm;
         }
 
         public bool UpStatusClear(int id)
         {
-            var x=_repo.GetRequestStatus(id);
+            var x = _repo.GetRequestStatus(id);
             x.Status = 10;
             x.ModifiedDate = DateTime.Now;
             _repo.GetAddRequest(x);
@@ -585,19 +636,26 @@ namespace HalloDoc.services.Implementation
         public object GetCloseCase(int id)
         {
             var reqCl = _repo.GetDataReqClient(id);
-            var req=_repo.GetRequestStatus(id);
+            var req = _repo.GetRequestStatus(id);
             var reqWise = _repo.GetReqWiseFile(id);
-            DateOnly date = new DateOnly(reqCl.IntYear, DateOnly.ParseExact(reqCl.StrMonth, "MMMM", CultureInfo.InvariantCulture).Month, reqCl.IntDate);
-            CloseCaseVM vm = new CloseCaseVM() { };
-            vm.ReqId = id;
-            vm.FirstName = reqCl.FirstName;
-            vm.LastName = reqCl.LastName;
-            vm.Email = reqCl.Email;
-            vm.PhoneNo = reqCl.PhoneNumber;
-            vm.BirthDate = date;
-            vm.ConfNo = req.ConfirmationNumber;
+            DateOnly date = DateOnly.FromDateTime(DateTime.Now);
+            if(reqCl.RequestId!=0)
+            {
+                date = new(reqCl.IntYear!.Value, DateOnly.ParseExact(reqCl.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, reqCl.IntDate!.Value);
 
-            List < RequestWiseFile > fl = new();
+            }
+            CloseCaseVM vm = new()
+            {
+                ReqId = id,
+                FirstName = reqCl.FirstName,
+                LastName = reqCl.LastName,
+                Email = reqCl.Email,
+                PhoneNo = reqCl.PhoneNumber,
+                BirthDate = date,
+                ConfNo = req.ConfirmationNumber
+            };
+
+            List<RequestWiseFile> fl = new();
             foreach (var data in reqWise)
             {
                 if (data.IsDeleted != true)
@@ -606,37 +664,41 @@ namespace HalloDoc.services.Implementation
                 }
             }
             vm.FileList = fl;
-            
+
             return vm;
         }
         public bool UpCloseCase(int id, CloseCaseVM vm)
         {
             Request req = _repo.GetRequestStatus(id);
             AspNetUser asp = _repo.GetAspUserData(req.Email);
-            if(req.RequestType==1)
+            if (req.RequestType == 1)
             {
-            req.PhoneNumber=vm.PhoneNo; 
-            req.Email = vm.Email;
-            _repo.GetAddRequest(req);
-            asp.Email = vm.Email;
-            asp.PhoneNumber = vm.PhoneNo;
-            _repo.GetUpAspUser(asp);
+                req.PhoneNumber = vm.PhoneNo;
+                req.Email = vm.Email ?? "";
+                _repo.GetAddRequest(req);
+                asp.Email = vm.Email ?? "";
+                asp.PhoneNumber = vm.PhoneNo;
+                _repo.GetUpAspUser(asp);
             }
 
             RequestClient reqcl = _repo.GetDataReqClient(id);
-            reqcl.Email = vm.Email;
+            reqcl.Email = vm.Email ?? "";
             reqcl.PhoneNumber = vm.PhoneNo;
             _repo.UpReqClient(reqcl);
 
-            User use = _repo.GetUserData().FirstOrDefault(x=>x.AspNetUserId==asp.Id);
-            use.FirstName = vm.FirstName??"";
-            use.Mobile = vm.PhoneNo;
-            _repo.GetUpUser(use);
+            User use = _repo.GetUserData().FirstOrDefault(x => x.AspNetUserId == asp.Id) ?? new();
+            if (use.UserId != 0)
+            {
+
+                use.Mobile = vm.PhoneNo;
+                use.Email = vm.Email ?? "";
+                _repo.GetUpUser(use);
+            }
 
             return true;
         }
 
-        public object AdminProfileData(int? aspId,int? adminId)
+        public object AdminProfileData(int? aspId, int? adminId)
         {
             Admin data = _repo.GetAdminData(aspId);
             AspNetUser aspData = _repo.GetAspNetUserData(aspId);
@@ -644,10 +706,10 @@ namespace HalloDoc.services.Implementation
             List<AdminRegion> adminRegion = _repo.GetAdminRegion(adminId);
 
             List<Region> reg = new();
-            foreach(var item in adminRegion)
+            foreach (var item in adminRegion)
             {
                 Region region = _repo.GetRegionById(item.RegionId);
-                if(region != null)
+                if (region != null)
                 {
                     reg.Add(region);
                 }
@@ -655,34 +717,34 @@ namespace HalloDoc.services.Implementation
 
             AdminProfileVM vm = new()
             {
-                AdminId=adminId,
+                AdminId = adminId,
                 UserName = aspData.UserName,
                 Roll = role[0],
                 Status = data.Status,
-                FirstName =data.FirstName,
-                LastName=data.LastName,
-                Email=data.Email,
-                Address1=data.Address1,
-                Address2=data.Address2,
-                City=data.City,
-                PhoneNo=data.Mobile,
-                ZipCode=data.Zip,
-                AltPhone=data.AltPhone,
-                RegionList= _repo.GetAllRegions(),
-                AdminRegList=reg
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                Email = data.Email,
+                Address1 = data.Address1,
+                Address2 = data.Address2,
+                City = data.City,
+                PhoneNo = data.Mobile,
+                ZipCode = data.Zip,
+                AltPhone = data.AltPhone,
+                RegionList = _repo.GetAllRegions(),
+                AdminRegList = reg
             };
             return vm;
         }
 
         public AspNetUser AspUserData(string email)
         {
-            var data=_repo.GetAspUserData(email); 
+            var data = _repo.GetAspUserData(email);
             return data;
         }
 
-        public List<AdminDashboardVM> GetDataPagination(int status,int pn,int item)
+        public List<AdminDashboardVM> GetDataPagination(int status, int pn, int item)
         {
-            Dictionary<int, int> dictonary = new Dictionary<int, int>()
+            Dictionary<int, int> dictonary = new()
             {
                 {1,1},
                 {2,2},
@@ -697,15 +759,15 @@ namespace HalloDoc.services.Implementation
             };
 
             var x = _repo.GetAdminDashboardData().Where(x => dictonary[x.Status] == status).ToList();
-            var count= x.Count();
+            var count = x.Count;
             var joinedquery = x.Skip((pn - 1) * item).Take(item).ToList();
 
 
-            List<AdminDashboardVM> adminDashboardVMs = new List<AdminDashboardVM>();
+            List<AdminDashboardVM> adminDashboardVMs = new();
             joinedquery.ForEach(a =>
             {
                 var y = _repo.GetStatusLogs1(a.RequestId);
-                List<string>? transfer = new List<string>();
+                List<string>? transfer = new();
                 foreach (var data in y)
                 {
                     Physician phy = _repo.GetPhysicianDataByID(data.TransToPhysicianId);
@@ -715,31 +777,37 @@ namespace HalloDoc.services.Implementation
                     }
 
                 }
-                DateOnly Dateofbirth = new DateOnly(a.RequestClients.FirstOrDefault()!.IntYear, DateOnly.ParseExact(a.RequestClients.FirstOrDefault()!.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, a.RequestClients.FirstOrDefault()!.IntDate!);
-                //count++;
-                adminDashboardVMs.Add(new AdminDashboardVM
+                if (a != null)
                 {
-                    ItemCountPagination=count,
-                    PatientName = a.RequestClients.FirstOrDefault()?.FirstName ?? "",
-                    PatientLastName = a.RequestClients.FirstOrDefault()?.LastName ?? "",
-                    ReqID = a.RequestId,
-                    Email = a.RequestClients.FirstOrDefault()?.Email ?? "",
-                    BirthMonth = a.RequestClients.FirstOrDefault()?.StrMonth ?? "",
-                    BirthYear = a.RequestClients.FirstOrDefault()?.IntYear ?? 9999,
-                    BirthDay = a.RequestClients.FirstOrDefault()?.IntDate ?? 31,
-                    RequestorName = a.FirstName,
-                    RequestDate = DateOnly.FromDateTime(a.CreatedDate),
-                    PhoneNumber = a.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
-                    Region = a.RequestClients.FirstOrDefault()?.RegionId,
-                    RequestorPhoneNumber = a.PhoneNumber ?? "",
-                    Status = a.Status,
-                    ProviderName = a.Physician?.FirstName ?? "",
-                    BirthDate=Dateofbirth,
-                    Address = a.RequestClients.FirstOrDefault()?.Street + " " + a.RequestClients.FirstOrDefault()?.City + " " + a.RequestClients.FirstOrDefault()?.State + " " + a.RequestClients.FirstOrDefault()?.ZipCode,
-                    AdminNotes = transfer,
-                    RequestType = a.RequestType,
 
-                });
+                    DateOnly Dateofbirth = new(a.RequestClients!.FirstOrDefault()!.IntYear!.Value, DateOnly.ParseExact(a.RequestClients.FirstOrDefault()!.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, a.RequestClients.FirstOrDefault()!.IntDate!.Value);
+
+                    //count++;
+                    adminDashboardVMs.Add(new AdminDashboardVM
+                    {
+                        ItemCountPagination = count,
+                        PatientName = a.RequestClients.FirstOrDefault()?.FirstName ?? "",
+                        PatientLastName = a.RequestClients.FirstOrDefault()?.LastName ?? "",
+                        ReqID = a.RequestId,
+                        Email = a.RequestClients.FirstOrDefault()?.Email ?? "",
+                        BirthMonth = a.RequestClients.FirstOrDefault()?.StrMonth ?? "",
+                        BirthYear = a.RequestClients.FirstOrDefault()?.IntYear ?? 9999,
+                        BirthDay = a.RequestClients.FirstOrDefault()?.IntDate ?? 31,
+                        RequestorName = a.FirstName,
+                        RequestorLastName = a.LastName,
+                        RequestDate = DateOnly.FromDateTime(a.CreatedDate),
+                        PhoneNumber = a.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
+                        Region = a.RequestClients.FirstOrDefault()?.RegionId,
+                        RequestorPhoneNumber = a.PhoneNumber ?? "",
+                        Status = a.Status,
+                        ProviderName = a.Physician?.FirstName ?? "",
+                        BirthDate = Dateofbirth,
+                        Address = a.RequestClients.FirstOrDefault()?.Street + " " + a.RequestClients.FirstOrDefault()?.City + " " + a.RequestClients.FirstOrDefault()?.State + " " + a.RequestClients.FirstOrDefault()?.ZipCode,
+                        AdminNotes = transfer,
+                        RequestType = a.RequestType,
+
+                    });
+                }
 
             });
             return adminDashboardVMs;
@@ -748,7 +816,21 @@ namespace HalloDoc.services.Implementation
         public List<AdminDashboardVM> GetFilteredData(string keywrd, int regId, int status, int reqType, int item, int pn)
         {
             var joinedquery = _repo.GetAdminDashboardData();
-            joinedquery = joinedquery.Where(x => x.Status == status).ToList();
+            Dictionary<int, int> dictonary = new()
+            {
+                {1,1 },
+                {2,2 },
+                {3,5},
+                {4,3},
+                {5,3},
+                {6,4},
+                {7,5},
+                {8,5},
+                {9,6},
+                {10,7}
+            };
+
+            joinedquery = joinedquery.Where(x => dictonary[x.Status] == status).ToList();
             if (keywrd != "undefined" && keywrd != null)
             {
                 joinedquery = joinedquery.Where(x => x.RequestClients.FirstOrDefault()!.FirstName.StartsWith(keywrd!, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -761,7 +843,7 @@ namespace HalloDoc.services.Implementation
             {
                 joinedquery = joinedquery.Where(x => x.RequestType == reqType).ToList();
             }
-            var pagecount = joinedquery.Count();
+            var pagecount = joinedquery.Count;
             if (item != 0 && pn != 0)
             {
                 joinedquery = joinedquery.Skip((pn - 1) * item).Take(item).ToList();
@@ -786,26 +868,29 @@ namespace HalloDoc.services.Implementation
                     }
 
                 }
-                DateOnly Dateofbirth = new DateOnly(item1.RequestClients.FirstOrDefault()!.IntYear, DateOnly.ParseExact(item1.RequestClients.FirstOrDefault()!.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, item1.RequestClients.FirstOrDefault()!.IntDate!);
-                if (item != null)
+                if (item1 != null)
                 {
+                    DateOnly Dateofbirth = new(item1.RequestClients!.FirstOrDefault()!.IntYear!.Value, DateOnly.ParseExact(item1.RequestClients.FirstOrDefault()!.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, item1.RequestClients.FirstOrDefault()!.IntDate!.Value);
                     dashboard.Add(new AdminDashboardVM()
                     {
                         ItemCountPagination = pagecount,
                         PatientName = item1.RequestClients.FirstOrDefault()?.FirstName + ' ' ?? " " + item1.RequestClients.FirstOrDefault()?.LastName ?? "",
+                        PatientLastName = item1.RequestClients.FirstOrDefault()?.LastName,
                         BirthDate = Dateofbirth,
                         RequestType = item1.RequestType,
                         RequestorName = item1?.FirstName ?? "",
+                        RequestorLastName = item1?.LastName ?? "",
                         RequestDate = DateOnly.FromDateTime(item1!.CreatedDate),
                         PhoneNumber = item1?.PhoneNumber ?? "",
                         RequestorPhoneNumber = item1?.RequestClients.FirstOrDefault()?.PhoneNumber ?? "",
-                        Address = item1?.RequestClients.FirstOrDefault()?.Street ?? "" + ' ' + item1!.RequestClients.FirstOrDefault()?.City ?? "" + ' ' + item1.RequestClients.FirstOrDefault()?.State ?? "",
+                        Address = item1?.RequestClients.FirstOrDefault()?.Street + " " + item1?.RequestClients.FirstOrDefault()?.City + " " + item1?.RequestClients.FirstOrDefault()?.State + " " + item1?.RequestClients.FirstOrDefault()?.ZipCode,
                         Notes = transfer,
-                        Region = item1.RequestClients.FirstOrDefault()?.RegionId ?? 0,
-                        Email = item1.RequestClients.FirstOrDefault()?.Email ?? "",
-                        ProviderName = item1.Physician?.FirstName ?? "",
-                        ReqID = item1.RequestId
-                    }) ;
+                        Region = item1?.RequestClients.FirstOrDefault()?.RegionId ?? 0,
+                        Email = item1?.RequestClients.FirstOrDefault()?.Email ?? "",
+                        ProviderName = item1?.Physician?.FirstName ?? "",
+                        ReqID = item1?.RequestId ?? 0,
+                        AdminNotes = transfer,
+                    });
                 }
 
             }
@@ -814,7 +899,7 @@ namespace HalloDoc.services.Implementation
         }
         public void EditAdminProfile(AdminProfileVM model, int id)
         {
-            
+
             Admin adminData = _repo.GetAdminDataById(id)
 ;
             AspNetUser aspnetuser = _repo.GetAspNetUserData(adminData.AspNetUserId);
@@ -828,30 +913,33 @@ namespace HalloDoc.services.Implementation
                 AddRegion.Add(region.RegionId);
             }
 
-            List<int> AddAminRegion = model.SelectedRegions.Except(AddRegion).ToList();
-            List<int> RemoveAminRegion = AddRegion.Except(model.SelectedRegions).ToList();
-
-            foreach (var region in AddAminRegion)
+            if (model.SelectedRegions != null)
             {
-                AdminRegion adds = new() { AdminId = id, RegionId = region };
-                _repo.AddAdminRegion(adds);
-            }
+                List<int> AddAminRegion = model.SelectedRegions.Except(AddRegion).ToList();
+                List<int> RemoveAminRegion = AddRegion.Except(model.SelectedRegions).ToList();
 
-            foreach (var region in RemoveAminRegion)
-            {
-                AdminRegion removes = new() { AdminId = id, RegionId = region };
-                _repo.RemoveAdminRegion(removes);
-            }
+                foreach (var region in AddAminRegion)
+                {
+                    AdminRegion adds = new() { AdminId = id, RegionId = region };
+                    _repo.AddAdminRegion(adds);
+                }
 
-            adminData.FirstName = model.FirstName;
+                foreach (var region in RemoveAminRegion)
+                {
+                    AdminRegion removes = new() { AdminId = id, RegionId = region };
+                    _repo.RemoveAdminRegion(removes);
+                }
+
+            }
+            adminData.FirstName = model.FirstName ?? "";
             adminData.LastName = model.LastName;
-            adminData.Email = model.Email;
+            adminData.Email = model.Email ?? "";
             adminData.Mobile = model.PhoneNo;
             adminData.ModifiedDate = DateTime.Now;
             //admin.ModifiedBy = admin.AspNetUserId;
             _repo.UpAdmin(adminData);
 
-            aspnetuser.Email = model.Email;
+            aspnetuser.Email = model.Email ?? "";
             aspnetuser.PhoneNumber = model.PhoneNo;
             aspnetuser.ModifiedDate = DateTime.Now;
             _repo.GetUpAspUser(aspnetuser);
@@ -860,10 +948,80 @@ namespace HalloDoc.services.Implementation
 
         public Admin GetAdminDataById(int id)
         {
-            Admin data=_repo.GetAdminDataById(id);
+            Admin data = _repo.GetAdminDataById(id);
             return data;
         }
+        public List<string> GetUserRoleById(int? id)
+        {
+            return _repo.GetRole(id);
+        }
+
+        public List<Region> GetAllRegions()
+        {
+            return _repo.GetAllRegions();
+        }
+
+        public object GetProviderInfo(int regionId)
+        {
+            List<ProviderInformation> providerInformation = new();
+            List<Physician> phy;
+            if (regionId == 0)
+            {
+                phy = _repo.GetPhysicianData();
+            }
+            else
+            {
+                phy = _repo.GetPhysicianDataByRegion(regionId);
+            }
+            // Iterate through the physician data and create ProviderInformation instances
+            foreach (var item in phy)
+            {
+                ProviderInformation providerInfo = new()
+                {
+                    FirstName = item.FirstName // Set the FirstName property
+                };
+                if (item.PhysicianNotifications != null && item.PhysicianNotifications.Any())
+                {
+                    providerInfo.isChecked = item.PhysicianNotifications.First().IsNotificationStopped;
+                }
+                else
+                {
+                    // Handle the case where PhysicianNotifications are missing
+                    providerInfo.isChecked = false; // Set a default value
+                }                                    // Add any other properties you need to set here
+
+                providerInformation.Add(providerInfo); // Add the ProviderInformation instance to the list
+            }
+
+            return providerInformation;
+
+        }
+
+        public List<ProviderInformation> GetProviderRegion()
+        {
+            List<Region> regions = _repo.GetAllRegions();
+            List<ProviderInformation> pi = new();
+
+            ProviderInformation providerInfo = new()
+            {
+                RegionList = new List<Region>() // Initialize RegionList
+            };
+            foreach (var region in regions)
+            {
+                // Create a new ProviderInformation instance for each region
+                providerInfo.RegionList.Add(region); // Add the region
+                pi.Add(providerInfo); // Add the ProviderInformation instance to the list
+            }
+
+            return pi;
+        }
+        public List<string> GetUserRoleByEmail(string value)
+        {
+            List<string> data = _repo.GetRoleEmail(value);
+            return data;
+        }
+
     }
 
-      
+
 }

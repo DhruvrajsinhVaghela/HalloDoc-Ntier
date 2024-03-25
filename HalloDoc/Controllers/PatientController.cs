@@ -21,10 +21,10 @@ namespace HalloDoc.Controllers
             _token = token;
         }
 
-       
+
 
         //-------------------------------Patient Dashboard
-        
+        [HttpGet("patient/site/login/dahboard")]
         public IActionResult PatientDashboard(int id)
         {
             var dash = _service.PatientDashboard(id);
@@ -32,9 +32,10 @@ namespace HalloDoc.Controllers
         }
 
         //-------------------------------Patient View Documents
+        [HttpGet("patient/site/login/dashboard/view-documents")]
         public IActionResult PatientViewDocuments(int id)
         {
-            List<PatientDashboardVM> View_doc = new List<PatientDashboardVM>();
+            List<PatientDashboardVM> View_doc = new();
             var res = _service.PatientViewDocuments(id).ToList();
             res.ForEach(item =>
             {
@@ -48,32 +49,30 @@ namespace HalloDoc.Controllers
         }
 
         //-------------Document Download
-        public IActionResult Download(int id)//6//22
+        [HttpGet]
+        public IActionResult Download(int id)
         {
 
             var file = _service.Download(id);
-            //D:\\Project\\HalloDoc1\\HalloDoc_Dotnet\\HalloDoc\\wwwroot\\UploadedFiles\\
             var path = "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\" + file.FileName;
             var bytes = System.IO.File.ReadAllBytes(path);
             return File(bytes, "application/octet-stream", file.FileName);
         }
 
         //-------------Document Download All
+        /*[HttpGet]*/
         public IActionResult DownloadAll(PatientDashboardVM vm,int id)
         {
             var filesRow = _service.DownloadAll(vm,id);
-            MemoryStream ms = new MemoryStream();
-            using (ZipArchive zip = new ZipArchive(ms, ZipArchiveMode.Create, true))
+            MemoryStream ms = new();
+            using (ZipArchive zip = new(ms, ZipArchiveMode.Create, true))
                 filesRow.ForEach(file =>
                 {
                     var path = "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\" + file.FileName;
-                    //D:\\Project\\HalloDoc1\\HalloDoc_Dotnet\\HalloDoc\\wwwroot\\UploadedFiles\\
                     ZipArchiveEntry zipEntry = zip.CreateEntry(file.FileName);
-                    using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-                    using (Stream zipEntryStream = zipEntry.Open())
-                    {
-                        fs.CopyTo(zipEntryStream);
-                    }
+                    using FileStream fs = new(path, FileMode.Open, FileAccess.Read);
+                    using Stream zipEntryStream = zipEntry.Open();
+                    fs.CopyTo(zipEntryStream);
                 });
             return File(ms.ToArray(), "application/zip", "download.zip");
         }
@@ -84,7 +83,7 @@ namespace HalloDoc.Controllers
             var data = _service.Update(id, vm);
             if (data == "yes")
             {
-                return RedirectToAction(nameof(PatientDashboard), new { id = id });
+                return RedirectToAction(nameof(PatientDashboard), new { id });
             }
             return View();
         }
@@ -95,13 +94,14 @@ namespace HalloDoc.Controllers
             var data = _service.PatientFileSave(id, model);
             if (data == "yes")
             {
-                return RedirectToAction("PatientViewDocuments", "Patient", new { id = id });
+                return RedirectToAction("PatientViewDocuments", "Patient", new { id });
             }
 
             return View();
         }
 
-        public IActionResult PatientMeRequest(int id, PatientInfoVM model)//int id, ViewDocumentVM model
+        [HttpGet("patient/site/login/dashboard/me-request")]
+        public IActionResult PatientMeRequest(int id, PatientInfoVM model)
         {
             var data = _service.PatientMeRequest(id, model);
             if (data != null)
@@ -111,12 +111,13 @@ namespace HalloDoc.Controllers
             return View();
         }
 
+        [HttpGet("patient/site/login/dashboard/some-else-request")]
         public IActionResult PatientSomeOneElseRequest()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("patient/site/login/dashboard/some-else-request")]
         public IActionResult PatientSomeOneElseRequest(int id, PatientInfoVM model)
         {
             var data = _service.PatientSomeOneElseRequest(id, model);
@@ -137,8 +138,8 @@ namespace HalloDoc.Controllers
         {
             var data = _service.GetRequest(id);
             //return View(data);
-            bool x=_token.  
-                ValidateJwtToken(token, out JwtSecurityToken jwtSecurityToken);
+            bool x =_token.  
+                ValidateJwtToken(token, out _);
             if (x)
             {
                 return View(data);
@@ -146,12 +147,15 @@ namespace HalloDoc.Controllers
             return NotFound();
         }
 
-        public IActionResult PatientAgreed(SendAgreementVM vm,int id)
+        [HttpGet("patient/agreed-at-agreement")]
+        public IActionResult PatientAgreed(int id)
         {
+
+
             var x=_service.GetAgree(id);
             if(x==true)
             {
-                return RedirectToAction("PatientDashboard","Patient",new { id = id });
+                return RedirectToAction("PatientDashboard","Patient",new { id });
             }
             return NotFound();
         }
@@ -161,7 +165,7 @@ namespace HalloDoc.Controllers
             var x =_service.CancelAgreement(id,vm);
             if (x == true)
             {
-                return RedirectToAction("PatientDashboard", "Patient", new { id = id });
+                return RedirectToAction("PatientDashboard", "Patient", new { id });
             }
             return NotFound();
         }

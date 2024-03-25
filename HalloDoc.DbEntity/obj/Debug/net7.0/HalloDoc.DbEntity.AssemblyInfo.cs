@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HalloDoc.DbEntity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e6a165951aebf275c6546c9d2e715a24790cd41")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf4c59279f114bcd6e39f0f56bc2e1cb31b32c39")]
 [assembly: System.Reflection.AssemblyProductAttribute("HalloDoc.DbEntity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HalloDoc.DbEntity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

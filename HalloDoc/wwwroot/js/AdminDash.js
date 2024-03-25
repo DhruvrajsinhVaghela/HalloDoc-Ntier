@@ -25,6 +25,7 @@
     }
 }
 function NewTab() {
+    console.log("hello");
     ClassRemover()
     document.getElementById("new-tab").classList.add("NewStateBg");
     document.getElementById("arw1").classList.add("NewStateArw", "d-sm-block");
@@ -74,57 +75,12 @@ function DarkMode() {
 
         localStorage.setItem("light", 1);
     }
+    
 }
-
-/*function SearchTable() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}*/
-/*function load() {
-    var light = localStorage.getItem("light");
-    if (light == 0) {
-        document.body.setAttribute('data-bs-theme', 'dark');
-
-    }
-    else {
-        document.body.setAttribute('data-bs-theme', 'light');
-
-    }
-
-}*/
 
 function load() {
 
 
-    $.ajax({
-        url: '/Admin/NavTabs',
-        method: 'GET',
-        data: { nav: 1 },
-
-        success: function (response) {
-            $('#main-div').html(response);
-        },
-        error: function (error) {
-            console.log(error);
-            console.error('Error in AJAX', error);
-        }
-    });
-
-
     var light = localStorage.getItem("light");
     if (light == 0) {
         document.body.setAttribute('data-bs-theme', 'dark');
@@ -134,23 +90,25 @@ function load() {
         document.body.setAttribute('data-bs-theme', 'light');
 
     }
-
 }
 
-function tab(val) {
-    $.ajax({
-        url: '/Admin/NavTabs',
-        method: 'GET',
-        data: { nav: val },
+document.addEventListener('DOMContentLoaded', function () {
+    // Find all elements with the class "go-back-button"
+    var goBackButtons = document.querySelectorAll('.go-back-button');
 
-        success: function (response) {
-            $('#main-div').html(response);
-        },
-        error: function (error) {
-            console.log(error);
-            console.error('Error in AJAX', error);
-        }
+    // Attach click event listener to each button
+    goBackButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            window.history.back();
+        });
     });
-};
+});
 
-
+const getFileData = (myFile) => {
+    names = myFile.files;
+    let master = "";
+    for (i = 0; i < names.length; i++) {
+        master = master + "  " + names[i].name;
+    }
+    document.getElementById("form-label").innerHTML = `${master}`;
+}

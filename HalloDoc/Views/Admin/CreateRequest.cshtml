@@ -1,0 +1,106 @@
+﻿@model HalloDoc.DbEntity.ViewModel.PatientInfoVM
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div class="bg-body-tertiary d-flex flex-column">
+    <partial name="_AdminHeaderDashboard" />
+    <div class="container-fluid">
+        <div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-between my-4">
+                        <h4>
+                            Submit Information
+                        </h4>
+                        <button class="btn border rounded-2 border-info btn-outline-info go-back-button">
+                            &lt; Back
+                        </button>
+                    </div>
+                    <div class="shadow-lg container mb-5">
+                        <div class="row">
+
+                            <p class="h4 mt-4">Patient</p>
+
+                            <div class="form-floating mb-3 col-lg-6">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="First Name">
+                                <label class="ms-2 " for="floatingInput">First Name</label>
+                            </div>
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="text" class="form-control" id="floatingPassword"
+                                       placeholder="Last Name">
+                                <label class="ms-2 " for="floatingPassword">Last Name</label>
+                            </div>
+                            <div class="form-floating col-lg-6  phone-code mb-3 ">
+                                <input type="tel" class="form-control phone-input phone" id="phone">
+                            </div>
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                                <label class="ms-2" for="floatingInput" id="username-input">Email</label>
+                            </div>
+                            <div class="form-floating col-lg-6">
+                                <input type="date" class="form-control" id="floatingPassword"
+                                       placeholder="Date Of Birth">
+                                <label class="ms-2 " for="floatingPassword">Date Of Birth</label>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <p class="h4 mt-4">Location</p>
+
+
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="street">
+                                <label class="ms-2 " for="floatingInput" id="username-input">street</label>
+
+                            </div>
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="city">
+                                <label class="ms-2" for="floatingInput" id="username-input">city</label>
+
+                            </div>
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="state">
+                                <label class="ms-2" for="floatingInput" id="username-input">state</label>
+
+                            </div>
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="zip code" pattern="[1-9]{1}[0-9]{5}">
+                                <label class="ms-2" for="floatingInput" id="username-input">zip code(Optional)</label>
+
+                            </div>
+                            <div class="form-floating col-lg-6 ">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Room#/ suite (Optional)">
+                                <label class="ms-2" for="floatingInput" id="username-input">
+                                    Room # /
+                                    Suite(Optional)
+                                </label>
+
+                            </div>
+                            <div class="">
+                                <p class="h4 mt-4">Notes</p>
+                                <div class="form-floating my-3">
+                                    <textarea class="form-control" placeholder="Leave a comment here"
+                                              id="floatingTextarea2" style="height: 100px"></textarea>
+                                    <!-- give margin left 1 rem in css to label -->
+                                    <label class="ms-2  " for="floatingTextarea2">
+                                        Enter Brief Details Of
+                                        Symptoms(Optional)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="container d-flex justify-content-end my-3 ">
+                                <button type="submit" class="btn btn-info me-2">Save</button>
+                                <a><button type="button" class="btn btn-transparent border border-2">Cancle</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

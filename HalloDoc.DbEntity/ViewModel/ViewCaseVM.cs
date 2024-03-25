@@ -8,10 +8,12 @@ namespace HalloDoc.DbEntity.ViewModel
 {
     public class ViewCaseVM
     {
+        public int ReqId { get; set; }
+        public int? Status { get; set; }
         public string? Notes { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? DateOfBirth { get; set; }
+        public DateOnly? DateOfBirth { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Region { get; set; }
         public string? Address { get; set; }

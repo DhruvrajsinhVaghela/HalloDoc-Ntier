@@ -79,6 +79,8 @@ public partial class Physician
 
     public virtual AspNetUser? ModifiedByNavigation { get; set; }
 
+    public virtual ICollection<PhysicianNotification> PhysicianNotifications { get; set; } = new List<PhysicianNotification>();
+
     public virtual ICollection<RequestStatusLog> RequestStatusLogPhysicians { get; set; } = new List<RequestStatusLog>();
 
     public virtual ICollection<RequestStatusLog> RequestStatusLogTransToPhysicians { get; set; } = new List<RequestStatusLog>();

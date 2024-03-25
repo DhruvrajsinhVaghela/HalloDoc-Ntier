@@ -10,158 +10,182 @@
     }
 </style>
 <div>
-  
+
     <partial name="_AdminHeaderDashboard" />
-    <form asp-action="PatientInfoForm" class="form" enctype="multipart/form-data">
-        <div class="container-fluid ">
+    @* <form asp-action="PatientInfoForm" asp-controller="Login" class="form" enctype="multipart/form-data"> *@
+    <div class="container-fluid ">
 
-            <div class="">
-                <div class="row main-row  d-flex justify-content-center ">
+        <div class="">
+            <div class="row main-row  d-flex justify-content-center ">
 
-                    <div class="col-lg-8  main-column-1">
-                        <div class="d-flex justify-content-between my-4">
-                            <div class="d-flex align-items-end ">
-                                <h5 class="me-2">
-                                    View Reservation
-                                </h5>
-                                @if(Model.RequestType==1)
-                                    {
-                                    <div class="btn border rounded-pill bg-success px-2 text-dark">Patient</div>
-                                    }
-                                    else if(Model.RequestType==2)
-                                    {
-                                    <div class="btn border rounded-pill bg-warning p-1 text-dark">Family/Friend</div>
+                <div class="col-lg-8  main-column-1">
+                    <div class="d-flex justify-content-between my-4">
+                        <div class="d-flex align-items-end ">
+                            <h5 class="me-2">
+                                View Reservation
+                            </h5>
+                            @if (Model.RequestType == 1)
+                            {
+                                <div class="btn border rounded-pill bg-success px-2 text-dark">Patient</div>
+                            }
+                            else if (Model.RequestType == 2)
+                            {
+                                <div class="btn border rounded-pill bg-warning p-1 text-dark">Family/Friend</div>
 
-                                    }
-                                    else if (Model.RequestType == 3)
-                                    {
-                                    <div class="btn border rounded-pill bg-info p-1 text-dark">Concierge</div>
+                            }
+                            else if (Model.RequestType == 3)
+                            {
+                                <div class="btn border rounded-pill bg-info p-1 text-dark">Concierge</div>
 
-                                    }
-                                    else if (Model.RequestType == 4)
-                                    {
-                                    <div class="btn border rounded-pill bg-danger p-1 text-dark">Business</div>
+                            }
+                            else if (Model.RequestType == 4)
+                            {
+                                <div class="btn border rounded-pill bg-danger p-1 text-dark">Business</div>
 
-                                    }
-                                    else
-                                    {
-                                        <span>(No Data)</span>
-                                    }
-                                
-                            </div>
-                            <a>
-                                <button type="button" class="btn border-info rounded-3 btn-outline-info">
-                                  &lt; Back
-                                </button>
-                            </a>
+                            }
+                            else
+                            {
+                                <span>(No Data)</span>
+                            }
 
                         </div>
-                        <div class="shadow-lg container border rounded-3 border-white mb-5" id="main_box">
-                            <div class="row">
+                            <button class="btn border-info rounded-3 btn-outline-info text-nowrap go-back-button">
+                                &lt; Back
+                            </button>
 
-                                <p class="h4 mt-4">patient information</p>
+                    </div>
+                    <div class="shadow-lg container border rounded-3 border-white mb-5" id="main_box">
+                        <div class="row">
 
-                                <p>Confirmation number</p>
-                                <p class="text-info h6">@Model.ConfNO</p>
+                            <p class="h4 mt-4">patient information</p>
 
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" asp-for="Notes" placeholder="Leave a comment here"
-                                              id="floatingTextarea2" style="height: 100px"></textarea>
-                                    <!-- give margin left 1 rem in css to label -->
-                                    <label class="ms-2  " for="floatingTextarea2">
-                                        Enter Brief Details Of
-                                        Symptoms
-                                    </label>
-                                    <span asp-validation-for="Notes" class="text-danger"></span>
-                                </div>
+                            <p>Confirmation number</p>
+                            <p class="text-info h6">@Model.ConfNO</p>
 
-                                <div class="form-floating mb-3 col-lg-6">
-                                    <input type="text" asp-for="@Model.FirstName" class="form-control" id="floatingInput" placeholder="First Name">
-                                    <label asp-for="FirstName" class="ms-2 " for="floatingInput"></label>
-                                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                                </div>
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" asp-for="@Model.LastName" class="form-control" id="floatingPassword"
-                                           placeholder="Last Name">
-                                    <label asp-for="LastName" class="ms-2 " for="floatingPassword">Last Name</label>
-                                    <span asp-validation-for="LastName" class="text-danger"></span>
-                                </div>
-                                <div class="form-floating col-lg-6">
-                                    <input type="date" class="form-control" id="floatingPassword"
-                                           placeholder="Last Name" asp-for="@Model.DateOfBirth"
-                                           asp-format="{0:yyyy-MM-dd}">
-                                    <label class="ms-2 text-secondary" for="floatingPassword">
-                                        Date Of
-                                        Birth
-                                    </label>
-                                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" asp-for="Notes" placeholder="Leave a comment here"
+                                          id="floatingTextarea2" style="height: 100px"></textarea>
+                                <!-- give margin left 1 rem in css to label -->
+                                <label class="ms-2  " for="floatingTextarea2">
+                                    Enter Brief Details Of
+                                    Symptoms
+                                </label>
+                                <span asp-validation-for="Notes" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
 
-                                </div>
-                                <div class="form-floating col-lg-6  phone-code mb-3 ">
-                                    <input type="tel" asp-for="@Model.PhoneNumber" class="form-control phone-input phone" id="phone">
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                </div>
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="email" asp-for="@Model.Email" onblur="fetch_email()" class="form-control" id="email" placeholder="Email">
-                                    <label class="ms-2" asp-for="Email" for="floatingInput" id="username-input">Email</label>
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
+
+                            <div class="form-floating mb-3 col-lg-6">
+                                <input type="text" asp-for="@Model.FirstName" class="form-control" id="floatingInput" placeholder="First Name">
+                                <label asp-for="FirstName" class="ms-2 " for="floatingInput"></label>
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="text" asp-for="@Model.LastName" class="form-control" id="floatingPassword"
+                                       placeholder="Last Name">
+                                <label asp-for="LastName" class="ms-2 " for="floatingPassword">Last Name</label>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating col-lg-6">
+                                <input type="date" class="form-control" id="floatingPassword"
+                                       placeholder="Last Name" value="@Model.DateOfBirth?.ToString("yyyy-MM-dd")"
+                                       asp-format="{0:dd-MM-yyyy}">
+                                <label class="ms-2 text-secondary" for="floatingPassword">
+                                    Date Of
+                                    Birth
+                                </label>
+                                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
 
                             </div>
-                            <div class="row">
-                                <p class="h4 mt-4">Location Information</p>
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" asp-for="@Model.Region" class="form-control" id="floatingInput" placeholder="Region">
-                                    <label asp-for="Region" class="ms-2 " for="floatingInput" id="username-input">Region</label>
-
-                                </div>
-                                <div class="form-floating col-lg-6 mb-3">
-                                    <input type="text" asp-for="@Model.Address" class="form-control" id="floatingInput" placeholder="address">
-                                    <label asp-for="Address" class="ms-2 " for="floatingInput" id="username-input">address</label>
-
-                                </div>
-                               
-                                <div class="form-floating col-lg-6 ">
-                                    <input type="text" asp-for="@Model.Room" class="form-control" id="floatingInput" placeholder="Room#/ suite (Optional)">
-                                    <label class="ms-2" asp-for="@Model.Room" for="floatingInput" id="username-input">
-                                        Room # /
-                                        Suite(Optional)
-                                    </label>
-
-                                </div> 
-                                <div class="d-flex justify-content-end my-2">
-                                        <button class="bg-info border rounded-3 p-2 me-3">Assign</button>
-                                        <button class="bg-info border rounded-3 p-2 me-3">View Notes</button>
-                                        <button class="bg-danger border rounded-3 p-2">Cancel</button>
-                                </div>
-                                
+                            <div class="form-floating col-lg-5  phone-code mb-3 ">
+                                <input type="tel" asp-for="@Model.PhoneNumber" class="form-control phone-input phone" id="phone">
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                             </div>
-              
+                            <div class="form-floating col-lg-1">
+                                <a class="border-info rounded-2 w-100 btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="email" asp-for="@Model.Email" onblur="fetch_email()" class="form-control" id="email" placeholder="Email">
+                                <label class="ms-2" asp-for="Email" for="floatingInput" id="username-input">Email</label>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="h4 mt-4">Location Information</p>
+                            <div class="form-floating col-lg-6 mb-3">
+                                <input type="text" asp-for="@Model.Region" class="form-control" id="floatingInput" placeholder="Region">
+                                <label asp-for="Region" class="ms-2 " for="floatingInput" id="username-input">Region</label>
+
+                            </div>
+                            <div class="form-floating col-lg-5 mb-3">
+                                <input type="text" asp-for="@Model.Address" class="form-control" id="floatingInput" placeholder="address">
+                                <label asp-for="Address" class="ms-2 " for="floatingInput" id="username-input">address</label>
+
+                            </div>
+                            <div class="form-floating col-lg-1 mb-3">
+                                <a class="btn border-info rounded-2 w-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-alt text-info" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                    </svg>
+                                </a>
+                            </div>
+
+                            <div class="form-floating col-lg-6 ">
+                                <input type="text" asp-for="@Model.Room" class="form-control" id="floatingInput" placeholder="Room#/ suite (Optional)">
+                                <label class="ms-2" asp-for="@Model.Room" for="floatingInput" id="username-input">
+                                    Room # /
+                                    Suite(Optional)
+                                </label>
+
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center my-2">
+                                @{
+                                    if(Model.Status==1)
+                                    {
+                                        <button class="bg-info border rounded-3 p-2 me-3" onclick="Assign(@Model.ReqId)" type="button">Assign</button>
+                                    }
+                                }
+                                <a asp-action="ViewNotes" asp-controller="Admin" asp-route-id="@Model.ReqId" class="text-decoration-none">
+                                    <div class="btn border rounded-2 border-info btn-outline-info me-2">View Notes</div>
+                                </a>
+                                <a asp-action="AdminDashboard" class="bg-danger border rounded-3 p-2 text-dark text-decoration-none">Cancel</a>
+                            </div>
 
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
 
-    </form>
     </div>
-    <script>
-    const load = () => {
-        console.log("hello");
-        const phoneInputField = document.getElementsByClassName("phone");
-        for (let i = 0; i < phoneInputField.length; ++i) {
-            const phoneInput = window.intlTelInput(phoneInputField[i], {
-                utilsScript:
-                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            });
-        }
+</div>
+
+@* </form> *@
+</div>
+<div id="showmodal">
+</div>
+<script>
 
 
-        
+    function Assign(id) {
+        $('#showmodal').load('/Admin/AssignCase/' + id, () => {
+            const modal = new bootstrap.Modal(document.getElementById('Assign'));
+            console.log(modal);
+            modal.show();
+        });
     }
-    
+
     var light = 1;
     function DarkMode() {
         if (light == 1) {
@@ -177,29 +201,29 @@
         }
     }
 
-        const getFileData = (myFile) => {
-            names = myFile.files;
-            let master = "";
-            for (i = 0; i < names.length; i++) {
-                master = master + "  " + names[i].name;
-            }
-            document.getElementById("form-label").innerHTML = `${master}`;
+    const getFileData = (myFile) => {
+        names = myFile.files;
+        let master = "";
+        for (i = 0; i < names.length; i++) {
+            master = master + "  " + names[i].name;
         }
+        document.getElementById("form-label").innerHTML = `${master}`;
+    }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Find all elements with the class "go-back-button"
-            var goBackButtons = document.querySelectorAll('.go-back-button');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Find all elements with the class "go-back-button"
+        var goBackButtons = document.querySelectorAll('.go-back-button');
 
-            // Attach click event listener to each button
-            goBackButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    window.history.back();
-                });
+        // Attach click event listener to each button
+        goBackButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                window.history.back();
             });
         });
+    });
 
 
-   
 
 
-    </script>
+
+</script>

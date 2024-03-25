@@ -9,13 +9,13 @@ namespace HalloDoc.services.Interface
 
         List<AdminDashboardVM> GetNewStateData(int status,int id);
         ViewCaseVM ViewPatientData(int id);
-        RequestNote ViewNotes(int id, RequestNote vm);
+        RequestNote ViewNotes(int id, ViewNotesVM vm);
         ViewNotesVM ViewNotes2(int id);
        /* public void UpNotes(int id,ViewNotesVM vm);*/
         void UpStatus(int id,CancelCaseVM vm);
         CancelCaseVM CancelCaseData(int id);
         AssignCaseVM GetPhysician(int id, AssignCaseVM vm);
-        object GetPhysiciansByRegionId(int id);
+        List<Physician> GetPhysiciansByRegionId(int id);
         void UpAssignStatus(int id, AssignCaseVM vm);
         BlockCaseVM BlockCaseData(int id,BlockCaseVM vm);
         void UpBlockCase(int id, BlockCaseVM vm);
@@ -43,6 +43,11 @@ namespace HalloDoc.services.Interface
         List<AdminDashboardVM> GetFilteredData(string keywrd, int regId, int status, int reqType, int pn, int item);
         void EditAdminProfile(AdminProfileVM model, int id);
         Admin GetAdminDataById(int id);
+        List<string> GetUserRoleById(int? id);
+        List<Region> GetAllRegions();
+        object GetProviderInfo(int regionId);
+        List<ProviderInformation> GetProviderRegion();
+        List<string> GetUserRoleByEmail(string value);
         //public StatusWiseCount PatientCount(StatusWiseCount swc);
     }
 }

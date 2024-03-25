@@ -36,7 +36,7 @@
                         
                         <button type="submit" class="btn btn-primary P-Login-login-btn ">Reset Password</button>
                     </form>
-                    <a asp-action="PatientLogin" asp-controller="Login" class="P-Login-forgot-pw">&lt; Back To Login</a>
+                    <a class="P-Login-forgot-pw go-back-button">&lt; Back To Login</a>
 
 
                     <div class="terms-div">
@@ -52,3 +52,17 @@
     </div>
 
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Find all elements with the class "go-back-button"
+        var goBackButtons = document.querySelectorAll('.go-back-button');
+
+        // Attach click event listener to each button
+        goBackButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                window.history.back();
+            });
+        });
+    });
+
+</script>

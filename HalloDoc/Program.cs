@@ -23,6 +23,8 @@ builder.Services.AddScoped<IJwtToken, JwtToken>();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddAntiforgery(options => options.HeaderName = "XSRF-TOKEN");
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -40,7 +42,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Login}/{action=AdminLogin}/{id?}");
+    pattern: "{controller=Login}/{action=PatientSite}/{id?}");
 
 app.Run();
 

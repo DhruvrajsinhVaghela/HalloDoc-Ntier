@@ -40,6 +40,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Physician> Physicians { get; set; }
 
+    public virtual DbSet<PhysicianNotification> PhysicianNotifications { get; set; }
+
     public virtual DbSet<Region> Regions { get; set; }
 
     public virtual DbSet<Request> Requests { get; set; }
@@ -555,6 +557,22 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.PhysicianModifiedByNavigations)
                 .HasForeignKey(d => d.ModifiedBy)
                 .HasConstraintName("physician_modified_by_fkey");
+        });
+
+        modelBuilder.Entity<PhysicianNotification>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("physician_notification_pkey");
+
+            entity.ToTable("physician_notification");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IsNotificationStopped).HasColumnName("is_notification_stopped");
+            entity.Property(e => e.PhysicianId).HasColumnName("physician_id");
+
+            entity.HasOne(d => d.Physician).WithMany(p => p.PhysicianNotifications)
+                .HasForeignKey(d => d.PhysicianId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("physician_notification_physician_id_fkey");
         });
 
         modelBuilder.Entity<Region>(entity =>

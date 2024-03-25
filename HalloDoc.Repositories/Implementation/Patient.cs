@@ -28,7 +28,7 @@ namespace HalloDoc.Repositories.Implementation
         public List<RequestWiseFile> DownloadAll(PatientDashboardVM vm, int id)
         {
             List<RequestWiseFile> files = new List<RequestWiseFile>();
-            if (vm.FileId[0] != 0)
+            if (vm.FileId != null)
             {
                 foreach (var i in vm.FileId)
                 {

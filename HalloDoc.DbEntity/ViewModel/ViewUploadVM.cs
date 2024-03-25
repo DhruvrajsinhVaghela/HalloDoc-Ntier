@@ -11,5 +11,6 @@ namespace HalloDoc.DbEntity.ViewModel
         public string? Email { get; set; }
         public DateTime? Date { get; set; }
         public ViewDocumentVM? View { get; set; }
+        public List<int> FileId { get; set; }
     }
 }

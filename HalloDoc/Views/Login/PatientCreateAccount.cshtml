@@ -69,8 +69,7 @@
     function checkPw() {
         var passwordInput = document.getElementById("password").value;
         var confirmInput = document.getElementById("confirm_password").value;
-        console.log(passwordInput);
-        console.log(confirmInput);
+        
         if (passwordInput === confirmInput) {
             document.getElementById('submit').setAttribute('type', 'submit');
             document.getElementById('submit').click();

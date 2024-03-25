@@ -2,15 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\HalloDoc",
-    "\\HalloDoc.Repositories",
-    "\\HalloDoc.Repositories\\Implementation",
+    "\\HalloDoc.Service",
+    "\\HalloDoc.Service\\Implementation",
     "\\HalloDoc\\Views",
-    "\\HalloDoc\\Views\\Admin",
-    "\\HalloDoc\\Views\\Patient",
-    "\\HalloDoc\\Views\\Shared",
-    "\\HalloDoc\\wwwroot",
-    "\\HalloDoc\\wwwroot\\js"
+    "\\HalloDoc\\Views\\Admin"
   ],
-  "SelectedNode": "\\HalloDoc.Repositories\\Implementation\\AAdmin.cs",
+  "SelectedNode": "\\HalloDoc.Service\\Implementation\\JwtToken.cs",
   "PreviewInSolutionExplorer": false
 }

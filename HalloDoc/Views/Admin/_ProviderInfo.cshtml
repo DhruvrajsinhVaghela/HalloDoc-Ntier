@@ -1,0 +1,56 @@
+﻿@model IEnumerable<HalloDoc.DbEntity.ViewModel.ProviderInformation>
+
+<form>
+    <div id="data">
+        <table class="">
+            <thead>
+                <tr class="">
+                    <td class="col-1 text-center">Stop Notification</td>
+                    <td class="text-center">Provider Name &uarr;</td>
+                    <td class="text-center">Role</td>
+                    <td class="text-center">On Call Status</td>
+                    <td class="text-center">Status</td>
+                    <td class="text-center">Action</td>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+ 
+                @foreach (var phy in Model)
+                {
+                    <tr class="p-2">
+                        <td class="text-center"><input type="checkbox" checked="@phy.isChecked" /></td>
+                        <td class="text-center">@phy.FirstName</td>
+                        <td class="text-center">Role</td>
+                        <td class="text-center">Call Status</td>
+                        <td class="text-center">
+                            status
+                        </td>
+                        <td class="text-center">
+                            <button type="button" @* onclick="ShowModal(@phy.PhysicianId)" *@ class="rounded border-1 p-2 mx-2">Contact</button>
+                            <button class="rounded border-1 p-2">Edit</button>
+                        </td>
+                    </tr>
+                } 
+
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<div id="showmodal"></div>
+
+<script>
+    // function ShowModal(id) {
+
+    //     $('#showmodal').load('/Admin/PhysicianContact/' + id, function () {
+
+    //         const modal = new bootstrap.Modal(document.getElementById('ContactPhysician'));
+    //         console.log(modal);
+    //         modal.show();
+    //     });
+
+    // }
+</script>

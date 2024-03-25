@@ -32,9 +32,9 @@ public partial class RequestClient
 
     public string? StrMonth { get; set; }
 
-    public int IntYear { get; set; }
+    public int? IntYear { get; set; }
 
-    public int IntDate { get; set; }
+    public int? IntDate { get; set; }
 
     public BitArray? IsMobile { get; set; }
 

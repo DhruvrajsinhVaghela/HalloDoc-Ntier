@@ -19,78 +19,84 @@ namespace HalloDoc.Controllers
 
         private readonly IJwtToken _token;
 
-        public AdminController(IAdminService service,IJwtToken token)
+        public AdminController(IAdminService service, IJwtToken token)
         {
             _service = service;
-            _token= token;
+            _token = token;
         }
-      
+
+        [HttpGet("admin/dashboard")]
         public IActionResult AdminDashboard(AdminDashboardVM swc)
         {
             var data = _service.PatientStatus(swc);
             return View(data);
-           
+
         }
 
-        public IActionResult CardsView(int status,int pn,int item)
+        public IActionResult CardsView(int status, int pn, int item)
         {
 
             List<AdminDashboardVM> data = _service.GetDataPagination(status, pn, item);
 
-            switch (status)
+            return status switch
             {
-                case 1: return PartialView("_AdminNewStateData", data);/*,data*/
-                case 2: return PartialView("_AdminPendingstateData",data);
-                case 3: return PartialView("_AdminActiveStateData",data);
-                case 4: return PartialView("_AdminConcludeStateData",data);
-                case 5: return PartialView("_AdminToCLoseStatusData", data);
-                case 6: return PartialView("_AdminUnpaidStatusData", data);
-                default: return PartialView("_NewState", data);
-            }
+                1 => PartialView("_AdminNewStateData", data),/*,data*/
+                2 => PartialView("_AdminPendingstateData", data),
+                3 => PartialView("_AdminActiveStateData", data),
+                4 => PartialView("_AdminConcludeStateData", data),
+                5 => PartialView("_AdminToCLoseStatusData", data),
+                6 => PartialView("_AdminUnpaidStatusData", data),
+                _ => PartialView("_NewState", data),
+            };
         }
+
+
+        [HttpGet("admin/dashboard/view-case")]
         public IActionResult ViewReservation(int id)
         {
             var data = _service.ViewPatientData(id);
             return View(data);
         }
 
+        [HttpGet("admin/dashboard/view-notes")]
         public IActionResult ViewNotes(int id)
         {
-           ViewNotesVM data = _service.ViewNotes2(id);
+            ViewNotesVM data = _service.ViewNotes2(id);
             return View(data);
         }
 
+        [HttpPost("admin/dashboard/view-notes")]
+        public IActionResult ViewNotes(int id, ViewNotesVM vm)
+        {
+            vm.AdminAspId = HttpContext.Session.GetInt32("userId");
+            _service.ViewNotes(id, vm);
+            return RedirectToAction("ViewNotes", new {id,vm });
+        }
+
+        public IActionResult CancelCase(int id)
+        {
+            var data = _service.CancelCaseData(id);
+            return PartialView("_CancleCaseModal", data);
+        }
         [HttpPost]
-        public IActionResult ViewNotes(int id, RequestNote vm)
+        public IActionResult UpdateStatus(int id, CancelCaseVM vm)
         {
-            _service.ViewNotes(id,vm);
-            return RedirectToAction("ViewNotes", new { id = id , vm = vm});
-        }
-
-        public IActionResult CancelCase(int id, CancelCaseVM vm)
-        {
-            var data=_service.CancelCaseData(id);
-            return PartialView("_CancleCaseModal",data);
-        }
-        [HttpPost]
-        public IActionResult UpdateStatus(int id,CancelCaseVM vm)
-        {
-            _service.UpStatus(id,vm);
-            return RedirectToAction("AdminDashboard", new { id = id });
+            _service.UpStatus(id, vm);
+            return RedirectToAction("AdminDashboard", new { id });
         }
 
 
-        public IActionResult AssignCase(int id,AssignCaseVM vm)
+        public IActionResult AssignCase(int id, AssignCaseVM vm)
         {
-            
-            var phy = _service.GetPhysician(id,vm);
-            
-            return PartialView("_AssignCaseModal",phy);
+
+            var phy = _service.GetPhysician(id, vm);
+
+            return PartialView("_AssignCaseModal", phy);
         }
 
-        public IActionResult TransferCase(int id,AssignCaseVM vm)
+        public IActionResult TransferCase(int id, AssignCaseVM vm)
         {
-            var phy=_service.GetPhysician(id, vm);
+            var phy = _service.GetPhysician(id, vm);
 
             return PartialView("_TransferCase", phy);
         }
@@ -105,20 +111,21 @@ namespace HalloDoc.Controllers
             }
             else
             {
-                return Json(new Physician[0]); // Return an empty array
+                return Json(Array.Empty<Physician>()); // Return an empty array
             }
         }
 
         [HttpPost]
         public IActionResult UpdateAssignCase(int id, AssignCaseVM vm)
         {
+            vm.AdminAspId = HttpContext.Session.GetInt32("userId");
             _service.UpAssignStatus(id, vm);
-            return RedirectToAction("AdminDashboard", new { id = id });
+            return RedirectToAction("AdminDashboard", new { id });
         }
 
         public IActionResult BlockCase(int id, BlockCaseVM vm)
         {
-            var data = _service.BlockCaseData(id,vm);
+            var data = _service.BlockCaseData(id, vm);
             return PartialView("_BlockCaseModal", data);
         }
 
@@ -126,22 +133,15 @@ namespace HalloDoc.Controllers
         public IActionResult UpdateBlockCase(int id, BlockCaseVM vm)
         {
             _service.UpBlockCase(id, vm);
-            return View("AdminDashboard", new { id = id });
+            return RedirectToAction("AdminDashboard", new { id });
         }
 
+        [HttpGet("admin/dashboard/view-uploads")]
         public IActionResult ViewUploads(int id)
         {
-            List<PatientDashboardVM> View_doc = new List<PatientDashboardVM>();
+            _ = new List<PatientDashboardVM>();
             var res = _service.PatientViewDocuments(id);
-            /*res.ForEach(item =>
-            {
-                View_doc.Add(new PatientDashboardVM
-                {
-                    View = item
-                });
 
-            });
-            res.*/
             return View(res);
         }
         public IActionResult PatientFileSave(int id, PatientDashboardVM model)
@@ -149,7 +149,7 @@ namespace HalloDoc.Controllers
             var data = _service.PatientFileSave(id, model);
             if (data == "yes")
             {
-                return RedirectToAction("ViewUploads", "Admin", new { id = id });
+                return RedirectToAction("ViewUploads", "Admin", new { id });
             }
 
             return View();
@@ -159,18 +159,16 @@ namespace HalloDoc.Controllers
         {
             var filesRow = _service.DownloadAll(id);
 
-            MemoryStream ms = new MemoryStream();
-            using (ZipArchive zip = new ZipArchive(ms, ZipArchiveMode.Create, true))
+            MemoryStream ms = new();
+            using (ZipArchive zip = new(ms, ZipArchiveMode.Create, true))
                 filesRow.ForEach(file =>
                 {
                     var path = "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadFiles\\" + file.FileName;
                     //D:\\Project\\HalloDoc1\\HalloDoc_Dotnet\\HalloDoc\\wwwroot\\UploadedFiles\\
                     ZipArchiveEntry zipEntry = zip.CreateEntry(file.FileName);
-                    using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-                    using (Stream zipEntryStream = zipEntry.Open())
-                    {
-                        fs.CopyTo(zipEntryStream);
-                    }
+                    using FileStream fs = new(path, FileMode.Open, FileAccess.Read);
+                    using Stream zipEntryStream = zipEntry.Open();
+                    fs.CopyTo(zipEntryStream);
                 });
             return File(ms.ToArray(), "application/zip", "download.zip");
         }
@@ -187,45 +185,45 @@ namespace HalloDoc.Controllers
 
         public IActionResult DeleteFile(int id)
         {
-            RequestWiseFile data=_service.Delete(id);
+            RequestWiseFile data = _service.Delete(id);
             return RedirectToAction("ViewUploads", "Admin", new { id = data.RequestId });
 
         }
 
         public IActionResult DeleteAll(int id)
         {
-            var filesRow = _service.DeleteAll(id);
-            return RedirectToAction("AdminDashboard", "Admin");
+            _ = _service.DeleteAll(id);
+            return RedirectToAction("ViewUploads", "Admin", new {id});
         }
 
         public IActionResult SendMail(int id)
         {
             var data = _service.SMail(id);
-            if(data == "yes")
+            if (data == "yes")
             {
-                return RedirectToAction("ViewUploads", "Admin", new { id = id });
+                return RedirectToAction("ViewUploads", "Admin", new { id });
             }
             return RedirectToAction("AdminDashboard", "Admin");
         }
 
-        public IActionResult SendAgreement(int id,SendMailVM vm)
+        public IActionResult SendAgreement(int id, SendMailVM vm)
         {
-            var data=_service.GetReqType(id,vm);
-            return PartialView("_SendAgreement",data);
+            var data = _service.GetReqType(id, vm);
+            return PartialView("_SendAgreement", data);
         }
 
         [HttpPost]
-        public IActionResult SendAgreementPost(SendMailVM vm,int id)
+        public IActionResult SendAgreementPost(SendMailVM vm, int id)
         {
             SendMailVM data = _service.SendAgreement(id);
             AspNetUser aspdata = _service.AspUserData(vm.Email);
-            if (data.ReqId!=0)
+            if (data.ReqId != 0)
             {
                 var receiver = vm.Email;
                 var idd = data.ReqId;
                 var token = _token.GenerateJwtToken(aspdata);
                 var subject = "Create Account";
-                var message = $"Tap on link for accept agreement: [1] http://localhost:5093/Patient/Agreement?token="+token+"&id="+idd;
+                var message = $"Tap on link for accept agreement: [1] http://localhost:5093/Patient/Agreement?token=" + token + "&id=" + idd;
 
 
 
@@ -251,7 +249,7 @@ namespace HalloDoc.Controllers
         public IActionResult SendOrder(int id, SendOrderVM vm)
         {
             var data = _service.GetProfessions(id, vm);
-            return PartialView("_SendOrder",data);//,data
+            return PartialView("_SendOrder", data);//,data
         }
 
         public JsonResult SelectVendor(int ProfId)
@@ -260,11 +258,11 @@ namespace HalloDoc.Controllers
 
             if (data != null)
             {
-                return Json(data.Select(x => new {x.VendorName, x.VendorId})); // Return a single-item array
+                return Json(data.Select(x => new { x.VendorName, x.VendorId })); // Return a single-item array
             }
             else
             {
-                return Json(new HealthProfessional[0]); // Return an empty array
+                return Json(Array.Empty<HealthProfessional>()); // Return an empty array
             }
         }
 
@@ -278,7 +276,7 @@ namespace HalloDoc.Controllers
         public IActionResult AddSendOrders(int id, SendOrderVM vm)
         {
             var data = _service.AddOrderData(id, vm);
-            if(data==true)
+            if (data == true)
             {
                 return View("AdminDashboard");//,data
             }
@@ -288,14 +286,14 @@ namespace HalloDoc.Controllers
         public IActionResult ClearCase(int id)
         {
             var data = _service.GetClearCase(id);
-            return PartialView("_ClearCaseModal",data);
+            return PartialView("_ClearCaseModal", data);
         }
 
         [HttpPost]
         public IActionResult UpStatusClearCase(int id)
         {
             var data = _service.UpStatusClear(id);
-            if(data==true)
+            if (data == true)
             {
                 return RedirectToAction(nameof(AdminDashboard));
             }
@@ -310,35 +308,40 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpCloseCaseUser(int id,CloseCaseVM vm)
+        public IActionResult UpCloseCaseUser(int id, CloseCaseVM vm)
         {
-            bool data=_service.UpCloseCase(id,vm);
-            if(data==true)
+            bool data = _service.UpCloseCase(id, vm);
+            if (data == true)
             {
                 return RedirectToAction(nameof(AdminDashboard));
             }
             return NotFound();
         }
 
-       
-       
+
         public IActionResult NavTabs(int nav)
         {
             AdminDashboardVM swc = new();
             var data = _service.PatientStatus(swc);
-            
+
             switch (nav)
             {
-                case 1: return PartialView("_AdminHome",data);/*,data*/
-               
+                case 1: return PartialView("_AdminHome", data);/*,data*/
+
                 case 3:
                     {
-                        var aspId=HttpContext.Session.GetInt32("userId");
+                        var aspId = HttpContext.Session.GetInt32("userId");
                         var adminId = HttpContext.Session.GetInt32("adminId");
-                        var ProfileData = _service.AdminProfileData(aspId,adminId);
-                        return PartialView("_AdminProfile",ProfileData);
+                        var ProfileData = _service.AdminProfileData(aspId, adminId);
+                        return PartialView("_AdminProfile", ProfileData);
                     }
-               
+                case 4:
+                    {
+                        List<ProviderInformation> regions  = _service.GetProviderRegion();
+
+                        return PartialView("_ProviderTab", regions);
+                    }
+
                 default: return PartialView("_AdminNewStateData");
             }
         }
@@ -347,17 +350,18 @@ namespace HalloDoc.Controllers
         {
             List<AdminDashboardVM> data = _service.GetFilteredData(Keyword, RegionId, status, Reqtype, pn, item);
 
-            switch (status)
+            return status switch
             {
-                case 1: return PartialView("_AdminNewStateData", data);/*,data*/
-                case 2: return PartialView("_AdminPendingstateData", data);
-                case 3: return PartialView("_AdminActiveStateData", data);
-                case 4: return PartialView("_AdminConcludeStateData", data);
-                case 5: return PartialView("_AdminToCLoseStatusData", data);
-                case 6: return PartialView("_AdminUnpaidStatusData", data);
-                default: return PartialView("_NewState", data);
-            }
+                1 => PartialView("_AdminNewStateData", data),/*,data*/
+                2 => PartialView("_AdminPendingstateData", data),
+                3 => PartialView("_AdminActiveStateData", data),
+                4 => PartialView("_AdminConcludeStateData", data),
+                5 => PartialView("_AdminToCLoseStatusData", data),
+                6 => PartialView("_AdminUnpaidStatusData", data),
+                _ => PartialView("_NewState", data),
+            };
         }
+        [HttpGet]
         public IActionResult SendLink()
         {
             return PartialView("_SendLinkModal");
@@ -395,16 +399,16 @@ namespace HalloDoc.Controllers
         public IActionResult SortByFilter(string keywrd, int RegId, int status, int reqType, int pn, int item)
         {
             List<AdminDashboardVM> data = _service.GetFilteredData(keywrd, RegId, status, reqType, pn, item);
-            switch (status)
+            return status switch
             {
-                case 1: return PartialView("_AdminNewStateData", data);
-                case 2: return PartialView("_AdminPendingstateData", data);
-                case 3: return PartialView("_AdminActiveStateData", data);
-                case 4: return PartialView("_AdminConcludeStateData", data);
-                case 5: return PartialView("_AdminToCLoseStatusData", data);
-                case 6: return PartialView("_AdminUnpaidStatusData", data);
-                default: return PartialView("_NewState", data);
-            }
+                1 => PartialView("_AdminNewStateData", data),
+                2 => PartialView("_AdminPendingstateData", data),
+                3 => PartialView("_AdminActiveStateData", data),
+                4 => PartialView("_AdminConcludeStateData", data),
+                5 => PartialView("_AdminToCLoseStatusData", data),
+                6 => PartialView("_AdminUnpaidStatusData", data),
+                _ => PartialView("_NewState", data),
+            };
         }
 
         public IActionResult Export(int status, int Regionid, string Keyword, int ReqType)
@@ -432,8 +436,6 @@ namespace HalloDoc.Controllers
                 foreach (var item in data)
                 {
                     var statusClass = "";
-                    var dos = "";
-                    var notes = "";
                     if (item.RequestType == 1)
                     {
                         statusClass = "Business";
@@ -476,8 +478,8 @@ namespace HalloDoc.Controllers
                         s = "Unpaid";
                     }
                     worksheet.Cell(row, 1).Value = item.PatientName;
-                    worksheet.Cell(row, 2).Value = DateTime.Parse(item.BirthDate.ToString());
-                    worksheet.Cell(row, 3).Value = item.RequestorName;
+                    worksheet.Cell(row, 2).Value = DateTime.Parse(item.BirthDate.ToString()??"");
+                    worksheet.Cell(row, 3).Value = item.RequestorName + item.RequestorLastName;
                     worksheet.Cell(row, 4).Value = item.ProviderName;
                     worksheet.Cell(row, 5).Value = item.RequestDate.ToString();
                     worksheet.Cell(row, 6).Value = item.RequestDate.ToString();
@@ -536,8 +538,6 @@ namespace HalloDoc.Controllers
                 foreach (var item in data)
                 {
                     var statusClass = "";
-                    var dos = "";
-                    var notes = "";
                     if (item.RequestType == 1)
                     {
                         statusClass = "Business";
@@ -580,8 +580,8 @@ namespace HalloDoc.Controllers
                         s = "Unpaid";
                     }
                     worksheet.Cell(row, 1).Value = item.PatientName;
-                    worksheet.Cell(row, 2).Value = DateTime.Parse(item.BirthDate.ToString());
-                    worksheet.Cell(row, 3).Value = item.RequestorName;
+                    worksheet.Cell(row, 2).Value = DateTime.Parse(item.BirthDate.ToString()??"");
+                    worksheet.Cell(row, 3).Value = item.RequestorName + item.RequestorLastName;
                     worksheet.Cell(row, 4).Value = item.ProviderName;
                     worksheet.Cell(row, 5).Value = item.RequestDate.ToString();
                     worksheet.Cell(row, 6).Value = item.RequestDate.ToString();
@@ -619,8 +619,15 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult EditAdminProfile(AdminProfileVM model, List<int> reg)
         {
-            var aspId = HttpContext.Session.GetInt32("userId");
-            int adminId =(int) HttpContext.Session.GetInt32("adminId");
+            int adminId=0;
+            if (reg is null)
+            {
+                throw new ArgumentNullException(nameof(reg));
+            }
+            if(HttpContext.Session.GetInt32("adminId") !=null)
+            {
+                adminId = (int)HttpContext.Session.GetInt32("adminId")!;
+            }
             //ViewBag.Username = _service.Adminname(admin);
             _service.EditAdminProfile(model, adminId);
             return RedirectToAction("AdminDashboard");
@@ -634,5 +641,23 @@ namespace HalloDoc.Controllers
                return RedirectToAction("Admin_profile");
            }*/
 
+        [HttpGet]
+        public IActionResult CreateRequest()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult RequestSupport()
+        {
+            return PartialView("_RequestSupport");
+        }
+
+        [HttpGet]
+        public IActionResult ProviderByRegion(int regionId)
+        {
+            var data = _service.GetProviderInfo(regionId);
+            return PartialView("_ProviderInfo",data);
+        }
     }
 }

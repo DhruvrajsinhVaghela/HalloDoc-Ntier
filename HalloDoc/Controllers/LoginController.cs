@@ -9,6 +9,7 @@ using System.Net;
 using Microsoft.PowerBI.Api.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection.Metadata;
+using System.Security.Claims;
 
 namespace HalloDoc.Controllers
 {
@@ -26,56 +27,59 @@ namespace HalloDoc.Controllers
         }
 
         //Admin Login----------------------------------------
+        [HttpGet("login/admin")]
         public IActionResult AdminLogin()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("login/admin")]
         public IActionResult AdminLogin(AspNetUser aspNetUser)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(aspNetUser);
+
+                AspNetUser data = _Aservice.AdmintLogin(aspNetUser);
+
+                if (data.Id > 0)
+                {
+                    HttpContext.Session.SetInt32("userId", data.Id);//asp net user id in session
+                    HttpContext.Session.SetString("User'sName", data.UserName ?? "");
+                    //---for admin id
+                    Admin admin = _Aservice.GetAdminDataById(data.Id);
+                    HttpContext.Session.SetInt32("adminId", admin.AdminId);
+                    //----------
+                    var token = _token.GenerateJwtToken(data);
+                    Response.Cookies.Append("jwt", token);
+                    return RedirectToAction(nameof(AdminDashboard), "Admin");
+                }
+                return View();
             }
-
-            AspNetUser data = _Aservice.AdmintLogin(aspNetUser);
-
-            if (data.Id > 0)
-            {
-                HttpContext.Session.SetInt32("userId", data.Id);//asp net user id in session
-                HttpContext.Session.SetString("User'sName", data.UserName??"");
-
-                //---for admin id
-                Admin admin = _Aservice.GetAdminDataById(data.Id);
-                HttpContext.Session.SetInt32("adminId", admin.AdminId);
-                //----------
-                var token = _token.GenerateJwtToken(data);
-                Response.Cookies.Append("jwt", token);
-                return RedirectToAction(nameof(AdminDashboard), "Admin", new { id = data}) ;
-            }
-            return View();
-
+            return View(aspNetUser);
         }
 
+        [HttpGet("/admin/logout")]
         public IActionResult AdminLogout()
         {
             Response.Cookies.Delete("jwt");
             return RedirectToAction(nameof(AdminLogin), "Login");
         }
+
         //-------------------Patient Site
+        [HttpGet]
         public IActionResult PatientSite()
         {
             return View();
         }
 
         //------------------Patient Login
+        [HttpGet("login/site/patient")]
         public IActionResult PatientLogin()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("login/site/patient")]
         public IActionResult PatientLogin(AspNetUser aspNetUser)
         {
             if (!ModelState.IsValid)
@@ -100,22 +104,46 @@ namespace HalloDoc.Controllers
 
         }
         //------------------Patient Reset PW
+        [HttpGet("login/site/patient/forget-password")]
         public IActionResult PatientResetPw()
         {
             return View();
         }
+
+        [HttpGet("login/site/patient/change-password")]
+        public IActionResult PatientChangePassword(string token,int id)
+        {
+
+            ResetPwVM RP = new()
+            {
+                AspId = id
+            };
+            bool x = _token.
+                ValidateJwtToken(token, out _);
+            if (x)
+            {
+                return View(RP);
+            }
+            return NotFound();
+        }
+
         [HttpPost]
         public IActionResult P_Forgetpass(AspNetUser preq)
         {
-            bool isRegistered = _Pservice.ValidateUserByEmail(preq.Email);
-            AspNetUser aspdata = _Aservice.AspUserData(preq.Email);
+            AspNetUser aspdata=new();
+            bool isRegistered=true;
+            if(preq.Email!="")
+            {
+                isRegistered = _Pservice.ValidateUserByEmail(preq.Email);
+                aspdata = _Aservice.AspUserData(preq.Email!);
+            }
             if (isRegistered)
             {
                 var receiver = preq.Email ?? "";
                 var token = _token.GenerateJwtToken(aspdata);
                 var id=aspdata.Id;
                 var subject = "Create Account";
-                var message = "Tap on link for Create Account: http://localhost:5093/Login/PatientResetPw?token=" + token+"&id="+id;
+                var message = "Tap on link for change your Password: http://localhost:5093/Login/PatientChangePassword?token=" + token+"&id="+id;
 
 
                 var mail = "tatva.dotnet.dhruvrajsinhvaghela@outlook.com";
@@ -129,40 +157,47 @@ namespace HalloDoc.Controllers
                 };
 
                 client.SendMailAsync(new MailMessage(from: mail, to: receiver, subject, message));
-                return RedirectToAction(nameof(PatientLogin));
+
+                var handler = new JwtSecurityTokenHandler();
+                var tokenS = handler.ReadJwtToken(token);
+
+                // Accessing the email claim
+                var emailClaim = tokenS.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                var role = _Aservice.GetUserRoleByEmail(emailClaim.Value);
+                if (emailClaim != null && role[0] =="admin")
+                {
+                    return RedirectToAction(nameof(AdminLogin));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PatientLogin)); // No email claim found in the token
+                }
+                
             }
 
-            return View();
-
-        }
-
-        [HttpPost]
-        public IActionResult ResetPassword(string token, int id)
-        {
-            //var data = _Pservice.GetRequest(id);
-            //return View(data);
-            ResetPwVM RP=new ResetPwVM();
-            RP.AspId = id;
-            bool x = _token.
-                ValidateJwtToken(token, out JwtSecurityToken jwtSecurityToken);
-            if (x)
-            {
-                return View(RP);
-            }
             return NotFound();
+
         }
 
         [HttpPost]
         public IActionResult ResetPassword(ResetPwVM RP,int id)
         {
             bool data = _Pservice.UpdateAspUser(RP,id);
-            if(data==true)
+            List<string> role=_Aservice.GetUserRoleById(id);
+            foreach(var item in role)
             {
-                return RedirectToAction(nameof(PatientLogin));
+                if (data == true && item=="Patient")
+                {
+                    return RedirectToAction(nameof(PatientLogin));
+                }
+                else if (data == true && item == "Admin")
+                {
+                    return RedirectToAction(nameof(AdminLogin));
+                }
             }
             return NotFound();
         }
-
+        [HttpGet("patient/create-account")]
         public IActionResult PatientCreateAccount()
         {
             return View();
@@ -179,19 +214,21 @@ namespace HalloDoc.Controllers
         }
 
         //------------------Patient Submit Request
-
+        [HttpGet("login/site/submit-request")]
         public IActionResult PatientSubmitRequest()
         {
             return View();
         }
 
         //-----------------   Patient Info
+        [HttpGet("login/site/submit-request/patient-form")]
         public IActionResult PatientInfoForm()
         {
             return View();
         }
 
-        public async Task<IActionResult> validate_Email(System.String email)
+        [HttpGet]
+        public async Task<IActionResult> ValidateEmail(string email)
         {
             var ans = await _Pservice.validate_Email(email);
             if (ans == false)
@@ -201,8 +238,9 @@ namespace HalloDoc.Controllers
             return Json(new { exist = true });
         }
 
-        [HttpPost]
-        public IActionResult PatientInfoForm([FromForm] PatientInfoVM model)
+        [HttpPost("login/site/submit-request/patient-form")]
+        [ValidateAntiForgeryToken]
+        public IActionResult PatientInfoForm(PatientInfoVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -217,12 +255,13 @@ namespace HalloDoc.Controllers
         }
 
         //-----------------Patient Family Friend Form
+        [HttpGet("login/site/submit-request/family-friend-form")]
         public IActionResult PatientFamilyFriendForm()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("login/site/submit-request/family-friend-form")]
         [ValidateAntiForgeryToken]
         public IActionResult PatientFamilyFriendForm(PatientFamilyFriendInfoVM model)
         {
@@ -241,14 +280,15 @@ namespace HalloDoc.Controllers
         }
 
         //-----------------Patient Concierge Info Form
+        [HttpGet("login/site/submit-request/concierge-form")]
         public IActionResult PatientConciergeInfo()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("login/site/submit-request/concierge-form")]
         [ValidateAntiForgeryToken]
-        public IActionResult PatientConciergeInfo([FromForm] PatientConciergeInfoVM model)
+        public IActionResult PatientConciergeInfo(PatientConciergeInfoVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -268,13 +308,15 @@ namespace HalloDoc.Controllers
 
 
         //---------------Patient Business Info Form
+        [HttpGet("login/site/submit-request/business-form")]
         public IActionResult PatientBusinessInfo()
         {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult PatientBusinessInfo([FromForm] PatientBusinessInfoVM model)
+        [HttpPost("login/site/submit-request/business-form")]
+        [ValidateAntiForgeryToken]
+        public IActionResult PatientBusinessInfo(PatientBusinessInfoVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -290,16 +332,21 @@ namespace HalloDoc.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
         public IActionResult PatientLogout()
         {
             Response.Cookies.Delete("jwt");
             return RedirectToAction(nameof(PatientLogin), "Login");
         }
+
+        [HttpGet]
         public IActionResult EncounterForm()
         {
             return View();
         }
 
+        [HttpGet("access-denied")]
         public IActionResult AccessDenied()
         {
             return View();

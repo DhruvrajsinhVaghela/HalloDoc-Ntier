@@ -10,7 +10,7 @@
         <div class="row vw-100">
 
            
-            <div class="col-lg-12 d-flex flex-column align-items-center justify-content-between vh-100">
+            <div class="vh-100 d-flex justify-content-between flex-column">
 
                 <div class="icon d-flex w-100 justify-content-end mt-2">
                     <button onclick="DarkMode()" class="border-info rounded-1 bg-transparent">
@@ -20,7 +20,7 @@
                     </button>
                 </div>
 
-                <div class="main-content" style="width:40%;">
+                <div class="main-content col-lg-4 col-sm-6 m-auto" >
                     <div class="image mb-3 d-flex align-items-center justify-content-center">
                         <img src="~/images/Fig56._Patient_site_1.png">
                     </div>
@@ -29,17 +29,15 @@
                     <form asp-action="AdminLogin" class="d-flex flex-column align-items-center">
 
                         <div class="form-floating">
-                            <input asp-for="Email" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input asp-for="Email" type="text" class="form-control" id="floatingInput" placeholder="name@example.com" required>
                             <label asp-for="Email" for="floatingInput" id="username-input">Email</label>
-                            <span asp-validation-for="Email" class="text-danger"></span>
                             <div class="P-Login-input-icon bg-transparent border-0 position-absolute mt-3">
                                 <img src="~/images/person-circle.svg" alt="">
                             </div>
                         </div>
                         <div class="form-floating ">
-                            <input asp-for="PasswordHash" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <input asp-for="PasswordHash" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
                             <label asp-for="PasswordHash" for="floatingPassword">Password</label>
-                            <span asp-validation-for="PasswordHash" class="text-danger"></span>
                             <div class="P-Login-input-icon bg-transparent border-0 position-absolute me-2 d-flex justify-content-center align-items-center mt-2" onclick="showhide()">
                                 <img src="~/images/eye.svg" id="eye"
                                      alt="">
@@ -47,12 +45,12 @@
                         </div>
                         <button class="login-btn rounded bg-info mt-3">Login</button>
                     </form>
-                    <a asp-action="" class="forgot-link mt-2    d-flex justify-content-center text-decoration-none text-info">Forgot Password?</a>
+                    <a asp-action="PatientResetPw" class="forgot-link mt-2 d-flex justify-content-center text-decoration-none text-info">Forgot Password?</a>
 
 
                 </div>
 
-                <div class="foot">
+                <div class="d-flex justify-content-center">
                     <p class="mt-4 " id="terms">Terms of Condition <span class="vr"></span> Privacy Policy</p>
                 </div>
 

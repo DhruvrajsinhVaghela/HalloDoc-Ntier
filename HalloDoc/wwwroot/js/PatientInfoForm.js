@@ -54,7 +54,7 @@ const load = () => {
 async function fetch_email() {
     var email = document.getElementById('email').value;
     var exist;
-    await fetch('/Login/validate_Email?email=' + email).then(res => res.json()).then(res1 => { exist = res1.exist });
+    await fetch('/Login/ValidateEmail?email=' + email).then(res => res.json()).then(res1 => { exist = res1.exist });
     if (exist == false) {
         document.getElementById('passwordDiv').classList.remove('d-none');
         document.getElementById('cpasswordDiv').classList.remove('d-none');
@@ -97,14 +97,3 @@ function myFunction() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Find all elements with the class "go-back-button"
-    var goBackButtons = document.querySelectorAll('.back-button');
-
-    // Attach click event listener to each button
-    goBackButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            window.history.back();
-        });
-    });
-});
