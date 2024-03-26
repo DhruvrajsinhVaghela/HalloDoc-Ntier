@@ -1,27 +1,27 @@
 ﻿@model IEnumerable<HalloDoc.DbEntity.ViewModel.ProviderInformation>
 
-<form>
+<form asp-action="ProviderStopNotification" asp-controller="admin">
     <div id="data">
         <table class="">
             <thead>
                 <tr class="">
-                    <td class="col-1 text-center">Stop Notification</td>
-                    <td class="text-center">Provider Name &uarr;</td>
-                    <td class="text-center">Role</td>
-                    <td class="text-center">On Call Status</td>
-                    <td class="text-center">Status</td>
-                    <td class="text-center">Action</td>
+                    <th class="col-1 text-center">Stop Notification</th>
+                    <th class="text-center">Provider Name &uarr;</th>
+                    <th class="text-center">Role</th>
+                    <th class="text-center">On Call Status</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Action</th>
 
                 </tr>
             </thead>
             <tbody>
 
 
- 
+
                 @foreach (var phy in Model)
                 {
                     <tr class="p-2">
-                        <td class="text-center"><input type="checkbox" checked="@phy.isChecked" /></td>
+                        <td class="text-center"><input type="checkbox" checked="@phy.isChecked" value="@phy.ProviderId" name="IsChecked" onclick="CheckChange()" /></td>
                         <td class="text-center">@phy.FirstName</td>
                         <td class="text-center">Role</td>
                         <td class="text-center">Call Status</td>
@@ -33,16 +33,24 @@
                             <button class="rounded border-1 p-2">Edit</button>
                         </td>
                     </tr>
-                } 
+                }
 
             </tbody>
         </table>
     </div>
+    <div class="d-flex justify-content-end">
+        <button class="btn border rounded-2 btn-outline-info mt-3 d-none" id="save">save</button>
+    </div>
+
 </form>
 
 <div id="showmodal"></div>
 
 <script>
+
+    function CheckChange() { 
+        document.getElementById('save').classList.remove('d-none');
+    }
     // function ShowModal(id) {
 
     //     $('#showmodal').load('/Admin/PhysicianContact/' + id, function () {
@@ -52,5 +60,21 @@
     //         modal.show();
     //     });
 
+    // }
+    // function StopNotificaiton(PhyId) {
+    //     $.ajax({
+    //         url: '/Admin/ProviderStopNotification',
+    //         method: 'GET',
+    //         data: { Id:PhyId },
+
+    //         success: function (response) {
+    //             $('#providerContent').html(response);
+    //         },
+    //         error: function (error) {
+    //             console.log(error);
+    //             console.error('Error in AJAX', error);
+    //         }
+
+    //     });
     // }
 </script>

@@ -219,7 +219,7 @@
 
 
 
-            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+            <div class="tab-pane fade show active mb-5" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
                  tabindex="0">
 
                 <div class=" w-100" id="profile-div">
@@ -532,9 +532,9 @@
                 continueButton.addEventListener('click', function () {
                     var userType = meButton.classList.contains('btn-info') ? 'me' : 'someoneElse';
                     if (userType === 'me') {
-                        document.location.href = '/Patient/PatientMeRequest?id=' + @Model.FirstOrDefault().user.UserId;
+                        document.location.href = '/patient/site/login/dashboard/me-request?id=' + @Model.FirstOrDefault().user.UserId;
                     } else {
-                        document.location.href = '/Patient/PatientSomeOneElseRequest?id=' + @Model.FirstOrDefault().user.UserId;
+                        document.location.href = '/patient/site/login/dashboard/some-else-request?id=' + @Model.FirstOrDefault().user.UserId;
                     }
                 });
 

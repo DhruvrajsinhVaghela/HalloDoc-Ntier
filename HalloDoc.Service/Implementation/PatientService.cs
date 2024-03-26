@@ -256,7 +256,6 @@ namespace HalloDoc.Service.Implementation
                 _repo.AddRegion(region);
                 reg = region;
             }
-
             Request request = new()
             {
                 RequestType = 3,
@@ -270,7 +269,7 @@ namespace HalloDoc.Service.Implementation
                 ConfirmationNumber = reg.Abbreviation?.Substring(0, 2) + DateTime.Now.ToString("ddMMyyyy").Substring(0, 4)
                                     + model.LastName[..2] + model.FirstName[..2]
                                     + _repo.GetConfirmationNo(),
-                PatientAccountId = aspnetuser.Id,
+                
             };
             if (user.UserId != 0)
             {
@@ -1052,8 +1051,12 @@ namespace HalloDoc.Service.Implementation
                     {
                         req.UserId = userData.UserId;
                         req.User = userData;
+                        req.PatientAccountId = aspUser1.Id;
                         _repo.UpdateRequest(req);
                     }
+
+                    
+
                 }
 
                 return true;

@@ -9,6 +9,7 @@ using HalloDoc.Services.Interfaces;
 using HalloDoc.Auth;
 using Microsoft.PowerBI.Api.Models;
 using ClosedXML.Excel;
+using Microsoft.PowerBI.Api;
 
 namespace HalloDoc.Controllers
 {
@@ -29,6 +30,7 @@ namespace HalloDoc.Controllers
         public IActionResult AdminDashboard(AdminDashboardVM swc)
         {
             var data = _service.PatientStatus(swc);
+            TempData["message"] = "Login Successfull";
             return View(data);
 
         }
@@ -70,7 +72,7 @@ namespace HalloDoc.Controllers
         {
             vm.AdminAspId = HttpContext.Session.GetInt32("userId");
             _service.ViewNotes(id, vm);
-            return RedirectToAction("ViewNotes", new {id,vm });
+            return RedirectToAction("ViewNotes", new { id, vm });
         }
 
         public IActionResult CancelCase(int id)
@@ -193,7 +195,7 @@ namespace HalloDoc.Controllers
         public IActionResult DeleteAll(int id)
         {
             _ = _service.DeleteAll(id);
-            return RedirectToAction("ViewUploads", "Admin", new {id});
+            return RedirectToAction("ViewUploads", "Admin", new { id });
         }
 
         public IActionResult SendMail(int id)
@@ -337,7 +339,7 @@ namespace HalloDoc.Controllers
                     }
                 case 4:
                     {
-                        List<ProviderInformation> regions  = _service.GetProviderRegion();
+                        List<ProviderInformation> regions = _service.GetProviderRegion();
 
                         return PartialView("_ProviderTab", regions);
                     }
@@ -369,6 +371,7 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult SendLink(SendMailVM vm)
         {
+
             if (vm.Email != null)
             {
                 var receiver = vm.Email;
@@ -415,7 +418,7 @@ namespace HalloDoc.Controllers
         {
             try
             {
-                List<AdminDashboardVM> data = _service.GetFilteredData(Keyword, Regionid, status, ReqType, 0, 0);
+                List<AdminDashboardVM> data = _service.GetFilteredData(Keyword, Regionid, status, ReqType,0,0);
                 var workbook = new XLWorkbook();
                 var worksheet = workbook.Worksheets.Add("Data");
 
@@ -433,18 +436,18 @@ namespace HalloDoc.Controllers
                 worksheet.Cell(1, 11).Value = "Status";
 
                 int row = 2;
-                foreach (var item in data)
+                foreach (var item1 in data)
                 {
                     var statusClass = "";
-                    if (item.RequestType == 1)
+                    if (item1.RequestType == 1)
                     {
                         statusClass = "Business";
                     }
-                    else if (item.RequestType == 4)
+                    else if (item1.RequestType == 4)
                     {
                         statusClass = "Concierge";
                     }
-                    else if (item.RequestType == 2)
+                    else if (item1.RequestType == 2)
                     {
                         statusClass = "Patient";
                     }
@@ -453,23 +456,23 @@ namespace HalloDoc.Controllers
                         statusClass = "Family/Friend";
                     }
                     var s = "";
-                    if (item.Status == 1)
+                    if (item1.Status == 1)
                     {
                         s = "New";
                     }
-                    else if (item.Status == 2)
+                    else if (item1.Status == 2)
                     {
                         s = "Pending";
                     }
-                    else if (item.Status == 4 || item.Status == 5)
+                    else if (item1.Status == 4 || item1.Status == 5)
                     {
                         s = "Active";
                     }
-                    else if (item.Status == 6)
+                    else if (item1.Status == 6)
                     {
                         s = "Conclude";
                     }
-                    else if (item.Status == 7 || item.Status == 3 || item.Status == 8)
+                    else if (item1.Status == 7 || item1.Status == 3 || item1.Status == 8)
                     {
                         s = "To Close";
                     }
@@ -477,23 +480,23 @@ namespace HalloDoc.Controllers
                     {
                         s = "Unpaid";
                     }
-                    worksheet.Cell(row, 1).Value = item.PatientName;
-                    worksheet.Cell(row, 2).Value = DateTime.Parse(item.BirthDate.ToString()??"");
-                    worksheet.Cell(row, 3).Value = item.RequestorName + item.RequestorLastName;
-                    worksheet.Cell(row, 4).Value = item.ProviderName;
-                    worksheet.Cell(row, 5).Value = item.RequestDate.ToString();
-                    worksheet.Cell(row, 6).Value = item.RequestDate.ToString();
+                    worksheet.Cell(row, 1).Value = item1.PatientName;
+                    worksheet.Cell(row, 2).Value = DateTime.Parse(item1.BirthDate.ToString() ?? "");
+                    worksheet.Cell(row, 3).Value = item1.RequestorName + item1.RequestorLastName;
+                    worksheet.Cell(row, 4).Value = item1.ProviderName;
+                    worksheet.Cell(row, 5).Value = item1.RequestDate.ToString();
+                    worksheet.Cell(row, 6).Value = item1.RequestDate.ToString();
 
-                    if (item.PhoneNumber != "")
+                    if (item1.PhoneNumber != "")
                     {
-                        worksheet.Cell(row, 7).Value = item.PhoneNumber;
+                        worksheet.Cell(row, 7).Value = item1.PhoneNumber;
                     }
-                    if (item.RequestType != 2 && item.RequestorPhoneNumber != "")
+                    if (item1.RequestType != 2 && item1.RequestorPhoneNumber != "")
                     {
-                        worksheet.Cell(row, 7).Value = item.PhoneNumber + ' ' + item.RequestorPhoneNumber;
+                        worksheet.Cell(row, 7).Value = item1.PhoneNumber + ' ' + item1.RequestorPhoneNumber;
                     }
-                    worksheet.Cell(row, 8).Value = item.Address;
-                    worksheet.Cell(row, 9).Value = item.Notes?.ToString();
+                    worksheet.Cell(row, 8).Value = item1.Address;
+                    worksheet.Cell(row, 9).Value = item1.Notes?.ToString();
                     worksheet.Cell(row, 10).Value = statusClass;
                     worksheet.Cell(row, 11).Value = s;
                     row++;
@@ -580,7 +583,7 @@ namespace HalloDoc.Controllers
                         s = "Unpaid";
                     }
                     worksheet.Cell(row, 1).Value = item.PatientName;
-                    worksheet.Cell(row, 2).Value = DateTime.Parse(item.BirthDate.ToString()??"");
+                    worksheet.Cell(row, 2).Value = DateTime.Parse(item.BirthDate.ToString() ?? "");
                     worksheet.Cell(row, 3).Value = item.RequestorName + item.RequestorLastName;
                     worksheet.Cell(row, 4).Value = item.ProviderName;
                     worksheet.Cell(row, 5).Value = item.RequestDate.ToString();
@@ -617,14 +620,11 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditAdminProfile(AdminProfileVM model, List<int> reg)
+        public IActionResult EditAdminProfile(AdminProfileVM model)
         {
-            int adminId=0;
-            if (reg is null)
-            {
-                throw new ArgumentNullException(nameof(reg));
-            }
-            if(HttpContext.Session.GetInt32("adminId") !=null)
+            int adminId = 0;
+
+            if (HttpContext.Session.GetInt32("adminId") != null)
             {
                 adminId = (int)HttpContext.Session.GetInt32("adminId")!;
             }
@@ -640,6 +640,25 @@ namespace HalloDoc.Controllers
                _service.editadminp(model, admin);
                return RedirectToAction("Admin_profile");
            }*/
+        [HttpPost]
+        public IActionResult EditAdminProfile1(AdminProfileVM model, List<int> reg)
+        {
+            int adminId = 0;
+            if (HttpContext.Session.GetInt32("adminId") != null)
+            {
+                adminId = (int)HttpContext.Session.GetInt32("adminId")!;
+            }
+            _service.EditAdminProfile1(model, adminId);
+            return RedirectToAction("AdminDashboard");
+        }
+
+        [HttpPost]
+        public IActionResult AdminProfilePwChange(AdminProfileVM model)
+        {
+            int? AspId = HttpContext.Session.GetInt32("userId");
+            _service.EditAdminProfilePw(model, AspId);
+            return RedirectToAction("AdminDashboard");
+        }
 
         [HttpGet]
         public IActionResult CreateRequest()
@@ -657,7 +676,14 @@ namespace HalloDoc.Controllers
         public IActionResult ProviderByRegion(int regionId)
         {
             var data = _service.GetProviderInfo(regionId);
-            return PartialView("_ProviderInfo",data);
+            return PartialView("_ProviderInfo", data);
+        }
+
+
+        public IActionResult ProviderStopNotification(ProviderInformation vm)
+        {
+            _service.ChangeStopNotificaiton(vm);
+            return RedirectToAction("AdminDashboard");
         }
     }
 }

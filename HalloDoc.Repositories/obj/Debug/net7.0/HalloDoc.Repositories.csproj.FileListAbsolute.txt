@@ -27,7 +27,6 @@ D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Reposi
 D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.AssemblyInfoInputs.cache
 D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.AssemblyInfo.cs
 D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.csproj.CoreCompileInputs.cache
-D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.sourcelink.json
 D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.csproj.CopyComplete
 D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\HalloDoc.Repositories.dll
 D:\project\HalloDoc-Ntier\HalloDoc.Repositories\obj\Debug\net7.0\refint\HalloDoc.Repositories.dll

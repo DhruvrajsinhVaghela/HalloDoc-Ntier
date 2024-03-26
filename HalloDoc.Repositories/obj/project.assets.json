@@ -1501,19 +1501,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vaghe\\.nuget\\packages\\": {}
+    "C:\\Users\\pce120\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj",
+      "projectUniqueName": "D:\\Project\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj",
       "projectName": "HalloDoc.Repositories",
-      "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj",
-      "packagesPath": "C:\\Users\\vaghe\\.nuget\\packages\\",
-      "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Repositories\\obj\\",
+      "projectPath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc.Repositories\\HalloDoc.Repositories.csproj",
+      "packagesPath": "C:\\Users\\pce120\\.nuget\\packages\\",
+      "outputPath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc.Repositories\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\vaghe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pce120\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1527,8 +1527,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {
-              "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj"
+            "D:\\Project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {
+              "projectPath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj"
             }
           }
         }
@@ -1584,7 +1584,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },

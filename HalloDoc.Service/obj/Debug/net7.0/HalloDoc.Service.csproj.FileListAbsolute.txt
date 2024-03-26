@@ -31,7 +31,6 @@ D:\project\HalloDoc-Ntier\HalloDoc.Service\obj\Debug\net7.0\HalloDoc.Service.Gen
 D:\project\HalloDoc-Ntier\HalloDoc.Service\obj\Debug\net7.0\HalloDoc.Service.AssemblyInfoInputs.cache
 D:\project\HalloDoc-Ntier\HalloDoc.Service\obj\Debug\net7.0\HalloDoc.Service.AssemblyInfo.cs
 D:\project\HalloDoc-Ntier\HalloDoc.Service\obj\Debug\net7.0\HalloDoc.Service.csproj.CoreCompileInputs.cache
-D:\project\HalloDoc-Ntier\HalloDoc.Service\obj\Debug\net7.0\HalloDoc.Service.sourcelink.json
 D:\project\HalloDoc-Ntier\HalloDoc.Service\obj\Debug\net7.0\HalloDoc.Service.csproj.CopyComplete
 D:\project\HalloDoc-Ntier\HalloDoc.Service\obj\Debug\net7.0\HalloDoc.Service.dll
 D:\project\HalloDoc-Ntier\HalloDoc.Service\obj\Debug\net7.0\refint\HalloDoc.Service.dll

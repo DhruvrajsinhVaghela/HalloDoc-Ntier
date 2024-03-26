@@ -4,8 +4,17 @@
     Layout = "~/Views/Shared/_layoutAdmin.cshtml";
 
 }
+@if (TempData["message"] != null)
+{
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" />
+    <script type="text/javascript">
+        toastr.success("@TempData["message"]");
+    </script>
+}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<div class="bg-body-tertiary vh-100 d-flex flex-column">
+<div class="vh-100 d-flex flex-column">
     <partial name="_AdminHeaderDashboard" />
     <div class="" id="main-div">
     </div>
@@ -14,7 +23,6 @@
 <script>
     function load() {
 
-        
         $.ajax({
             url: '/Admin/NavTabs',
             method: 'GET',

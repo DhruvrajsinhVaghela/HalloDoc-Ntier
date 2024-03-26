@@ -1,94 +1,94 @@
 ﻿@model HalloDoc.DbEntity.ViewModel.AdminProfileVM
-<div class="border-white rounded-3 border form-div mt-3 shadow-lg p-2 container">
+<div class="border-white rounded-3 border mt-3 mb-5 shadow-lg p-2 container w-75">
     <h3>Account Information</h3>
-    <div class="row mt-5 ">
-        <div class="col-lg-6 col-md-6">
-            <div class="form-floating mb-3">
-                <input type="text" asp-for=@Model.UserName class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
-                <label for="floatingInput">User Name</label>
+    <form asp-action="AdminProfilePwChange" method="post">
+        <div class="row mt-5 ">
+            <div class="col-lg-6 col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for=@Model.UserName class="form-control" id="floatingInput" mailto:placeholder="name@example.com" readonly>
+                    <label for="floatingInput">User Name</label>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for=@Model.Password class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
+                    <label for="floatingInput">Password</label>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 ">
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="@Model.Status" class="form-control" id="floatingInput" mailto:placeholder="name@example.com" value="Active" readonly>
+                    <label for="floatingInput">Status</label>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-floating mb-3 phone-code">
+                    <input type="text" asp-for="@Model.Roll" class="form-control phone-input phone" id="phone" readonly>
+                    <label for="floatingInput">Roll</label>
+                </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
-                <label for="floatingInput">Password</label>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 ">
-            <div class="form-floating mb-3">
-                <input type="text" asp-for="@Model.Status" class="form-control" id="floatingInput" mailto:placeholder="name@example.com">
-                <label for="floatingInput">Status</label>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="form-floating mb-3 phone-code">
-                <input type="text" asp-for="@Model.Roll" class="form-control phone-input phone" id="phone">
-                <label for="floatingInput">Roll</label>
-            </div>
-        </div>
-    </div>
     <div class="d-flex justify-content-end">
-        <a asp-action="SendResetPassword">
-            <button class="btn btn-outline-info py-1 py-2 rounded">Reset Password</button>
-        </a>
+        <button type="submit" class="btn btn-outline-info py-1 py-2 rounded">Reset Password</button>
     </div>
+    </form>
     <form class="form" asp-action="EditAdminProfile" asp-route-id="@Model.AdminId" method="post">
-        <fieldset id="field" disabled>
+        <fieldset id="field">
             <div class="row mt-5 ">
                 <div class="col-lg-6 col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for=@Model.FirstName class="form-control" id="floatingInput">
+                        <input type="text" asp-for=@Model.FirstName class="form-control read" id="floatingInput" readonly>
                         <label for="floatingInput">First Name</label>
                         <span class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for=@Model.LastName class="form-control" id="floatingInput">
+                        <input type="text" asp-for=@Model.LastName class="form-control read" id="floatingInput0" readonly>
                         <label for="floatingInput">Last Name</label>
                         <span class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 ">
                     <div class="form-floating mb-3">
-                        <input class="form-control" asp-for=@Model.Email id="Email1">
+                        <input class="form-control read" asp-for=@Model.Email id="Email1" readonly>
                         <label for="floatingInput">Email</label>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="form-floating mb-3">
-                        <input onblur="checkEmailExists()" type="email" class="form-control" id="Email2">
+                        <input onblur="checkEmailExists()" type="email" class="form-control read" id="Email2" readonly>
                         <label for="floatingInput">Confirm Email</label>
                         <span class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="form-floating mb-3 phone-code">
-                        <input type="tel" asp-for=@Model.PhoneNo class="form-control phone-input phone" id="phone">
+                        <input type="tel" asp-for=@Model.PhoneNo class="form-control phone-input phone read" id="phone" readonly>
                         <label for="floatingInput">Phone Number</label>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                    @if (Model.RegionList!=null)
+                    @if (Model.RegionList != null)
                     {
                         @foreach (var reg in Model.RegionList)
                         {
                             @if (Model.AdminRegList.Any(x => x.RegionId == reg.RegionId))
                             {
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input checkbox" type="checkbox" name="SelectedReg" value="@reg.RegionId" checked >
+                                    <input class="form-check-input checkbox" id="check" type="checkbox" name="SelectedRegions" value="@reg.RegionId" checked>
                                     <label class="form-check-label text6" for="inlineCheckbox1">@reg.Name</label>
                                 </div>
                             }
                             else
                             {
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input checkbox" type="checkbox" name="SelectedReg" value="@reg.RegionId">
+                                    <input class="form-check-input checkbox" type="checkbox" name="SelectedRegions" value="@reg.RegionId">
                                     <label class="form-check-label text6" for="inlineCheckbox1">@reg.Name</label>
                                 </div>
                             }
-                        }                   
-                        
+                        }
+
                     }
                 </div>
 
@@ -96,88 +96,148 @@
             </div>
         </fieldset>
         <div class="btns  d-flex justify-content-end my-3">
-            <button id="edit" type="button" data-text="edit" class="btn border-info rounded-2">Edit</button>
+            <button id="edit" type="button" data-text="edit" class="btn border-info rounded-2" onclick="SaveAdminData()">Edit</button>
             <button id="Cancle" type="button" class="btn border-info rounded-2 d-none ms-3">Cancle</button>
         </div>
     </form>
     <h3>Mailing Information</h3>
-    <div class="row mt-5 ">
-        <div class="col-lg-6 col-md-6">
-            <div class="form-floating mb-3">
-                <input type="text" asp-for=@Model.Address1 class="form-control" id="floatingInput">
-                <label for="floatingInput">Address1</label>
-                <span class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="form-floating mb-3">
-                <input type="text" asp-for=@Model.Address2 class="form-control" id="floatingInput">
-                <label for="floatingInput">Address2</label>
-                <span class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 ">
-            <div class="form-floating mb-3">
-                <input type="text" asp-for=@Model.City class="form-control" id="floatingInput">
-                <label for="floatingInput">City</label>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="form-floating mb-3 phone-code">
-                <input type="text" class="form-control phone-input phone" id="phone">
-                <label for="floatingInput">Roll</label>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="form-floating mb-3 phone-code">
-                <input type="text" asp-for=@Model.ZipCode class="form-control phone-input phone" id="phone">
-                <label for="floatingInput">ZipCode</label>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="form-floating mb-3 phone-code">
-                <input type="tel" asp-for=@Model.AltPhone class="form-control phone-input phone" id="phone">
-                <label for="floatingInput">Phone Number</label>
-            </div>
-        </div>
-    </div>
+    <form class="form" asp-action="EditAdminProfile1" asp-route-id="@Model.AdminId" method="post">
+        <fieldset id="field1">
+            <div class="row mt-5 ">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for=@Model.Address1 class="form-control read" id="floatingInput" readonly>
+                        <label for="floatingInput">Address1</label>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for=@Model.Address2 class="form-control read" id="floatingInput" readonly>
+                        <label for="floatingInput">Address2</label>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 ">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for=@Model.City class="form-control read" id="floatingInput" readonly>
+                        <label for="floatingInput">City</label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <select class="w-100 h-75 form-control">
+                        @if (Model.RegionList != null)
+                        {
+                            @foreach (var reg in Model.RegionList)
+                            {
+                                @if (Model.AdminRegList.Any(x => x.RegionId == reg.RegionId))
+                                {
+                                    <option value="@reg.RegionId">@reg.Name</option>
 
+                                }
+                                @*  else
+                        {
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input checkbox" type="checkbox" name="SelectedReg" value="@reg.RegionId">
+                        <label class="form-check-label text6" for="inlineCheckbox1">@reg.Name</label>
+                        </div>
+                        } *@
+                            }
+
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-floating mb-3 phone-code">
+                        <input type="text" asp-for=@Model.ZipCode class="form-control phone-input phone read" id="phone" readonly>
+                        <label for="floatingInput">ZipCode</label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-floating mb-3 phone-code">
+                        <input type="tel" asp-for=@Model.AltPhone class="form-control phone-input phone read" id="phone" readonly>
+                        <label for="floatingInput">Phone Number</label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="btns  d-flex justify-content-end my-3">
+            <button id="edit1" type="button" data-text="edit" class="btn border-info rounded-2" onclick="SaveAdminData()">Edit</button>
+            <button id="Cancle1" type="button" class="btn border-info rounded-2 d-none ms-3">Cancle</button>
+        </div>
+    </form>
 </div>
 
 
 
 
-<div class="btns  d-flex justify-content-end my-3">
-    <button class="btn border-info rounded-2">Edit</button>
-    <button type="submit" class="btn border-info rounded-2 mx-2">Save Changes</button>
-</div>
+
 <script>
     document.getElementById("edit").addEventListener('click', function (event) {
         var cancel = document.getElementById('Cancle');
+        var read = document.getElementsByClassName('read');
         const btntext = this.getAttribute('data-text');
         if (btntext == "edit") {
             this.setAttribute('data-text', 'save');
             this.innerText = 'Save';
+            for (var i = 0; i < read.length; i++) {
+                read[i].removeAttribute('readonly');
+            }
             cancel.classList.remove('d-none');
-            document.getElementById("field").disabled = false;
         } else {
             this.setAttribute('data-text', 'edit');
             this.innerText = 'Edit';
             cancel.classList.add('d-none');
-            document.getElementById("field").disabled = true;
         }
     })
 
-    document.getElementById("Cancle").addEventListener('click', function (event) 
-    {
+    document.getElementById("Cancle").addEventListener('click', function (event) {
         const btntext = document.getElementById('edit');
-        if (btntext.getAttribute('data-text') == 'save') 
-        {
+        var read = document.getElementsByClassName('read');
+
+        if (btntext.getAttribute('data-text') == 'save') {
             this.classList.add('d-none');
             btntext.innerText = 'Edit';
-            document.getElementById("field").disabled = true;
+            for (var i = 0; i < read.length; i++) {
+                read[i].setAttribute('readonly', '');
+            }
         }
-        else{
+        else {
+            console.log("else");
+        }
+    })
+
+    document.getElementById("edit1").addEventListener('click', function (event) {
+        var cancel = document.getElementById('Cancle1');
+        const btntext = this.getAttribute('data-text');
+        var read = document.getElementsByClassName('read');
+
+        if (btntext == "edit") {
+            this.setAttribute('data-text', 'save');
+            this.innerText = 'Save';
+            for (var i = 0; i < read.length; i++) {
+                read[i].removeAttribute('readonly');
+            }
+            cancel.classList.remove('d-none');
+        } else {
+            this.setAttribute('data-text', 'edit');
+            this.innerText = 'Edit';
+            cancel.classList.add('d-none');
+        }
+    })
+
+    document.getElementById("Cancle1").addEventListener('click', function (event) {
+        const btntext = document.getElementById('edit1');
+        var read = document.getElementsByClassName('read');
+
+        if (btntext.getAttribute('data-text') == 'save') {
+            this.classList.add('d-none');
+            btntext.innerText = 'Edit';
+            for (var i = 0; i < read.length; i++) {
+                read[i].setAttribute('readonly', '');
+            }
+        }
+        else {
             console.log("else");
         }
     })
@@ -189,4 +249,19 @@
             alert('Email and confirm Email is not same');
         }
     }
+
+    function SaveAdminData() {
+        var saveBtn = document.getElementById('edit');
+        var saveBtn1 = document.getElementById('edit1');
+        if (saveBtn.getAttribute('data-text') == 'save') {
+            saveBtn.setAttribute('type', 'submit');
+            saveBtn.click;
+        }
+        else if (saveBtn1.getAttribute('data-text') == 'save') {
+            saveBtn1.setAttribute('type', 'submit');
+            saveBtn1.click;
+        }
+    }
+
+
 </script>

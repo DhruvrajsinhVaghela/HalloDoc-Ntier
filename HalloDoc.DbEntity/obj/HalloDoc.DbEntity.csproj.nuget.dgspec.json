@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {}
+    "D:\\Project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {}
   },
   "projects": {
-    "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {
+    "D:\\Project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
+        "projectUniqueName": "D:\\Project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
         "projectName": "HalloDoc.DbEntity",
-        "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
-        "packagesPath": "C:\\Users\\vaghe\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\obj\\",
+        "projectPath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\HalloDoc.DbEntity.csproj",
+        "packagesPath": "C:\\Users\\pce120\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc.DbEntity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vaghe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pce120\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

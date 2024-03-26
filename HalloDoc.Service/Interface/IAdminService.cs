@@ -1,5 +1,6 @@
 ﻿using HalloDoc.DbEntity.Models;
 using HalloDoc.DbEntity.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HalloDoc.services.Interface
 {
@@ -48,6 +49,10 @@ namespace HalloDoc.services.Interface
         object GetProviderInfo(int regionId);
         List<ProviderInformation> GetProviderRegion();
         List<string> GetUserRoleByEmail(string value);
+        void EditAdminProfile1(AdminProfileVM model, int adminId);
+        void EditAdminProfilePw(AdminProfileVM model, int? AspId);
+        void ChangeStopNotificaiton(ProviderInformation vm);
+
         //public StatusWiseCount PatientCount(StatusWiseCount swc);
     }
 }

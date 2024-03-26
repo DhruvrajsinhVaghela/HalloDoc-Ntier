@@ -9,12 +9,16 @@ function myFunction() {
         document.body.setAttribute('data-bs-theme', 'dark');
         document.getElementById('main-div').classList.remove('bg-light');
         document.getElementById('myTabContent').classList.remove('bg-light');
+        document.getElementById('moon').classList.add('d-none');
+        document.getElementById('sun').classList.remove('d-none');
         localStorage.setItem("light", 0);
     }
     else {
         document.body.setAttribute('data-bs-theme', 'light');
         document.getElementById('main-div').classList.add('bg-light');
         document.getElementById('myTabContent').classList.add('bg-light');
+        document.getElementById('moon').classList.remove('d-none');
+        document.getElementById('sun').classList.add('d-none');
         localStorage.setItem("light", 1);
     }
 
@@ -29,11 +33,15 @@ function load() {
         document.body.setAttribute('data-bs-theme', 'dark');
         document.getElementById('main-div').classList.remove('bg-light');
         document.getElementById('myTabContent').classList.remove('bg-light');
+        document.getElementById('moon').classList.add('d-none');
+        document.getElementById('sun').classList.remove('d-none');
     }
     else {
         document.body.setAttribute('data-bs-theme', 'light');
         document.getElementById('main-div').classList.add('bg-light');
         document.getElementById('myTabContent').classList.add('bg-light');
+        document.getElementById('moon').classList.remove('d-none');
+        document.getElementById('sun').classList.add('d-none');
     }
 }
 function toggleFormFields() {

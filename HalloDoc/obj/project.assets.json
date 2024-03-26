@@ -11339,19 +11339,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vaghe\\.nuget\\packages\\": {}
+    "C:\\Users\\pce120\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\HalloDoc.csproj",
+      "projectUniqueName": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\HalloDoc.csproj",
       "projectName": "HalloDoc",
-      "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\HalloDoc.csproj",
-      "packagesPath": "C:\\Users\\vaghe\\.nuget\\packages\\",
-      "outputPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc\\obj\\",
+      "projectPath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\HalloDoc.csproj",
+      "packagesPath": "C:\\Users\\pce120\\.nuget\\packages\\",
+      "outputPath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\vaghe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pce120\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11365,8 +11365,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\project\\HalloDoc-Ntier\\HalloDoc.Service\\HalloDoc.Service.csproj": {
-              "projectPath": "D:\\project\\HalloDoc-Ntier\\HalloDoc.Service\\HalloDoc.Service.csproj"
+            "D:\\Project\\HalloDoc-Ntier\\HalloDoc.Service\\HalloDoc.Service.csproj": {
+              "projectPath": "D:\\Project\\HalloDoc-Ntier\\HalloDoc.Service\\HalloDoc.Service.csproj"
             }
           }
         }
@@ -11441,7 +11441,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },

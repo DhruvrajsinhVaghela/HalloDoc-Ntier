@@ -1,4 +1,5 @@
 ﻿using HalloDoc.DbEntity.Models;
+using HalloDoc.DbEntity.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace HalloDoc.Repositories.Interfaces
@@ -61,5 +62,10 @@ namespace HalloDoc.Repositories.Interfaces
         void UpAdmin(Admin adminData);
         List<Physician> GetPhysicianDataByRegion(int regionId);
         List<string> GetRoleEmail(string value);
+        Admin GetAdminDataByAdminId(int id);
+        List<PhysicianNotification> GetPhysicianListById(ProviderInformation vm);
+        PhysicianNotification GetPhysicianNotification(int phy);
+        void UpdatePhysicianNotification(PhysicianNotification phy);
+        List<PhysicianNotification> GetAllPhysicianNotification();
     }
 }

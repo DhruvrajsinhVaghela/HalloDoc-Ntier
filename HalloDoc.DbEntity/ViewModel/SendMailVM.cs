@@ -13,9 +13,7 @@ namespace HalloDoc.DbEntity.ViewModel
         public int ReqType { get; set; }
         public string? FirstName { get; set; }
         public string? LastName{ get; set; }
-        [Required(ErrorMessage = "Phone Number is required")]
         public string? PhoneNo { get; set; }
-        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; } = null!;
 
        

@@ -19,22 +19,22 @@ namespace HalloDoc.Repositories.Implementation
         {
 
             var JoinAll = _logger.Requests.Include(x => x.RequestClients);
-            var abc = JoinAll.Where(x => x.RequestClients.FirstOrDefault().RequestId != null).Include(x=>x.Physician).ToList();
+            var abc = JoinAll.Where(x => x.RequestClients.FirstOrDefault().RequestId != null).Include(x => x.Physician).ToList();
 
             return abc;
         }
 
         public List<Request> GetPatientData(int id)
         {
-           // var data=_logger.RequestClients.FirstOrDefault(x => x.RequestId == id);
-            var JoinAll = _logger.Requests.Include(x => x.RequestClients).Where(x=>x.RequestClients.FirstOrDefault().RequestId!=null);
+            // var data=_logger.RequestClients.FirstOrDefault(x => x.RequestId == id);
+            var JoinAll = _logger.Requests.Include(x => x.RequestClients).Where(x => x.RequestClients.FirstOrDefault().RequestId != null);
             var abc = JoinAll.Where(x => x.RequestClients.FirstOrDefault().RequestId == id).ToList();
             return abc;
         }
-        
+
         public RequestNote GetNotes(int id)
         {
-            var notes = _logger.RequestNotes.FirstOrDefault(x => x.RequestId == id)??new RequestNote();
+            var notes = _logger.RequestNotes.FirstOrDefault(x => x.RequestId == id) ?? new RequestNote();
             return notes;
         }
 
@@ -69,7 +69,7 @@ namespace HalloDoc.Repositories.Implementation
         }
         public Request GetRequestStatus(int id)
         {
-            var req = _logger.Requests.FirstOrDefault(x => x.RequestId == id)?? new Request();
+            var req = _logger.Requests.FirstOrDefault(x => x.RequestId == id) ?? new Request();
             return req;
         }
 
@@ -81,9 +81,9 @@ namespace HalloDoc.Repositories.Implementation
 
         public RequestNote checkNotes(int id)
         {
-            RequestNote ReqNote=_logger.RequestNotes.FirstOrDefault(x=>x.RequestId==id)??new RequestNote();
+            RequestNote ReqNote = _logger.RequestNotes.FirstOrDefault(x => x.RequestId == id) ?? new RequestNote();
             return ReqNote;
-           
+
         }
 
         public List<Request> GetNotes2(int id)
@@ -91,7 +91,7 @@ namespace HalloDoc.Repositories.Implementation
 
             var JoinAll = _logger.Requests.Include(x => x.RequestNotes).Include(x => x.Physician);
             //var abc = JoinAll.Where(x => x.RequestNotes.FirstOrDefault().RequestId != null).Include(x=>x.Physician);
-            var data=JoinAll.Where(x=>x.RequestId==id).ToList();
+            var data = JoinAll.Where(x => x.RequestId == id).ToList();
             return data;
         }
 
@@ -102,13 +102,13 @@ namespace HalloDoc.Repositories.Implementation
 
         public RequestClient GetDataReqClient(int id)
         {
-            RequestClient reqcl= _logger.RequestClients.FirstOrDefault(c => c.RequestId == id)??new RequestClient();
+            RequestClient reqcl = _logger.RequestClients.FirstOrDefault(c => c.RequestId == id) ?? new RequestClient();
             return reqcl;
         }
 
         public RequestNote GetRequestNotesData(int id)
         {
-            RequestNote reqNote= _logger.RequestNotes.FirstOrDefault(c => c.RequestId == id)??new RequestNote();
+            RequestNote reqNote = _logger.RequestNotes.FirstOrDefault(c => c.RequestId == id) ?? new RequestNote();
             return reqNote;
         }
         public void GetAddStatusLog(RequestStatusLog vm)
@@ -119,29 +119,30 @@ namespace HalloDoc.Repositories.Implementation
 
         public List<Physician> GetPhysicianData()
         {
-            return _logger.Physicians.Include(x=>x.PhysicianNotifications).ToList();          
+            return _logger.Physicians.Include(x => x.PhysicianNotifications).ToList();
         }
         public List<Region> GetAllRegions()
         {
-            return _logger.Regions.ToList()??new List<Region>();
+            return _logger.Regions.ToList() ?? new List<Region>();
         }
         public List<Physician> GetPhysicianByReg(int id)
         {
-            return _logger.Physicians.Where(x => x.RegionId == id).ToList()??new List<Physician>();
+            return _logger.Physicians.Where(x => x.RegionId == id).ToList() ?? new List<Physician>();
         }
 
-        public RequestStatusLog GetStatusLogs(int id) {
-            RequestStatusLog RSL= _logger.RequestStatusLogs.FirstOrDefault(x => x.RequestId == id)??new RequestStatusLog();
+        public RequestStatusLog GetStatusLogs(int id)
+        {
+            RequestStatusLog RSL = _logger.RequestStatusLogs.FirstOrDefault(x => x.RequestId == id) ?? new RequestStatusLog();
             return RSL;
         }
-       public List<RequestStatusLog> GetStatusLogs1(int id)
+        public List<RequestStatusLog> GetStatusLogs1(int id)
         {
-            return _logger.RequestStatusLogs.Where(r=>r.RequestId==id).ToList();
+            return _logger.RequestStatusLogs.Where(r => r.RequestId == id).ToList();
         }
 
         public Physician GetPhysicianDataByID(int? transToPhysicianId)
         {
-            Physician phy= _logger.Physicians.FirstOrDefault(p => p.PhysicianId == transToPhysicianId)?? new Physician();
+            Physician phy = _logger.Physicians.FirstOrDefault(p => p.PhysicianId == transToPhysicianId) ?? new Physician();
             return phy;
         }
 
@@ -151,7 +152,7 @@ namespace HalloDoc.Repositories.Implementation
         }
         public List<RequestWiseFile> GetReqWiseFile(int id)
         {
-            return _logger.RequestWiseFiles.Where(x=>x.RequestId==id).ToList();
+            return _logger.RequestWiseFiles.Where(x => x.RequestId == id).ToList();
         }
 
         public List<User> GetUserData()
@@ -169,7 +170,7 @@ namespace HalloDoc.Repositories.Implementation
         }
         public RequestWiseFile Download(int id)
         {
-            RequestWiseFile RWF= _logger.RequestWiseFiles.Find(id)?? new RequestWiseFile();
+            RequestWiseFile RWF = _logger.RequestWiseFiles.Find(id) ?? new RequestWiseFile();
             return RWF;
         }
 
@@ -178,10 +179,10 @@ namespace HalloDoc.Repositories.Implementation
             _logger.RequestWiseFiles.Update(model);
             _logger.SaveChanges();
         }
-        
+
         public AspNetUser GetAspUserData(string? email)
         {
-            AspNetUser data = _logger.AspNetUsers.FirstOrDefault(u => u.Email == email)?? new AspNetUser();
+            AspNetUser data = _logger.AspNetUsers.FirstOrDefault(u => u.Email == email) ?? new AspNetUser();
             return data;
         }
 
@@ -197,7 +198,7 @@ namespace HalloDoc.Repositories.Implementation
         }
         public RequestWiseFile GetReqWiseFileById(int id)
         {
-            RequestWiseFile RWF= _logger.RequestWiseFiles.FirstOrDefault(x => x.RequestId == id)??new RequestWiseFile();
+            RequestWiseFile RWF = _logger.RequestWiseFiles.FirstOrDefault(x => x.RequestId == id) ?? new RequestWiseFile();
             return RWF;
         }
         public List<HealthProfessional> GetVendorByProfId(int id)
@@ -207,7 +208,7 @@ namespace HalloDoc.Repositories.Implementation
 
         public HealthProfessional GetVendor(int vendorId)
         {
-            HealthProfessional Hp= _logger.HealthProfessionals.FirstOrDefault(x => x.VendorId == vendorId)??new HealthProfessional();
+            HealthProfessional Hp = _logger.HealthProfessionals.FirstOrDefault(x => x.VendorId == vendorId) ?? new HealthProfessional();
             return Hp;
         }
         public void UpdateOrders(OrderDetail x)
@@ -235,25 +236,25 @@ namespace HalloDoc.Repositories.Implementation
         }
         public List<string> GetRole(int? id)
         {
-            List<string> str= _logger.AspNetUsers.Include(x => x.Roles).FirstOrDefault(x => x.Id == id)?.Roles.Select(x => x.Name).ToList()?? new List<string>();
+            List<string> str = _logger.AspNetUsers.Include(x => x.Roles).FirstOrDefault(x => x.Id == id)?.Roles.Select(x => x.Name).ToList() ?? new List<string>();
             return str;
         }
 
         public Admin GetAdminData(int? adminId)
         {
-            Admin Adm=_logger.Admins.FirstOrDefault(x => x.AspNetUserId == adminId)??new Admin();
+            Admin Adm = _logger.Admins.FirstOrDefault(x => x.AspNetUserId == adminId) ?? new Admin();
             return Adm;
         }
 
         public AspNetUser GetAspNetUserData(int? adminId)
         {
-            AspNetUser Asp= _logger.AspNetUsers.FirstOrDefault(x => x.Id == adminId)??new AspNetUser();
+            AspNetUser Asp = _logger.AspNetUsers.FirstOrDefault(x => x.Id == adminId) ?? new AspNetUser();
             return Asp;
         }
 
         List<RequestStatusLog> IAAdmin.GetStatusLogs(int id)
         {
-            return _logger.RequestStatusLogs.Where(x=>x.RequestId==id).ToList();
+            return _logger.RequestStatusLogs.Where(x => x.RequestId == id).ToList();
         }
 
         public void updateadmintbl(Admin a)
@@ -263,16 +264,16 @@ namespace HalloDoc.Repositories.Implementation
         }
         public List<AdminRegion> GetAdminRegion(int? adminId)
         {
-            return _logger.AdminRegions.Where(x=>x.AdminId==adminId).ToList();
+            return _logger.AdminRegions.Where(x => x.AdminId == adminId).ToList();
         }
         public Region GetRegionById(int? regionId)
         {
-            return _logger.Regions.FirstOrDefault(x => x.RegionId == regionId)??new Region();
+            return _logger.Regions.FirstOrDefault(x => x.RegionId == regionId) ?? new Region();
         }
 
         public Admin GetAdminDataById(int id)
         {
-            return _logger.Admins.FirstOrDefault(x => x.AspNetUserId == id)??new Admin();
+            return _logger.Admins.FirstOrDefault(x => x.AspNetUserId == id) ?? new Admin();
         }
 
         public void AddAdminRegion(AdminRegion adds)
@@ -283,14 +284,14 @@ namespace HalloDoc.Repositories.Implementation
 
         public void RemoveAdminRegion(AdminRegion removes)
         {
-            var data=_logger.AdminRegions.FirstOrDefault(x=>x.AdminId == removes.AdminId && x.RegionId==removes.RegionId);
+            var data = _logger.AdminRegions.FirstOrDefault(x => x.AdminId == removes.AdminId && x.RegionId == removes.RegionId);
             _logger.AdminRegions.Remove(data);
             _logger.SaveChanges();
         }
 
         public void UpAdmin(Admin adminData)
         {
-            _logger.Admins.Add(adminData);
+            _logger.Admins.Update(adminData);
             _logger.SaveChanges();
         }
 
@@ -318,6 +319,38 @@ namespace HalloDoc.Repositories.Implementation
         {
             List<string> str = _logger.AspNetUsers.Include(x => x.Roles).FirstOrDefault(x => x.Email == value)?.Roles.Select(x => x.Name).ToList() ?? new List<string>();
             return str;
+        }
+
+        public Admin GetAdminDataByAdminId(int id)
+        {
+            return _logger.Admins.FirstOrDefault(x => x.AdminId == id) ?? new Admin();
+
+        }
+
+        public List<PhysicianNotification> GetPhysicianListById(ProviderInformation vm)
+        {
+            List<PhysicianNotification> physiciansList = new();
+            foreach (var item in vm.IsChecked)
+            {
+                physiciansList.Add(_logger.PhysicianNotifications.FirstOrDefault(x => x.PhysicianId == item)??new());
+            }
+            return physiciansList;
+        }
+
+        public PhysicianNotification GetPhysicianNotification(int phy)
+        {
+            return _logger.PhysicianNotifications.FirstOrDefault(x => x.PhysicianId == phy)??new();
+        }
+
+        public void UpdatePhysicianNotification(PhysicianNotification phy)
+        {
+            _logger.PhysicianNotifications.Update(phy);
+            _logger.SaveChanges();
+        }
+
+        public List<PhysicianNotification> GetAllPhysicianNotification()
+        {
+            return _logger.PhysicianNotifications.ToList();
         }
     }
 }

@@ -498,7 +498,6 @@ D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\HalloDoc.csproj.CoreCompileI
 D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\HalloDoc.MvcApplicationPartsAssemblyInfo.cache
 D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\HalloDoc.RazorAssemblyInfo.cache
 D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\HalloDoc.RazorAssemblyInfo.cs
-D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\HalloDoc.sourcelink.json
 D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\staticwebassets.build.json
 D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\staticwebassets.development.json
 D:\project\HalloDoc-Ntier\HalloDoc\obj\Debug\net7.0\staticwebassets\msbuild.HalloDoc.Microsoft.AspNetCore.StaticWebAssets.props

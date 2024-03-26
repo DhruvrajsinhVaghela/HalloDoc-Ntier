@@ -10,6 +10,8 @@ namespace HalloDoc.DbEntity.ViewModel
     public class ProviderInformation
     {
         public List<Region>? RegionList { get; set; }
+        public int? ProviderId { get; set; }
+        public List<int>? IsChecked { get; set; }
 
         public string? FirstName { get; set; }
 

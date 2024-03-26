@@ -27,13 +27,13 @@ namespace HalloDoc.Controllers
         }
 
         //Admin Login----------------------------------------
-        [HttpGet("login/admin")]
+        [HttpGet]
         public IActionResult AdminLogin()
         {
             return View();
         }
 
-        [HttpPost("login/admin")]
+        [HttpPost]
         public IActionResult AdminLogin(AspNetUser aspNetUser)
         {
             if (ModelState.IsValid)
@@ -142,8 +142,8 @@ namespace HalloDoc.Controllers
                 var receiver = preq.Email ?? "";
                 var token = _token.GenerateJwtToken(aspdata);
                 var id=aspdata.Id;
-                var subject = "Create Account";
-                var message = "Tap on link for change your Password: http://localhost:5093/Login/PatientChangePassword?token=" + token+"&id="+id;
+                var subject = "Forget Password";
+                var message = "Tap on link for change your Password: http://localhost:5093/login/site/patient/change-password?token=" + token+"&id="+id;
 
 
                 var mail = "tatva.dotnet.dhruvrajsinhvaghela@outlook.com";
@@ -163,8 +163,8 @@ namespace HalloDoc.Controllers
 
                 // Accessing the email claim
                 var emailClaim = tokenS.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
-                var role = _Aservice.GetUserRoleByEmail(emailClaim.Value);
-                if (emailClaim != null && role[0] =="admin")
+                var role = _Aservice.GetUserRoleByEmail(emailClaim?.Value??"");
+                if (emailClaim != null && role[0] =="Admin")
                 {
                     return RedirectToAction(nameof(AdminLogin));
                 }
@@ -197,11 +197,15 @@ namespace HalloDoc.Controllers
             }
             return NotFound();
         }
-        [HttpGet("patient/create-account")]
+
+
+
+        [HttpGet]
         public IActionResult PatientCreateAccount()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult CreateAccount(ResetPwVM RP)
         {

@@ -4,9 +4,10 @@
     "\\HalloDoc",
     "\\HalloDoc.Service",
     "\\HalloDoc.Service\\Implementation",
+    "\\HalloDoc\\Controllers",
     "\\HalloDoc\\Views",
     "\\HalloDoc\\Views\\Admin"
   ],
-  "SelectedNode": "\\HalloDoc.Service\\Implementation\\JwtToken.cs",
+  "SelectedNode": "\\HalloDoc\\Controllers\\LoginController.cs",
   "PreviewInSolutionExplorer": false
 }

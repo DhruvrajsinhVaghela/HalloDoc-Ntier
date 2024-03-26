@@ -10,6 +10,7 @@ using System.Web.Helpers;
 using System.Dynamic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HalloDoc.services.Implementation
 {
@@ -72,8 +73,15 @@ namespace HalloDoc.services.Implementation
                 {10,7}
             };
 
-            var x = _repo.GetAdminDashboardData().Where(x => dictonary[x.Status] == status).ToList();
-
+            var x = _repo.GetAdminDashboardData();
+            if (status != 0)
+            {
+                x = x.Where(x => dictonary[x.Status] == status).ToList();
+            }
+            else
+            {
+                x = x.ToList();
+            }
             if (id != 0)
             {
                 x = x.Where(x => x.RequestType == id).ToList();
@@ -463,7 +471,6 @@ namespace HalloDoc.services.Implementation
         public List<RequestWiseFile> DownloadAll(int id)
         {
             return _repo.DownloadAll(id);
-
         }
 
 
@@ -639,7 +646,7 @@ namespace HalloDoc.services.Implementation
             var req = _repo.GetRequestStatus(id);
             var reqWise = _repo.GetReqWiseFile(id);
             DateOnly date = DateOnly.FromDateTime(DateTime.Now);
-            if(reqCl.RequestId!=0)
+            if (reqCl.RequestId != 0)
             {
                 date = new(reqCl.IntYear!.Value, DateOnly.ParseExact(reqCl.StrMonth!, "MMMM", CultureInfo.InvariantCulture).Month, reqCl.IntDate!.Value);
 
@@ -698,43 +705,7 @@ namespace HalloDoc.services.Implementation
             return true;
         }
 
-        public object AdminProfileData(int? aspId, int? adminId)
-        {
-            Admin data = _repo.GetAdminData(aspId);
-            AspNetUser aspData = _repo.GetAspNetUserData(aspId);
-            List<string> role = _repo.GetRole(aspData.Id);
-            List<AdminRegion> adminRegion = _repo.GetAdminRegion(adminId);
 
-            List<Region> reg = new();
-            foreach (var item in adminRegion)
-            {
-                Region region = _repo.GetRegionById(item.RegionId);
-                if (region != null)
-                {
-                    reg.Add(region);
-                }
-            }
-
-            AdminProfileVM vm = new()
-            {
-                AdminId = adminId,
-                UserName = aspData.UserName,
-                Roll = role[0],
-                Status = data.Status,
-                FirstName = data.FirstName,
-                LastName = data.LastName,
-                Email = data.Email,
-                Address1 = data.Address1,
-                Address2 = data.Address2,
-                City = data.City,
-                PhoneNo = data.Mobile,
-                ZipCode = data.Zip,
-                AltPhone = data.AltPhone,
-                RegionList = _repo.GetAllRegions(),
-                AdminRegList = reg
-            };
-            return vm;
-        }
 
         public AspNetUser AspUserData(string email)
         {
@@ -897,10 +868,49 @@ namespace HalloDoc.services.Implementation
             return dashboard;
 
         }
+
+        public object AdminProfileData(int? aspId, int? adminId)
+        {
+            Admin data = _repo.GetAdminData(aspId);
+            AspNetUser aspData = _repo.GetAspNetUserData(aspId);
+            List<string> role = _repo.GetRole(aspData.Id);
+            List<AdminRegion> adminRegion = _repo.GetAdminRegion(adminId);
+
+            List<Region> reg = new();
+            foreach (var item in adminRegion)
+            {
+                Region region = _repo.GetRegionById(item.RegionId);
+                if (region != null)
+                {
+                    reg.Add(region);
+                }
+            }
+
+            AdminProfileVM vm = new()
+            {
+                AdminId = adminId,
+                UserName = aspData.UserName,
+                Roll = role[0],
+                Status = data.Status,
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                Email = data.Email,
+                Address1 = data.Address1,
+                Address2 = data.Address2,
+                City = data.City,
+                PhoneNo = data.Mobile,
+                ZipCode = data.Zip,
+                AltPhone = data.AltPhone,
+                RegionList = _repo.GetAllRegions(),
+                AdminRegList = reg
+            };
+            return vm;
+        }
+
         public void EditAdminProfile(AdminProfileVM model, int id)
         {
 
-            Admin adminData = _repo.GetAdminDataById(id)
+            Admin adminData = _repo.GetAdminDataByAdminId(id)
 ;
             AspNetUser aspnetuser = _repo.GetAspNetUserData(adminData.AspNetUserId);
             List<AdminRegion> regions = _repo.GetAdminRegion(id)
@@ -946,6 +956,52 @@ namespace HalloDoc.services.Implementation
 
         }
 
+        public void EditAdminProfile1(AdminProfileVM model, int adminId)
+        {
+            Admin adminData = _repo.GetAdminDataByAdminId(adminId)
+;
+            //AspNetUser aspnetuser = _repo.GetAspNetUserData(adminData.AspNetUserId);
+            //List<AdminRegion> regions = _repo.GetAdminRegion(adminId)
+            ;
+
+            //List<int> AddRegion = new();
+
+            /*foreach (var region in regions)
+            {
+                AddRegion.Add(region.RegionId);
+            }*/
+
+            /*if (model.SelectedRegions != null)
+            {
+                List<int> AddAminRegion = model.SelectedRegions.Except(AddRegion).ToList();
+                List<int> RemoveAminRegion = AddRegion.Except(model.SelectedRegions).ToList();
+
+                foreach (var region in AddAminRegion)
+                {
+                    AdminRegion adds = new() { AdminId = adminId, RegionId = region };
+                    _repo.AddAdminRegion(adds);
+                }
+
+                foreach (var region in RemoveAminRegion)
+                {
+                    AdminRegion removes = new() { AdminId = adminId, RegionId = region };
+                    _repo.RemoveAdminRegion(removes);
+                }
+
+            }*/
+            adminData.Address1 = model.Address1 ?? "";
+            adminData.Address2 = model.Address2;
+            adminData.City = model.City ?? "";
+            adminData.Zip = model.ZipCode;
+            adminData.ModifiedDate = DateTime.Now;
+            adminData.AltPhone = model.AltPhone;
+            //adminData.ModifiedBy = model.AspId;
+            _repo.UpAdmin(adminData);
+
+
+        }
+
+
         public Admin GetAdminDataById(int id)
         {
             Admin data = _repo.GetAdminDataById(id);
@@ -978,7 +1034,8 @@ namespace HalloDoc.services.Implementation
             {
                 ProviderInformation providerInfo = new()
                 {
-                    FirstName = item.FirstName // Set the FirstName property
+                    FirstName = item.FirstName, // Set the FirstName property
+                    ProviderId = item.PhysicianId
                 };
                 if (item.PhysicianNotifications != null && item.PhysicianNotifications.Any())
                 {
@@ -1021,6 +1078,34 @@ namespace HalloDoc.services.Implementation
             return data;
         }
 
+        public void EditAdminProfilePw(AdminProfileVM model, int? AspId)
+        {
+            AspNetUser adminData = _repo.GetAspNetUserData(AspId);
+            adminData.PasswordHash = Crypto.HashPassword(model.Password);
+            _repo.GetUpAspUser(adminData);
+
+        }
+
+        public void ChangeStopNotificaiton(ProviderInformation vm)
+        {
+            List<PhysicianNotification> data = _repo.GetPhysicianListById(vm);
+            List<PhysicianNotification> allData = _repo.GetAllPhysicianNotification();
+            foreach (var phy in allData)
+            {
+                if (data.Contains(phy))
+                {
+                    phy.IsNotificationStopped = true;
+                    _repo.UpdatePhysicianNotification(phy);
+                }
+                else
+                {
+                    phy.IsNotificationStopped = false;
+                    _repo.UpdatePhysicianNotification(phy);
+                }
+
+            }
+
+        }
     }
 
 
