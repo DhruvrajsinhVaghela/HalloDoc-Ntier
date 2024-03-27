@@ -4,18 +4,26 @@
     Layout = "~/Views/Shared/_layoutAdmin.cshtml";
 
 }
+
+@*-----------------for toastr *@
 @if (TempData["message"] != null)
 {
     <script src="/lib/jquery/dist/jquery.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" />
+    <style type="text/css">
+        #toast-container > div {
+            opacity: 1 !important;
+        }
+    </style>
     <script type="text/javascript">
         toastr.success("@TempData["message"]");
     </script>
 }
+@*-----------------for toastr *@
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="vh-100 d-flex flex-column">
-    <partial name="_AdminHeaderDashboard" />
     <div class="" id="main-div">
     </div>
 </div>
@@ -43,11 +51,13 @@
         var light = localStorage.getItem("light");
         if (light == 0) {
             document.body.setAttribute('data-bs-theme', 'dark');
-
+            document.getElementById('moon').classList.add('d-none');
+            document.getElementById('sun').classList.remove('d-none');
         }
         else {
             document.body.setAttribute('data-bs-theme', 'light');
-
+            document.getElementById('moon').classList.remove('d-none');
+            document.getElementById('sun').classList.add('d-none');
         }
 
 
@@ -60,31 +70,4 @@
         }
 
     }
-
-    function tab(val) {
-        if (val == 4) {
-            document.getElementById('Providers-tab').classList.add('active');
-            const element = document.getElementsByClassName('text-muted');
-            for (var i = 0; i < element.length; i++) {
-                element[i].classList.remove('active');
-            }
-        }
-        else {
-            document.getElementById('Providers-tab').classList.remove('active');
-
-        }
-        $.ajax({
-            url: '/Admin/NavTabs',
-            method: 'GET',
-            data: { nav: val },
-
-            success: function (response) {
-                $('#main-div').html(response);
-            },
-            error: function (error) {
-                console.log(error);
-                console.error('Error in AJAX', error);
-            }
-        });
-    };
 </script>

@@ -115,3 +115,64 @@ const getFileData = (myFile) => {
     }
     document.getElementById("form-label").innerHTML = `${master}`;
 }
+const getFileDataProvider1 = (myFile) => {
+    names = myFile.files;
+    let master = "";
+    for (i = 0; i < names.length; i++) {
+        master = master + "  " + names[i].name;
+    }
+    document.getElementById("form-label-1").innerHTML = `${master}`;
+
+    if (document.getElementById('FileCheck1').files.length > 0)
+    {
+        document.getElementById('CheckBox1').checked = true;
+    }
+    else {
+        document.getElementById('CheckBox1').checked = false;
+    }
+}
+const getFileDataProvider2 = (myFile) => {
+    names = myFile.files;
+    let master = "";
+    for (i = 0; i < names.length; i++) {
+        master = master + "  " + names[i].name;
+    }
+    document.getElementById("form-label-2").innerHTML = `${master}`;
+
+    if (document.getElementById('FileCheck2').files.length > 0) {
+        document.getElementById('CheckBox2').checked = true;
+    }
+    else {
+        document.getElementById('CheckBox2').checked = false;
+    }
+}
+const getFileDataProvider3 = (myFile) => {
+    names = myFile.files;
+    let master = "";
+    for (i = 0; i < names.length; i++) {
+        master = master + "  " + names[i].name;
+    }
+    document.getElementById("form-label-3").innerHTML = `${master}`;
+
+    if (document.getElementById('FileCheck3').files.length > 0) {
+        document.getElementById('CheckBox3').checked = true;
+    }
+    else {
+        document.getElementById('CheckBox3').checked = false;
+    }
+}
+const getFileDataProvider4 = (myFile) => {
+    names = myFile.files;
+    let master = "";
+    for (i = 0; i < names.length; i++) {
+        master = master + "  " + names[i].name;
+    }
+    document.getElementById("form-label-4").innerHTML = `${master}`;
+
+    if (document.getElementById('FileCheck4').files.length > 0) {
+        document.getElementById('CheckBox4').checked = true;
+    }
+    else {
+        document.getElementById('CheckBox4').checked = false;
+    }
+}

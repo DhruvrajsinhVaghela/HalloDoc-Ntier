@@ -1,0 +1,307 @@
+﻿@model HalloDoc.DbEntity.ViewModel.ProviderCreateAccountVM;
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_layoutAdmin";
+    ViewBag.cssLink = "AdminDashboard.css";
+}
+
+<div class="row d-flex justify-content-center">
+
+    <div class="col-lg-8 mb-5">
+        <div class="d-flex justify-content-between mt-4 mb-2">
+            <h3>Create Physician Account</h3>
+            <a class="btn btn-outline-info go-back-button">
+                &lt; Back
+            </a>
+        </div>
+
+        <form asp-action="CreateProviderAccount" enctype="multipart/form-data" method="post" class="p-3 shadow-lg rounded border-white border" id="form">
+            <div class="row my-3">
+                <h4 class="fw-bold">Account Information</h4>
+
+                <div class="col-lg-4 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="UserName" class="form-control" id="username" placeholder="User Name" readonly>
+                        <label for="username">User Name</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-margin">
+                    <div class="form-floating">
+                        <input type="password" asp-for="Password" class="form-control" id="pwd" placeholder="Password">
+                        <label for="pwd">Password</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-margin">
+                    <select asp-for="SelectedRole" class="form-select h-100" id="role" aria-label="Default select example">
+                        <option value="0" name="SelectedRole" selected>Select Role</option>
+                        @{
+                            foreach(var item in Model.PhysicianRoleList)
+                            {
+                                                    <option value="@item.RoleId" name="SelectedRole">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="row my-4">
+                <h4 class="fw-bold">Administrator Information</h4>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="FirstName" class="form-control" id="fname" placeholder="First Name" onblur="getusername()">
+                        <label for="fname">First Name</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="LastName" class="form-control" id="lname" placeholder="Last Name" onblur="getusername()">
+                        <label for="lname">Last Name</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="email" asp-for="Email" class="form-control" id="email" placeholder="Email">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating h-100">
+                        <input type="tel" asp-for="Phone" class="form-control" id="patient_phone"
+                               placeholder="Contact Number">
+                        <label for="patient_phone" hidden>Contact Number</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="License" class="form-control" id="license" placeholder="Medical License #">
+                        <label for="license">Medical License #</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="NpiNum" class="form-control" id="npi" placeholder="NPI Number">
+                        <label for="npi">NPI Number</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin p-2">
+                    @if (Model.RegionList != null)
+                    {
+                        @foreach (var reg in Model.RegionList)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input checkbox" id="check" type="checkbox" name="SelectedRegions" value="@reg.RegionId">
+                                <label class="form-check-label text6" for="inlineCheckbox1">@reg.Name</label>
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+
+            <div class="row my-4">
+                <h4 class="fw-bold">Mailing & Billing Information</h4>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="Address1" class="form-control" id="Address1" placeholder="Address1">
+                        <label for="Address1">Address1</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="Address2" class="form-control" id="Address2" placeholder="Address2">
+                        <label for="Address2">Address2</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="City" class="form-control" id="city" placeholder="City">
+                        <label for="city">City</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="State" class="form-control" id="state" placeholder="State">
+                        <label for="state">State</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="number" asp-for="Zip" class="form-control" id="zip" placeholder="Zip Code">
+                        <label for="zip">Zip Code</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating h-100">
+                        <input type="tel" asp-for="MailNumber" class="form-control h-100 toggle1" id="patient_phone"
+                               placeholder="Contact Number">
+                        <label for="patient_phone" hidden>Contact Number</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-4">
+                <h4 class="fw-bold">Provider Profile</h4>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="BusinessName" class="form-control" id="bname" placeholder="Business Name">
+                        <label for="bname">Business Name</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div class="form-floating">
+                        <input type="text" asp-for="BusinessSite" class="form-control" id="bweb" placeholder="Business Website">
+                        <label for="bweb">Business Website</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-margin">
+                    <div>
+                        <label for="fileinput" class="selectfile  rounded d-flex justify-content-between">
+                            <p class="m-2" id="form-label">Select File</p>
+                            <input type="file" asp-for="Photo" name="Photo"  onchange="getFileData(this)" multiple="multiple" id="fileinput" style="display: none;">
+                            <div class="upload-btn p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                    <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                </svg>
+                                Upload
+                            </div>
+                        </label>
+                    </div>
+                    @* <input name="Photo" asp-for="Photo" value="@Model.Photo" multiple="multiple" onchange="getFileData(this)" type="file" id="inputField" style="display:none; width: 100%;"> *@
+                </div>
+
+                <div class="col-lg-12 col-margin">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Admin Notes" asp-for="AdminNotes"
+                                  id="adminnote" style="height:100px"></textarea>
+                        <label for="adminnote">Admin Notes</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3 border-top border-bottom py-2">
+                <h4 class="fw-bold">Onboarding</h4>
+
+                <div class="d-flex justify-content-between align-items-center col-margin">
+                    <input type="checkbox" id="CheckBox1" />
+                    <span class="fs-5"> Independent Contractor Agreement</span>
+                    @*  <input type="file"  asp-for="ContractorAgreement" name="ContractorAgreement" id="fileUpload" accept=".jpg,.jpeg,.png"> *@
+                    <div class="w-50">
+                        <label class="  border-info border rounded d-flex justify-content-between">
+                            <input type="file" asp-for="ContractorAgreement" name="ContractorAgreement" id="FileCheck1" onchange="getFileDataProvider1(this)" multiple="multiple" style="display: none;" accept=".jpg,.jpeg,.png">
+                            <div class="upload-btn-provider p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                    <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                </svg>
+                                Upload
+                            </div>
+                            <p class="m-auto small-name" id="form-label-1">Select File</p>
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <div class="d-flex justify-content-between align-items-center col-margin">
+                    <input type="checkbox" id="CheckBox2" />
+                    <span class="fs-5"> Background Check</span>
+                    @* <input type="file" asp-for="BackgroundCheck" name="BackgroundCheck" id="fileUpload" accept=".jpg,.jpeg,.png"> *@
+                    <div class="w-50">
+                        <label class="  border-info border rounded d-flex justify-content-between">
+                            <input type="file" asp-for="BackgroundCheck" name="BackgroundCheck" id="FileCheck2" onchange="getFileDataProvider2(this)" multiple="multiple" style="display: none;" accept=".jpg,.jpeg,.png">
+                            <div class="upload-btn-provider p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                    <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                </svg>
+                                Upload
+                            </div>
+                            <div class="m-auto small-name" id="form-label-2">Select File</div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center col-margin">
+                    <input type="checkbox" id="CheckBox3" />
+                    <span class="fs-5"> HIPAA Compliance</span>
+                    @* <input type="file" asp-for="HipaaCompliance" name="HipaaCompliance" id="fileUpload" accept=".jpg,.jpeg,.png"> *@
+                    <div class="w-50">
+                        <label class=" border-info border  rounded d-flex justify-content-between">
+                            <input type="file" asp-for="HipaaCompliance" name="HipaaCompliance" id="FileCheck3" onchange="getFileDataProvider3(this)" multiple="multiple" style="display: none;" accept=".jpg,.jpeg,.png">
+                            <div class="upload-btn-provider p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                    <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                </svg>
+                                Upload
+                            </div>
+                            <p class="m-auto small-name" id="form-label-3">Select File</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center col-margin">
+                    <input type="checkbox" id="CheckBox4"/>
+                    <span class="fs-5"> Non-disclosure Agreement</span>
+                    @* <input type="file" asp-for="NonDisclosureAgreement" name="NonDisclosureAgreement" id="fileUpload" accept=".jpg,.jpeg,.png"> *@
+                    <div class="w-50">
+                        <label class=" border-info border rounded d-flex justify-content-between">
+                            <input type="file" asp-for="NonDisclosureAgreement" name="NonDisclosureAgreement" id="FileCheck4" onchange="getFileDataProvider4(this)" multiple="multiple" style="display: none;" accept=".jpg,.jpeg,.png">
+                            <div class="upload-btn-provider p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                    <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                </svg>
+                                Upload
+                            </div>
+                            <p class="m-auto small-name" id="form-label-4">Select File</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex al justify-content-end mt-3 mb-4">
+                <button type="submit" class="btn btn-success text-white mx-3">Create Account</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+    function getusername() { 
+        var username = document.getElementById('username')
+        var firstname = document.getElementById('fname').value;
+        var lastname = document.getElementById('lname').value;
+        
+        username.value = firstname+lastname;
+    }
+</script>

@@ -7,10 +7,7 @@
 
 <div>
 
-    <partial name="_AdminHeaderDashboard" />
-    
         <div class="container-fluid ">
-
             <div>
                 <div class="row main-row  d-flex justify-content-center ">
 
@@ -101,57 +98,3 @@
         </div>
 
 </div>
-<script>
-    const load = () => {
-        consol.log("hello");
-        const phoneInputField = document.getElementsByClassName("phone");
-        for (let i = 0; i < phoneInputField.length; ++i) {
-            const phoneInput = window.intlTelInput(phoneInputField[i], {
-                utilsScript:
-                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            });
-        }
-
-    }
-    var light = 0;
-    function DarkMode() {
-        if (light == 1) {
-            document.body.setAttribute('data-bs-theme', 'dark');
-       
-            light = 0;
-            return;
-        }
-        {
-            document.body.setAttribute('data-bs-theme', 'light');
-
-            light = 1;
-        }
-
-    }
-
-    const getFileData = (myFile) => {
-        names = myFile.files;
-        let master = "";
-        for (i = 0; i < names.length; i++) {
-            master = master + "  " + names[i].name;
-        }
-        document.getElementById("form-label").innerHTML = `${master}`;
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        // Find all elements with the class "go-back-button"
-        var goBackButtons = document.querySelectorAll('.go-back-button');
-
-        // Attach click event listener to each button
-        goBackButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                window.history.back();
-            });
-        });
-    });
-
-
-
-
-
-</script>

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor Accessor
+@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,8 +18,188 @@
 </head>
 <body onload="load()">
 
+    <nav class="navbar bg-body-tertiary shadow px-2 py-0">
+        <div class="container-fluid">
+            <div>
+                <button type="button" class="border-1 rounded-2 bg-transparent border-info d-inline-block  d-sm-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" asp-controller="Admin" asp-action="AdminDashboard">
+                    <img src="\images\Fig56._Patient_site_1.png" alt="logo" height="60px">
+                </a>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="d-none d-sm-inline-block ms-2 mt-3">
+                    <p>Welcome <strong>@Accessor.HttpContext.Session.GetString("User'sName")</strong></p>
+                </div>
+                <div class="ms-2">
+                    <a asp-controller="Login" asp-action="AdminLogout"
+                       class="border border-info px-2 py-1 rounded-2 text-info">
+                        <span class="d-none d-sm-inline-block ">Logout</span>
+                        <span class="d-inline-block d-sm-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+                <div class="ms-2">
+                    <button id="darkmode-btn" onclick="DarkMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon text-info" id="moon" viewBox="0 0 16 16">
+                            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high text-info" id="sun" viewBox="0 0 16 16">
+                            <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="collapse show d-sm-block w-100" id="navbarToggleExternalContent">
+            <div class="d-sm-block d-none">
+                <hr class="w-100 m-0">
+                <ul class="nav nav-underline" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation" onclick="tab(1)">
+                        <button class="nav-link text-muted active" id="home-tab" data-bs-toggle="tab"
+                                data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                                aria-selected="true">
+                            Dashboard
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation" onclick="tab(2)">
+                        <button class="nav-link text-muted" id="provider-location-tab" data-bs-toggle="tab"
+                                data-bs-target="#provider-location-tab-pane" type="button" role="tab"
+                                aria-controls="provider-location-tab-pane" aria-selected="false">
+                            Provider Location
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation" onclick="tab(3)">
+                        <button class="nav-link text-muted" id="profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                aria-controls="profile-tab-pane" aria-selected="false">
+                            My Profile
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <div class="dropdown">
+                            <button class="nav-link dropdown-toggle" id="Providers-tab" data-bs-toggle="dropdown"
+                                    data-bs-target="#Providers-tab-pane" type="button" role="tab"
+                                    aria-controls="Providers-tab-pane" aria-selected="false">
+                                <span class="text-muted">Providers</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" data-bs-toggel="tab" onclick="tab(4)" href="#">Provider</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    @*
+                    <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    </div> *@
 
-    @RenderBody()
+
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-muted" id="partners-tab" data-bs-toggle="tab"
+                                data-bs-target="#partners-tab-pane" type="button" role="tab"
+                                aria-controls="partners-tab-pane" aria-selected="false">
+                            Partners
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-muted" id="access-tab" data-bs-toggle="tab"
+                                data-bs-target="#access-tab-pane" type="button" role="tab"
+                                aria-controls="access-tab-pane" aria-selected="false">
+                            Access
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-muted" id="records-tab" data-bs-toggle="tab"
+                                data-bs-target="#records-tab-pane" type="button" role="tab"
+                                aria-controls="records-tab-pane" aria-selected="false">
+                            Records
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <p class="mt-1 me-3">
+                        welcome
+                        <strong>@Accessor.HttpContext.Session.GetString("User'sName")</strong>
+                    </p>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="nav nav-underline  d-flex flex-column" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation" onclick="tab(1)">
+                            <button class="nav-link active text-muted" id="home-tab" data-bs-toggle="tab"
+                                    data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                                    aria-selected="true">
+                                Dashboard
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation" onclick="tab(2)">
+                            <button class="nav-link text-muted" id="provider-location-tab" data-bs-toggle="tab"
+                                    data-bs-target="#provider-location-tab-pane" type="button" role="tab"
+                                    aria-controls="provider-location-tab-pane" aria-selected="false">
+                                Provider Location
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation" onclick="tab(3)">
+                            <button class="nav-link text-muted" id="profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                    aria-controls="profile-tab-pane" aria-selected="false">
+                                My Profile
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link text-muted" id="Providers-tab" data-bs-toggle="tab"
+                                    data-bs-target="#Providers-tab-pane" type="button" role="tab"
+                                    aria-controls="Providers-tab-pane" aria-selected="false">
+                                Providers
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link text-muted" id="partners-tab" data-bs-toggle="tab"
+                                    data-bs-target="#partners-tab-pane" type="button" role="tab"
+                                    aria-controls="partners-tab-pane" aria-selected="false">
+                                Partners
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link text-muted" id="access-tab" data-bs-toggle="tab"
+                                    data-bs-target="#access-tab-pane" type="button" role="tab"
+                                    aria-controls="access-tab-pane" aria-selected="false">
+                                Access
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link text-muted" id="records-tab" data-bs-toggle="tab"
+                                    data-bs-target="#records-tab-pane" type="button" role="tab"
+                                    aria-controls="records-tab-pane" aria-selected="false">
+                                Records
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="main-div">
+        @RenderBody()
+    </div>
     <div id="footer">
         <div class="h-25">
         </div>
@@ -31,4 +214,62 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
+<script>
+    
+
+    function tab(val) {
+        if (val == 4) {
+            document.getElementById('Providers-tab').classList.add('active');
+            const element = document.getElementsByClassName('text-muted');
+            for (var i = 0; i < element.length; i++) {
+                element[i].classList.remove('active');
+            }
+        }
+        else {
+            document.getElementById('Providers-tab').classList.remove('active');
+
+        }
+        $.ajax({
+            url: '/Admin/NavTabs',
+            method: 'GET',
+            data: { nav: val },
+
+            success: function (response) {
+                $('#main-div').html(response);
+            },
+            error: function (error) {
+                console.log(error);
+                console.error('Error in AJAX', error);
+            }
+        });
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+        // Find all elements with the class "go-back-button"
+        var goBackButtons = document.querySelectorAll('.go-back-button');
+
+        // Attach click event listener to each button
+        goBackButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                window.history.back();
+            });
+        });
+    });
+    function DarkMode() {
+        var light = localStorage.getItem("light");
+        console.log(light);
+        if (light == 1) {
+            document.body.setAttribute('data-bs-theme', 'dark');
+            document.getElementById('moon').classList.add('d-none');
+            document.getElementById('sun').classList.remove('d-none');
+            localStorage.setItem("light", 0);
+        }
+        else {
+            document.body.setAttribute('data-bs-theme', 'light');
+            document.getElementById('moon').classList.remove('d-none');
+            document.getElementById('sun').classList.add('d-none');
+            localStorage.setItem("light", 1);
+        }
+
+    }
+</script>
 </html>

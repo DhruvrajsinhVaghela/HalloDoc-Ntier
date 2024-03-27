@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace HalloDoc.DbEntity.Models;
@@ -11,12 +10,9 @@ public partial class AspNetUser
 
     public string? UserName { get; set; }
 
-    [Required(ErrorMessage = "Password is required")]
-    public string PasswordHash { get; set; } = null!;
+    public string? PasswordHash { get; set; }
 
-    [Required(ErrorMessage = "Email is required")]
-    [RegularExpression("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(?:\\.[a-zA-Z]{2,})?$", ErrorMessage = "Invalid email address")]
-    public string Email { get; set; } = null!;
+    public string? Email { get; set; }
 
     public string? PhoneNumber { get; set; }
 
@@ -49,6 +45,10 @@ public partial class AspNetUser
     public virtual ICollection<RequestNote> RequestNoteCreatedByNavigations { get; set; } = new List<RequestNote>();
 
     public virtual ICollection<RequestNote> RequestNoteModifiedByNavigations { get; set; } = new List<RequestNote>();
+
+    public virtual ICollection<Role> RoleCreatedByNavigations { get; set; } = new List<Role>();
+
+    public virtual ICollection<Role> RoleModifiedByNavigations { get; set; } = new List<Role>();
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 

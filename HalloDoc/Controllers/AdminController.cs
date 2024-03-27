@@ -418,7 +418,7 @@ namespace HalloDoc.Controllers
         {
             try
             {
-                List<AdminDashboardVM> data = _service.GetFilteredData(Keyword, Regionid, status, ReqType,0,0);
+                List<AdminDashboardVM> data = _service.GetFilteredData(Keyword, Regionid, status, ReqType, 0, 0);
                 var workbook = new XLWorkbook();
                 var worksheet = workbook.Worksheets.Add("Data");
 
@@ -685,5 +685,67 @@ namespace HalloDoc.Controllers
             _service.ChangeStopNotificaiton(vm);
             return RedirectToAction("AdminDashboard");
         }
+
+        public IActionResult ProviderContact(int id)
+        {
+            ContactProviderVM vm = new()
+            {
+                ProviderId = id
+            };
+            return PartialView("_ContactProvider", vm);
+        }
+
+        public IActionResult SendProvider(ContactProviderVM vm, int id)
+        {
+            if (vm.ContactType == "Email")
+            {
+                bool sendMail = _service.SendEmailToProvider(vm, id);
+                if (sendMail)
+                {
+                    return RedirectToAction("AdminDashboard");
+                }
+            }
+            else if (vm.ContactType == "SMS")
+            {
+
+            }
+            else if (vm.ContactType == "Both")
+            {
+
+            }
+            else
+            {
+
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
+        public IActionResult CreateProviderAccount()
+        {
+
+            ProviderCreateAccountVM data = _service.GetPhysicianCreateAccountData();
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult CreateProviderAccount(ProviderCreateAccountVM vm)
+        {
+            bool result = _service.CreateProviderAccount(vm);
+            if(result)
+            {
+                ProviderCreateAccountVM data = _service.GetPhysicianCreateAccountData();
+                return View(data);
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
+        public IActionResult EditProviderAccount(int id)
+        {
+            ProviderCreateAccountVM data = _service.GetProviderInfoForEdit(id);
+            return View(data);
+        }
     }
+
 }

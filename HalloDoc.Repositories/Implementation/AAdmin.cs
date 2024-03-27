@@ -352,5 +352,38 @@ namespace HalloDoc.Repositories.Implementation
         {
             return _logger.PhysicianNotifications.ToList();
         }
+
+        public List<Role> GetPhysicianRoles()
+        {
+            return _logger.Roles.Where(x=>x.AccountType==2).ToList();
+        }
+
+        public void AddAspNetUser(AspNetUser aspUser)
+        {
+            _logger.AspNetUsers.Add(aspUser);
+            _logger.SaveChanges();
+        }
+
+        public int GetRegionIdByName(string? v)
+        {
+            return _logger.Regions.FirstOrDefault(x => x.Name == v)?.RegionId??0;
+        }
+
+        public void AddPhysician(Physician phy)
+        {
+            _logger.Physicians.Add(phy);
+            _logger.SaveChanges();
+        }
+
+        public void AddPhysicianRegion(PhysicianRegion pr)
+        {
+            _logger.PhysicianRegions.Add(pr);
+            _logger.SaveChanges();
+        }
+        
+        public Physician GetPhysicianByEmail(string email)
+        {
+            return _logger.Physicians.FirstOrDefault(x=>x.Email == email)??new();
+        }
     }
 }

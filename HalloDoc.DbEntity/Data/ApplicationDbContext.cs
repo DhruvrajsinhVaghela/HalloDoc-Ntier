@@ -42,6 +42,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<PhysicianNotification> PhysicianNotifications { get; set; }
 
+    public virtual DbSet<PhysicianRegion> PhysicianRegions { get; set; }
+
     public virtual DbSet<Region> Regions { get; set; }
 
     public virtual DbSet<Request> Requests { get; set; }
@@ -57,6 +59,8 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<RequestStatusLog> RequestStatusLogs { get; set; }
 
     public virtual DbSet<RequestWiseFile> RequestWiseFiles { get; set; }
+
+    public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -575,6 +579,27 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("physician_notification_physician_id_fkey");
         });
 
+        modelBuilder.Entity<PhysicianRegion>(entity =>
+        {
+            entity.HasKey(e => e.PhysicianRegionId).HasName("physician_region_pkey");
+
+            entity.ToTable("physician_region");
+
+            entity.Property(e => e.PhysicianRegionId).HasColumnName("physician_region_id");
+            entity.Property(e => e.PhysicianId).HasColumnName("physician_id");
+            entity.Property(e => e.RegionId).HasColumnName("region_id");
+
+            entity.HasOne(d => d.Physician).WithMany(p => p.PhysicianRegions)
+                .HasForeignKey(d => d.PhysicianId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("physician_region_physician_id_fkey");
+
+            entity.HasOne(d => d.Region).WithMany(p => p.PhysicianRegions)
+                .HasForeignKey(d => d.RegionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("physician_region_region_id_fkey");
+        });
+
         modelBuilder.Entity<Region>(entity =>
         {
             entity.HasKey(e => e.RegionId).HasName("region_pkey");
@@ -911,6 +936,40 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Physician).WithMany(p => p.RequestWiseFiles)
                 .HasForeignKey(d => d.PhysicianId)
                 .HasConstraintName("request_wise_file_physician_id_fkey");
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.RoleId).HasName("role_pkey");
+
+            entity.ToTable("role");
+
+            entity.Property(e => e.RoleId).HasColumnName("role_id");
+            entity.Property(e => e.AccountType).HasColumnName("account_type");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.Ip)
+                .HasDefaultValueSql("inet_client_addr()")
+                .HasColumnName("ip");
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
+            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
+            entity.Property(e => e.ModifiedDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modified_date");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.RoleCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .HasConstraintName("role_created_by_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.RoleModifiedByNavigations)
+                .HasForeignKey(d => d.ModifiedBy)
+                .HasConstraintName("role_modified_by_fkey");
         });
 
         modelBuilder.Entity<User>(entity =>

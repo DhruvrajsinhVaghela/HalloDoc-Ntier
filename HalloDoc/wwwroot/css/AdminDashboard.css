@@ -169,6 +169,12 @@
     color: white;
     border-radius: 0px 5px 5px 0px;
 }
+.upload-btn-provider {
+    background-color: #00bde7;
+    color: white;
+    border-radius: 5px 5px 5px 5px;
+}
+
 
 .main-container {
     min-height: 100vh;
@@ -278,4 +284,11 @@ input[type=password]::-ms-clear {
 .small-txt{
     font-size:13px;
     font-weight:bold;
+}
+.small-name{
+    font-size:13px;
+}
+.col-margin
+{
+    margin-bottom:2%;
 }

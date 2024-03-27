@@ -19,5 +19,7 @@ public partial class Region
 
     public virtual ICollection<HealthProfessional> HealthProfessionals { get; set; } = new List<HealthProfessional>();
 
+    public virtual ICollection<PhysicianRegion> PhysicianRegions { get; set; } = new List<PhysicianRegion>();
+
     public virtual ICollection<RequestClient> RequestClients { get; set; } = new List<RequestClient>();
 }

@@ -6,8 +6,9 @@
     "\\HalloDoc.Service\\Implementation",
     "\\HalloDoc\\Controllers",
     "\\HalloDoc\\Views",
-    "\\HalloDoc\\Views\\Admin"
+    "\\HalloDoc\\Views\\Admin",
+    "\\HalloDoc\\Views\\Login"
   ],
-  "SelectedNode": "\\HalloDoc\\Controllers\\LoginController.cs",
+  "SelectedNode": "\\HalloDoc\\HalloDoc.sln",
   "PreviewInSolutionExplorer": false
 }

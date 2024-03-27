@@ -52,6 +52,10 @@ namespace HalloDoc.services.Interface
         void EditAdminProfile1(AdminProfileVM model, int adminId);
         void EditAdminProfilePw(AdminProfileVM model, int? AspId);
         void ChangeStopNotificaiton(ProviderInformation vm);
+        bool SendEmailToProvider(ContactProviderVM vm,int id);
+        ProviderCreateAccountVM GetPhysicianCreateAccountData();
+        bool CreateProviderAccount(ProviderCreateAccountVM vm);
+        ProviderCreateAccountVM GetProviderInfoForEdit(int id);
 
         //public StatusWiseCount PatientCount(StatusWiseCount swc);
     }

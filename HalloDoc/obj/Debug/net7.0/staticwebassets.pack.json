@@ -109,6 +109,26 @@
       "PackagePath": "staticwebassets\\UploadFiles\\yashprajapati.png"
     },
     {
+      "Id": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadedImgs\\4.png",
+      "PackagePath": "staticwebassets\\UploadedImgs\\4.png"
+    },
+    {
+      "Id": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadedImgs\\Agreement4.png",
+      "PackagePath": "staticwebassets\\UploadedImgs\\Agreement4.png"
+    },
+    {
+      "Id": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadedImgs\\Background4.png",
+      "PackagePath": "staticwebassets\\UploadedImgs\\Background4.png"
+    },
+    {
+      "Id": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadedImgs\\Hipaa4.png",
+      "PackagePath": "staticwebassets\\UploadedImgs\\Hipaa4.png"
+    },
+    {
+      "Id": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadedImgs\\NonDisclosure4.png",
+      "PackagePath": "staticwebassets\\UploadedImgs\\NonDisclosure4.png"
+    },
+    {
       "Id": "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\css\\AdminDashboard.css",
       "PackagePath": "staticwebassets\\css\\AdminDashboard.css"
     },

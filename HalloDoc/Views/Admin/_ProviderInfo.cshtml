@@ -16,8 +16,6 @@
             </thead>
             <tbody>
 
-
-
                 @foreach (var phy in Model)
                 {
                     <tr class="p-2">
@@ -29,12 +27,11 @@
                             status
                         </td>
                         <td class="text-center">
-                            <button type="button" @* onclick="ShowModal(@phy.PhysicianId)" *@ class="rounded border-1 p-2 mx-2">Contact</button>
-                            <button class="rounded border-1 p-2">Edit</button>
+                            <button type="button" class="btn border rounded-2 btn-outline-info" onclick="ShowModal(@phy.ProviderId)">Contact</button>
+                            <a asp-action="EditProviderAccount" asp-route-id="@phy.ProviderId" class="btn border rounded-2 btn-outline-info">Edit</a>
                         </td>
                     </tr>
                 }
-
             </tbody>
         </table>
     </div>
@@ -44,37 +41,23 @@
 
 </form>
 
-<div id="showmodal"></div>
+<div id="showmodal">
+</div>
 
 <script>
 
-    function CheckChange() { 
+    function CheckChange() {
         document.getElementById('save').classList.remove('d-none');
     }
-    // function ShowModal(id) {
+    function ShowModal(id) {
 
-    //     $('#showmodal').load('/Admin/PhysicianContact/' + id, function () {
+        $('#showmodal').load('/Admin/ProviderContact/' + id, function () {
 
-    //         const modal = new bootstrap.Modal(document.getElementById('ContactPhysician'));
-    //         console.log(modal);
-    //         modal.show();
-    //     });
+            const modal = new bootstrap.Modal(document.getElementById('ContactProvider'));
+            console.log(modal);
+            modal.show();
+        });
 
-    // }
-    // function StopNotificaiton(PhyId) {
-    //     $.ajax({
-    //         url: '/Admin/ProviderStopNotification',
-    //         method: 'GET',
-    //         data: { Id:PhyId },
+    }
 
-    //         success: function (response) {
-    //             $('#providerContent').html(response);
-    //         },
-    //         error: function (error) {
-    //             console.log(error);
-    //             console.error('Error in AJAX', error);
-    //         }
-
-    //     });
-    // }
 </script>

@@ -11,7 +11,6 @@
 </style>
 <div>
 
-    <partial name="_AdminHeaderDashboard" />
     @* <form asp-action="PatientInfoForm" asp-controller="Login" class="form" enctype="multipart/form-data"> *@
     <div class="container-fluid ">
 
@@ -172,7 +171,6 @@
 </div>
 
 @* </form> *@
-</div>
 <div id="showmodal">
 </div>
 <script>
@@ -186,44 +184,5 @@
         });
     }
 
-    var light = 1;
-    function DarkMode() {
-        if (light == 1) {
-            document.body.setAttribute('data-bs-theme', 'dark');
-
-            light = 0;
-        }
-        else {
-            document.body.setAttribute('data-bs-theme', 'light');
-
-
-            light = 1;
-        }
-    }
-
-    const getFileData = (myFile) => {
-        names = myFile.files;
-        let master = "";
-        for (i = 0; i < names.length; i++) {
-            master = master + "  " + names[i].name;
-        }
-        document.getElementById("form-label").innerHTML = `${master}`;
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        // Find all elements with the class "go-back-button"
-        var goBackButtons = document.querySelectorAll('.go-back-button');
-
-        // Attach click event listener to each button
-        goBackButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                window.history.back();
-            });
-        });
-    });
-
-
-
-
-
+  
 </script>

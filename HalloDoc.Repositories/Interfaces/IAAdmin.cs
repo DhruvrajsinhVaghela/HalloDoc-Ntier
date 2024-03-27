@@ -67,5 +67,11 @@ namespace HalloDoc.Repositories.Interfaces
         PhysicianNotification GetPhysicianNotification(int phy);
         void UpdatePhysicianNotification(PhysicianNotification phy);
         List<PhysicianNotification> GetAllPhysicianNotification();
+        List<Role> GetPhysicianRoles();
+        void AddAspNetUser(AspNetUser aspUser);
+        int GetRegionIdByName(string? v);
+        void AddPhysician(Physician phy);
+        void AddPhysicianRegion(PhysicianRegion pr);
+        Physician GetPhysicianByEmail(string email);
     }
 }

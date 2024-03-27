@@ -11,6 +11,7 @@ using System.Dynamic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HalloDoc.services.Implementation
 {
@@ -24,7 +25,6 @@ namespace HalloDoc.services.Implementation
         {
             _repo = repo;
         }
-
         public AdminDashboardVM PatientStatus(AdminDashboardVM swc)
         {
             var x = _repo.GetAdminDashboardData();
@@ -1105,6 +1105,176 @@ namespace HalloDoc.services.Implementation
 
             }
 
+        }
+
+        public bool SendEmailToProvider(ContactProviderVM vm, int id)
+        {
+            var providerData = _repo.GetPhysicianDataByID(id);
+            var receiver = providerData.Email;
+            var subject = "Message From Admin";
+            var message = vm.Message;
+
+            var mail = "tatva.dotnet.dhruvrajsinhvaghela@outlook.com";
+            var password = "Vagheladhruv@123";
+
+            var client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+
+            client.SendMailAsync(new MailMessage(from: mail, to: receiver, subject, message));
+            return true;
+        }
+
+        public ProviderCreateAccountVM GetPhysicianCreateAccountData()
+        {
+            ProviderCreateAccountVM vm = new()
+            {
+                RegionList = _repo.GetAllRegions(),
+                PhysicianRoleList = _repo.GetPhysicianRoles()
+            };
+            return vm;
+        }
+
+        public bool CreateProviderAccount(ProviderCreateAccountVM vm)
+        {
+            //chech here that asp user is not exist before that
+            AspNetUser asp = _repo.GetAspUserData(vm.Email);
+            if (asp.Id == 0)
+            {
+
+                AspNetUser aspUser = new()
+                {
+                    UserName = vm.FirstName + vm.LastName,
+                    PasswordHash = Crypto.HashPassword(vm.Password),
+                    Email = vm.Email,
+                    PhoneNumber = vm.Phone,
+
+                };
+                _repo.AddAspNetUser(aspUser);
+            }
+
+            Physician physician = _repo.GetPhysicianByEmail(vm.Email);
+            Physician phy = new();
+            if (physician.PhysicianId == 0)
+            {
+
+
+                phy.FirstName = vm.FirstName;
+                phy.Photo = vm.Photo?.FileName;
+                phy.LastName = vm.LastName;
+                phy.Email = vm.Email ?? "";
+                phy.AspNetUserId = 82;
+                phy.Mobile = vm.Phone;
+                phy.MedicalLicense = vm.License;
+                phy.Address1 = vm.Address1;
+                phy.Address2 = vm.Address2;
+                phy.City = vm.City;
+                phy.NpiNumber = vm.NpiNum;
+                phy.ZipCode = vm.Zip;
+                phy.BusinessName = vm.BusinessName;
+                phy.BusinessWebsite = vm.BusinessSite;
+                phy.AltPhone = vm.MailNumber;
+                phy.IsAgreementDoc = vm.ContractorAgreement != null;
+                phy.IsBackgroundDoc = vm.BackgroundCheck != null;
+                phy.IsTrainingDoc = vm.HipaaCompliance != null;
+                phy.IsNonDisclosureDoc = vm.NonDisclosureAgreement != null;
+                phy.RoleId = vm.SelectedRole;
+                phy.AdminNotes = vm.AdminNotes;
+                int Regionid = _repo.GetRegionIdByName(vm.State?.ToUpper());
+                phy.RegionId = Regionid;
+                _repo.AddPhysician(phy);
+                
+            }
+
+            PhysicianRegion pr = new();
+            foreach (var region in vm.SelectedRegions)
+            {
+                pr.RegionId = region;
+                pr.PhysicianId = phy.PhysicianId;
+            }
+            _repo.AddPhysicianRegion(pr);
+
+            string path = "D:\\Project\\HalloDoc-Ntier\\HalloDoc\\wwwroot\\UploadedImgs";
+            if (vm.Photo != null)
+            {
+                string filename = phy.PhysicianId.ToString() + Path.GetExtension(vm.Photo?.FileName);
+                string filePath = Path.Combine(path, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    vm.Photo?.CopyToAsync(stream);
+                };
+            }
+            if (vm.ContractorAgreement != null)
+            {
+                string filename = "Agreement" + phy.PhysicianId.ToString() + Path.GetExtension(vm.ContractorAgreement?.FileName);
+                string filePath = Path.Combine(path, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    vm.Photo?.CopyToAsync(stream);
+                };
+            }
+            if (vm.BackgroundCheck != null)
+            {
+                string filename = "Background" + phy.PhysicianId.ToString() + Path.GetExtension(vm.BackgroundCheck?.FileName);
+                string filePath = Path.Combine(path, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    vm.Photo?.CopyToAsync(stream);
+                };
+            }
+            if (vm.HipaaCompliance != null)
+            {
+                string filename = "Hipaa" + phy.PhysicianId.ToString() + Path.GetExtension(vm.HipaaCompliance?.FileName);
+                string filePath = Path.Combine(path, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    vm.Photo?.CopyToAsync(stream);
+                };
+            }
+            if (vm.NonDisclosureAgreement != null)
+            {
+                string filename = "NonDisclosure" + phy.PhysicianId.ToString() + Path.GetExtension(vm.NonDisclosureAgreement?.FileName);
+                string filePath = Path.Combine(path, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    vm.Photo?.CopyToAsync(stream);
+                };
+            }
+
+            return true;
+        }
+
+        public ProviderCreateAccountVM GetProviderInfoForEdit(int id)
+        {
+            var data = _repo.GetPhysicianDataByID(id);
+            ProviderCreateAccountVM vm = new()
+            {
+                UserName = data.FirstName + " " + data.LastName,
+                //status = data.Status,
+                //RoleList =,
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                Email = data.Email,
+                Phone = data.Mobile,
+                License = data.MedicalLicense,
+                NpiNum = data.NpiNumber,
+                //SynchronizationEmail = data.SyncEmailAddress,
+                //RegionList =,
+                Address1 = data.Address1,
+                Address2 = data.Address2,
+                AdminNotes = data.AdminNotes,
+                City = data.City,
+                //State = data.stat,
+                Zip = data.ZipCode,
+                MailNumber = data.AltPhone,
+                BusinessName = data.BusinessName,
+                BusinessSite = data.BusinessWebsite
+
+            };
+            return vm;
         }
     }
 
